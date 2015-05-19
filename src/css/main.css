@@ -10,13 +10,11 @@
 	left: 55%;
 	top: 40%;
 }
-
+.home-view {
+    padding: 20px;
+}
 .app-body{
-    margin-top: 20px;
-    padding-top:20px;
-    padding-left:20px;
     background:#e9e7e6;
-    z-index:-1;
 }
 .navbar-app {
     background:#555555;

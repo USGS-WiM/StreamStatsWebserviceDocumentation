@@ -51,14 +51,18 @@ module StreamStats.Controllers {
                 this.selectedResource = this.resourceService.SelectedResource;
             }); 
             this.resourceList = resourceService.ResourceList;
-            resourceService.onResourceChanged.subscribe(this._onSelectedResourceHandler);  
-                     
+            resourceService.onResourceChanged.subscribe(this._onSelectedResourceHandler);          
         }
 
         //Methods
         //-+-+-+-+-+-+-+-+-+-+-+-
         public selectResource(r: Models.IResource) {
             this.resourceService.SelectedResource = r;
+        }
+
+        public selectUri(r: Models.IURI) {
+            this.resourceService.SelectedUri = r;
+
         }
         
        

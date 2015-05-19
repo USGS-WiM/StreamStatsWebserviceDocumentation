@@ -17,7 +17,7 @@ module StreamStats {
                 template:'<ui-view/>',
                 views: {
                     'main': {
-                        templateUrl: "Views/mainview.html",
+                        templateUrl: "Views/homeview.html",
                         controller: "StreamStats.Controllers.MainController"
                     },
                     'sidebar': {

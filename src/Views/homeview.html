@@ -1,5 +1,46 @@
-﻿<h1>StreamStats Webservices</h1>
-<h2>Description</h2>
-<p>The StreamStats webservices pulls and requests multiple higher level procedures and combines them into simpler objects that can be simply consumed by custom client applications. 
-    The current service returns (all if none are specified) basin parameters and optional delineation features (pour point and delineation object).</p>
-<p></p>
+﻿<div class="scrollable">
+    <div class="scrollable-content">
+        <div class="home-view">
+            <div class="page-header">
+                <h2>StreamStats Webservices</h2>
+            </div>
+            <div ng-hide="vm.selectedResource" class="well">
+                <p>The StreamStats webservices pulls and requests multiple higher level procedures and combines them into simpler objects that can be simply consumed by custom client applications. The current service returns (all if none are specified) basin parameters and optional delineation features (pour point and delineation object).</p>
+            </div>
+
+            <div ng-show="vm.selectedResource">
+                <h3>{{vm.selectedResource.name}}</h3>
+                <div class="well">{{ vm.selectedResource.description }}</div>
+            </div>
+
+            <div style="padding:10px;" class="panel" ng-show="vm.selectedUri">
+
+                <h3>Uri description: </h3>
+                <div class="well">{{ vm.selectedUri.description }}</div>
+
+                <h3>URL</h3>
+                <div class="well"><code>{{ vm.selectedUri.uri }}</code></div>
+
+                <h3>Response formats</h3>
+                <div class="well">{{ vm.selectedUri.availableMedia }}</div>
+
+                <h3>Parameters</h3>
+                <div class="well">
+                    <table class="table" >
+                        <thead>
+                            <tr><th>Name</th><th>Type</th><th>Description</th><th>Input Parameter</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in vm.selectedUri.parameters"><th>{{item.name}}</th><th>{{item.type}}</th><th>{{item.description}}</th><th><input type="text" placeholder="{{item.value}}"></th></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>URL builder</h3>
+                <div class="well">
+                     <a ng-href="http://ssdev.cr.usgs.gov/servicesTest{{ vm.selectedUri.uri }}">http://ssdev.cr.usgs.gov/servicesTest{{ vm.selectedUri.uri }}</a> 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
