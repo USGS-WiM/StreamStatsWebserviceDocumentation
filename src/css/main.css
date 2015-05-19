@@ -1,0 +1,57 @@
+﻿
+.navbar-brand {
+  padding:15px 20px;
+}
+
+.fa-spinner {
+	position: fixed;
+	height: 31px;
+	width: 60px;
+	left: 55%;
+	top: 40%;
+}
+
+.app-body{
+    margin-top: 20px;
+    padding-top:20px;
+    padding-left:20px;
+    background:#e9e7e6;
+    z-index:-1;
+}
+.navbar-app {
+    background:#555555;
+}
+.footer {
+    background:#555555;
+}
+.sidebar-content {
+    margin-top:70px;
+}
+.navbar-app .btn {
+    line-height: 0;
+    padding-top:20px;
+
+}
+.navbar-absolute-top {
+    min-width: 1050px;
+}
+.list-group-body {
+    background-color:white;
+    border-radius:0 0 5px 5px;
+    padding-bottom:25px;
+    padding-top: 10px;
+    padding-left:10px;
+    margin-bottom:3px;
+    border:1px thin;
+}
+    .list-group-body a {
+    padding-left:10px;
+    float:left;    
+    height: 25px;
+    width:100%;
+    padding-right: 10px;
+    overflow:hidden;
+    text-overflow: ellipsis; 
+    white-space: nowrap;
+    
+    }
