@@ -28,6 +28,8 @@ module StreamStats.Services {
         onResourceChanged: WiM.Event.Delegate<WiM.Event.EventArgs>;
         ResourceList: Array<Models.IResource>;
         SelectedResource: Models.IResource;
+        onUriChanged: WiM.Event.Delegate<WiM.Event.EventArgs>;
+        SelectedUri: Models.IURI;
        
     }
     class ResourceService extends WiM.Services.HTTPServiceBase implements IResourceService {
@@ -36,6 +38,10 @@ module StreamStats.Services {
         public get onResourceChanged(): WiM.Event.Delegate<WiM.Event.EventArgs> {
             return this._onResourceChanged;
         }
+        private _onUriChanged: WiM.Event.Delegate<WiM.Event.EventArgs>;
+        public get onUriChanged(): WiM.Event.Delegate<WiM.Event.EventArgs> {
+            return this._onUriChanged;
+        }   
         
         //Properties
         //-+-+-+-+-+-+-+-+-+-+-+-
@@ -51,8 +57,20 @@ module StreamStats.Services {
         public set SelectedResource(v: Models.IResource) {
             if (this._selectedResource == v) return;
             this._selectedResource = v;
+            this.SelectedUri = null;
             // notify listeners
             this._onResourceChanged.raise(this, WiM.Event.EventArgs.Empty);
+        }
+
+        private _selectedUri: Models.IURI;
+        public get SelectedUri(): Models.IURI {
+            return this._selectedUri;
+        }
+        public set SelectedUri(v: Models.IURI) {
+            if (this._selectedUri == v) return;
+            this._selectedUri = v;
+            // notify listeners
+            this._onUriChanged.raise(this, WiM.Event.EventArgs.Empty);
         }
 
         //Constructor
@@ -60,7 +78,9 @@ module StreamStats.Services {
         constructor($http: ng.IHttpService, private $q: ng.IQService) {
             super($http, configuration.baseurls['StreamStats'])
             this._onResourceChanged = new WiM.Event.Delegate<WiM.Event.EventArgs>();
+            this._onUriChanged = new WiM.Event.Delegate<WiM.Event.EventArgs>();
             this.loadResourceList();
+            
             
         }
         //Methods

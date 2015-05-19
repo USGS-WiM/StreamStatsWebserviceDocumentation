@@ -6,33 +6,36 @@ configuration.baseurls =
 configuration.resources=
     [
         {
-            "name": "watershed",
+            "name": "Watershed",
+            "description": "This is the watershed resource",
             "methods": [{
                 "type": "GET",
                 "uriList": [
                     {
                         "uri": "/watershed?rcode={regioncode}&xlocation={X}&ylocation={Y}&crs={espg}&simplifyid={simplificationOption}&includeparameters={parameterList}&includeflowtypes={flowtypeList}&includegeometry={boolean}",
+                        "description":"This service returns a watershed",
                         "id":"gw0",
                         "parameters": [
-                            { "name": "regioncode", "type": "string", "description": "" },
-                            { "name": "x", "type": "number", "description":"" },
-                            { "name": "y", "type": "number", "description": "" },
-                            { "name": "espg", "type": "string", "description": "" },
-                            { "name": "simplificationOption", "type": "number", "optional": true, "description": "" },
-                            { "name": "parameterList", "type": "string", "optional": true, "description": "" },
-                            { "name": "flowtypeList", "type": "string", "optional": true, "description": "" },
-                            { "name": "boolean", "type": "boolean", "optional": true, "description": "" }],
+                            { "name": "regioncode", "type": "string", "description": "", "value":"NY" },
+                            { "name": "x", "type": "number", "description": "", "value": -74.524 },
+                            { "name": "y", "type": "number", "description": "", "value": 43.939 },
+                            { "name": "espg", "type": "string", "description": "", "value": "4326" },
+                            { "name": "simplificationOption", "type": "number", "optional": true, "description": "", "value": false },
+                            { "name": "parameterList", "type": "string", "optional": true, "description": "", "value": true },
+                            { "name": "flowtypeList", "type": "string", "optional": true, "description": "", "value": false },
+                            { "name": "boolean", "type": "boolean", "optional": true, "description": "", "value": true }],
                         "availableMedia":"xml, json, geojson"
                     }//,
                     //{
                     //    "uri": "/watershed?rcode={regioncode}&workspaceID={workspaceID}&simplifyid={simplificationOption}&includeparameters={parameterList}&includeflowtypes={flowtypeList}&includegeometry={boolean}",
+                    //    "description":"This service returns a watershed",
                     //    "parameters": [
-                    //       { "name": "regioncode", "type": "string", "description": "" },
-                    //       { "name": "workspaceID", "type": "string", "description": "" },
-                    //       { "name": "simplificationOption", "type": "number", "optional": true, "description": "" },
-                    //       { "name": "parameterList", "type": "string", "optional": true, "description": "" },
-                    //       { "name": "flowtypeList", "type": "string", "optional": true, "description": "" },
-                    //       { "name": "boolean", "type": "boolean", "optional": true, "description": "" }],
+                    //       { "name": "regioncode", "type": "string", "description": "", "value":"" },
+                    //       { "name": "workspaceID", "type": "string", "description": "", "value":"" },
+                    //       { "name": "simplificationOption", "type": "number", "optional": true, "description": "", "value":"" },
+                    //       { "name": "parameterList", "type": "string", "optional": true, "description": "", "value":"" },
+                    //       { "name": "flowtypeList", "type": "string", "optional": true, "description": "", "value":"" },
+                    //       { "name": "boolean", "type": "boolean", "optional": true, "description": "", "value":"" }],
                     //    "availableMedia": "xml, json, geojson"
                     //}
                 ]
@@ -40,77 +43,86 @@ configuration.resources=
             ]
         },
         {
-            "name": "parameters",
+            "name": "Parameters",
+            "description": "This is the parameters resource",
             "methods": [{
                 "type": "GET",
                 "uriList": [
                     {
                         "uri": "/parameters?rcode={regioncode}&group={group}",
+                        "description": "This service returns a watershed",
                         "id": "pm0",
                         "parameters": [
-                            { "name": "regioncode", "type": "string", "description": "" },
-                            { "name": "group", "type": "string", "optional":true, "description": "" }],
+                            { "name": "regioncode", "type": "string", "description": "", "value": "" },
+                            { "name": "group", "type": "string", "optional": true, "description": "", "value": "" }],
                         "availableMedia": "xml, json"
                     },
                     {
                         "uri": "/parameters?rcode={regioncode}&workspaceID={workspaceID}&includeparameters={parameterList}",
+                        "description": "This service returns a watershed",
                         "id": "pm1",
                         "parameters": [
-                           { "name": "regioncode", "type": "string", "description": "" },
-                           { "name": "workspaceID", "type": "string", "description": "" },
-                           { "name": "simplificationOption", "type": "number", "description": "" },
-                           { "name": "parameterList", "type": "string", "description": "" }],
+                           { "name": "regioncode", "type": "string", "description": "", "value": "" },
+                           { "name": "workspaceID", "type": "string", "description": "", "value": "" },
+                           { "name": "simplificationOption", "type": "number", "description": "", "value": "" },
+                           { "name": "parameterList", "type": "string", "description": "", "value": "" }],
                         "availableMedia": "xml, json"
                     }
                 ]
             }]
         },
         {
-            "name": "download",
+            "name": "Download",
+            "description": "This is the download resource",
             "methods": [{
                 "type": "GET",
                 "uriList": [
                     {
                         "uri": "/download?workspaceID={workspaceID}&format={f}",
+                        "description": "This service returns a watershed",
                         "id": "dl0",
                         "parameters": [
-                            { "name": "workspaceID", "type": "string", "description": "" },
-                            { "name": "f", "type": "string", "optional": true, "description": "" }],
+                            { "name": "workspaceID", "type": "string", "description": "", "value": "" },
+                            { "name": "f", "type": "string", "optional": true, "description": "", "value": "" }],
                         "availableMedia": "zip file"
                     }
                 ]
             }]
         },
         {
-            "name": "flow statistics",
+            "name": "Flow statistics",
+            "description": "This is the Flow Statistics resource",
             "methods": [{
                 "type": "GET",
                 "uriList": [
                     {
                         "uri": "/flowstatistics?rcode={regioncode}&workspaceID={workspaceID}&includeflowtypes={flowtypeList}",
+                        "description": "This service returns a watershed",
                         "id": "fs0",
                         "parameters": [
-                            { "name": "regioncode", "type": "string", "description": "" },
-                            { "name": "workspaceID", "type": "string", "description": "" },
-                            { "name": "flowtypeList", "type": "string", "optional": true, "description": "" }],
+                            { "name": "regioncode", "type": "string", "description": "", "value": "" },
+                            { "name": "workspaceID", "type": "string", "description": "", "value": "" },
+                            { "name": "flowtypeList", "type": "string", "optional": true, "description": "", "value": "" }],
                         "availableMedia": "xml, json"
                     }
                 ]
             }]
         },
         {
-            "name": "network navigation",
+            "name": "Network navigation",
+            "description": "This is the Network Navigation resource",
             "methods": [{
                 "type": "GET",
                 "uriList": [
                     {
                         "uri": "/networkpath?rcode={regioncode}&spoint={startpoint}epoint={endpoint}&workspaceID={workspaceID}",
+                        "description": "This service returns a watershed",
                         "id": "nn0",
                         "parameters": [
-                            { "name": "regioncode", "type": "string", "description": "" },
-                            { "name": "startpoint", "type": "string", "description": "" },
-                            { "name": "endpoint", "type": "string", "description": "" },
-                            { "name": "workspaceID", "type": "string","optional":true, "description": "" }],
+                            { "name": "regioncode", "type": "string", "description": "", "value": "" },
+                            { "name": "startpoint", "type": "string", "description": "", "value": "" },
+                            { "name": "endpoint", "type": "string", "description": "", "value": "" },
+                            { "name": "workspaceID", "type": "string", "optional": true, "description": "", "value": "" }],
                         "availableMedia": "xml, json, geojson"
                     }
                 ]

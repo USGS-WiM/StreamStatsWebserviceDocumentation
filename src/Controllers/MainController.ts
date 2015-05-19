@@ -33,68 +33,41 @@ module StreamStats.Controllers {
     }
     
     class MainController implements IMainController {
+        //Events
+        //-+-+-+-+-+-+-+-+-+-+-+-
+        private _onSelectedUriHandler: WiM.Event.EventHandler<WiM.Event.EventArgs>;
+        private _onSelectedResourceHandler: WiM.Event.EventHandler<WiM.Event.EventArgs>;
+
         //Properties
         //-+-+-+-+-+-+-+-+-+-+-+-
         public sideBarCollapsed: boolean;
-        public selectedProcedure: ProcedureType;
-
-       
+        private selectedUri: Models.IURI;
+        private selectedResource: Models.IResource;
 
         //Constructor
         //-+-+-+-+-+-+-+-+-+-+-+-
-        static $inject = ['$scope'];
-        constructor($scope: IMainControllerScope) {
+        static $inject = ['$scope', 'StreamStats.Services.ResourceService'];
+        constructor($scope: IMainControllerScope, Resource: Services.IResourceService) {
             $scope.vm = this;
             this.sideBarCollapsed = false;
-            this.selectedProcedure = ProcedureType.INIT;
-  
+
+            this._onSelectedResourceHandler = new WiM.Event.EventHandler<WiM.Event.EventArgs>(() => {
+                this.selectedResource = Resource.SelectedResource;
+            });
+            Resource.onResourceChanged.subscribe(this._onSelectedResourceHandler);   
+
+            this._onSelectedUriHandler = new WiM.Event.EventHandler<WiM.Event.EventArgs>(() => {
+                this.selectedUri = Resource.SelectedUri;
+            });
+            Resource.onUriChanged.subscribe(this._onSelectedUriHandler);   
         }
 
         //Methods
         //-+-+-+-+-+-+-+-+-+-+-+-
-
-        public setProcedureType(pType: ProcedureType) {           
-            if (this.selectedProcedure == pType || !this.canUpdateProceedure(pType)) return;
-            this.selectedProcedure = pType;
-        }
-        public toggleSideBar(): void {
-            if (this.sideBarCollapsed) this.sideBarCollapsed = false;
-            else this.sideBarCollapsed = true;          
-        }
        
        
         //Helper Methods
         //-+-+-+-+-+-+-+-+-+-+-+-
-        private canUpdateProceedure(pType: ProcedureType): boolean {
-            //Project flow:
-            var msg: string;
-            try {               
-                switch (pType) {
-                    case ProcedureType.INIT:
-                        return true;
-                    case ProcedureType.IDENTIFY:
-
-                        return true;
-                    case ProcedureType.SELECT:
-
-                        return true;
-
-                    case ProcedureType.REFINE:
-                        //if (!this.fileLoaded) this.sm(new MSG.NotificationArgs("Import a valid lab document", MSG.NotificationType.WARNING));
-
-                        return false
-                    case ProcedureType.BUILD:
-                        return false;
-
-                    default:
-                        return false;
-                }//end switch          
-            }
-            catch (e) {
-                //this.sm(new MSG.NotificationArgs(e.message, MSG.NotificationType.INFORMATION, 1.5));
-                return false;
-            }
-        }
         private sm(msg: string) {
             try {
                 //toastr.options = {
@@ -116,16 +89,6 @@ module StreamStats.Controllers {
   
     }//end class
 
-    enum ProcedureType {
-        INIT = 1,
-        IDENTIFY = 2,
-        SELECT = 3,
-        REFINE = 4,
-        BUILD = 5
-    }
-
     angular.module('StreamStats.Controllers')
         .controller('StreamStats.Controllers.MainController', MainController)
-    
 }//end module
- 

@@ -25,12 +25,14 @@
 module StreamStats.Models {
     export interface IResource {
         name: string;
+        description: string;
         methods: Array<string>;
     }
 
     export class Resource implements IResource {
         //properties
         public name: string;
+        public description: string;
         public methods: Array<string>;
 
         constructor(n: string) {

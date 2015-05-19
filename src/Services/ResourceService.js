@@ -36,11 +36,19 @@ var StreamStats;
                 _super.call(this, $http, configuration.baseurls['StreamStats']);
                 this.$q = $q;
                 this._onResourceChanged = new WiM.Event.Delegate();
+                this._onUriChanged = new WiM.Event.Delegate();
                 this.loadResourceList();
             }
             Object.defineProperty(ResourceService.prototype, "onResourceChanged", {
                 get: function () {
                     return this._onResourceChanged;
+                },
+                enumerable: true,
+                configurable: true
+            });
+            Object.defineProperty(ResourceService.prototype, "onUriChanged", {
+                get: function () {
+                    return this._onUriChanged;
                 },
                 enumerable: true,
                 configurable: true
@@ -60,8 +68,23 @@ var StreamStats;
                     if (this._selectedResource == v)
                         return;
                     this._selectedResource = v;
+                    this.SelectedUri = null;
                     // notify listeners
                     this._onResourceChanged.raise(this, WiM.Event.EventArgs.Empty);
+                },
+                enumerable: true,
+                configurable: true
+            });
+            Object.defineProperty(ResourceService.prototype, "SelectedUri", {
+                get: function () {
+                    return this._selectedUri;
+                },
+                set: function (v) {
+                    if (this._selectedUri == v)
+                        return;
+                    this._selectedUri = v;
+                    // notify listeners
+                    this._onUriChanged.raise(this, WiM.Event.EventArgs.Empty);
                 },
                 enumerable: true,
                 configurable: true

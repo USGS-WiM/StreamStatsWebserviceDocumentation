@@ -36,6 +36,9 @@ var StreamStats;
             SidebarController.prototype.selectResource = function (r) {
                 this.resourceService.SelectedResource = r;
             };
+            SidebarController.prototype.selectUri = function (r) {
+                this.resourceService.SelectedUri = r;
+            };
             //Helper Methods
             //-+-+-+-+-+-+-+-+-+-+-+-
             SidebarController.prototype.sm = function (msg) {

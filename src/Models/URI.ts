@@ -26,6 +26,7 @@ module StreamStats.Models {
     export interface IURI {
         uri: string;
         id: string;
+        description: string;
         parameters: Array<Models.IURIParameter>;
         availableMedia: string;
     }
@@ -34,6 +35,7 @@ module StreamStats.Models {
         //properties
         public uri: string;
         public id: string;
+        public description: string;
         public parameters: Array<Models.IURIParameter>;
         public availableMedia: string;
 
