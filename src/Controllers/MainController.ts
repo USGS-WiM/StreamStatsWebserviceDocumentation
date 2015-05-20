@@ -52,9 +52,6 @@ module StreamStats.Controllers {
         constructor($scope: IMainControllerScope, Resource: Services.IResourceService) {
             $scope.vm = this;
             this.sideBarCollapsed = false;
-            //this.selectedMedia = null;
-            //this.selectedUriParameters = [];
-
             this._onSelectedResourceHandler = new WiM.Event.EventHandler<WiM.Event.EventArgs>(() => {
                 this.selectedResource = Resource.SelectedResource;
             });
@@ -62,27 +59,8 @@ module StreamStats.Controllers {
 
             this._onSelectedUriHandler = new WiM.Event.EventHandler<WiM.Event.EventArgs>(() => {
                 this.selectedUri = Resource.SelectedUri;
-                //this.selectedMedia = this.selectedUri.selectedMedia;
-                //this.selectedUriParameters.length = 0;
-
-
-                //for (var i = 0; i < this.selectedUri.parameters.length; i++) {
-                //    this.selectedUriParameters.push(this.selectedUri.parameters[i]);
-                //}
-                //console.log(this.selectedUriParameters);
-
             });
             Resource.onUriChanged.subscribe(this._onSelectedUriHandler);  
-          /*
-            $scope.$watchGroup([this.selectedMedia, this.selectedUriParameters], function (newValues, oldValues, scope) {
-                
-                if (this.selectedUri == null) return;
-                var newUri = this.selectedUri.newUri = '';
-                //var inputs = newValues.join(',');
-                newUri = this.selectedUri.uri.format(newValues);
-
-            });
-        */
             
         }
 
