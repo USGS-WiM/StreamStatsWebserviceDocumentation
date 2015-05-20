@@ -22,16 +22,25 @@
                 <div class="well"><code>{{ vm.selectedUri.uri }}</code></div>
 
                 <h3>Response formats</h3>
-                <div class="well">{{ vm.selectedUri.availableMedia }}</div>
+                <div class="well">
+                    {{vm.selectedUri.paramters}}
+
+                    <select ng-init="vm.selectedUri.selectedMedia" ng-model="vm.selectedUri.selectedMedia" ng-options="item for item in vm.selectedUri.availableMedia" >
+                        <!--<option style="display:none" value="">Available output formats</option>
+                        <option value="" ng-if="false"></option>-->
+                    </select>
+
+                    <span ng-show="vm.selectedUri.selectedMedia">You selected  {{vm.selectedUri.selectedMedia}}</span> 
+                </div>
 
                 <h3>Parameters</h3>
                 <div class="well">
-                    <table class="table" >
+                    <table class="table" style="font-size:12px;">
                         <thead>
                             <tr><th>Name</th><th>Type</th><th>Description</th><th>Input Parameter</th></tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="item in vm.selectedUri.parameters"><th>{{item.name}}</th><th>{{item.type}}</th><th>{{item.description}}</th><th><input type="text" placeholder="{{item.value}}"></th></tr>
+                            <tr ng-repeat="item in vm.selectedUri.parameters"><th>{{item.name}}</th><th>{{item.type}}</th><th>{{item.description}}</th><th><input class="form-control" type="text" placeholder="{{item.value}}"></th></tr>
                         </tbody>
                     </table>
                 </div>
@@ -39,7 +48,19 @@
                 <h3>URL builder</h3>
                 <div class="well">
                      <a ng-href="http://ssdev.cr.usgs.gov/servicesTest{{ vm.selectedUri.uri }}">http://ssdev.cr.usgs.gov/servicesTest{{ vm.selectedUri.uri }}</a> 
+                     <div><button type="button" class="btn btn-default">Load URL Below</button></div>
+                    
+
+                    <div class="panel panel-default">
+                      <div class="panel-heading">Response</div>
+                      <div class="panel-body">
+                        <pre>$http request response goes here</pre>
+                      </div>
+                    </div>
+
                 </div>
+                
+           
             </div>
         </div>
     </div>

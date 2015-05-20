@@ -29,6 +29,7 @@ module StreamStats.Models {
         description: string;
         parameters: Array<Models.IURIParameter>;
         availableMedia: string;
+        selectedMedia: string;
     }
 
     export class URI implements IURI {
@@ -38,6 +39,7 @@ module StreamStats.Models {
         public description: string;
         public parameters: Array<Models.IURIParameter>;
         public availableMedia: string;
+        public selectedMedia: string;
 
         constructor(u: string) {
             this.uri = u;
