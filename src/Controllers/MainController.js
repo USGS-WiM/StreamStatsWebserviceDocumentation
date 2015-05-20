@@ -25,14 +25,32 @@ var StreamStats;
                 var _this = this;
                 $scope.vm = this;
                 this.sideBarCollapsed = false;
+                //this.selectedMedia = null;
+                //this.selectedUriParameters = [];
                 this._onSelectedResourceHandler = new WiM.Event.EventHandler(function () {
                     _this.selectedResource = Resource.SelectedResource;
                 });
                 Resource.onResourceChanged.subscribe(this._onSelectedResourceHandler);
                 this._onSelectedUriHandler = new WiM.Event.EventHandler(function () {
                     _this.selectedUri = Resource.SelectedUri;
+                    //this.selectedMedia = this.selectedUri.selectedMedia;
+                    //this.selectedUriParameters.length = 0;
+                    //for (var i = 0; i < this.selectedUri.parameters.length; i++) {
+                    //    this.selectedUriParameters.push(this.selectedUri.parameters[i]);
+                    //}
+                    //console.log(this.selectedUriParameters);
                 });
                 Resource.onUriChanged.subscribe(this._onSelectedUriHandler);
+                /*
+                  $scope.$watchGroup([this.selectedMedia, this.selectedUriParameters], function (newValues, oldValues, scope) {
+                      
+                      if (this.selectedUri == null) return;
+                      var newUri = this.selectedUri.newUri = '';
+                      //var inputs = newValues.join(',');
+                      newUri = this.selectedUri.uri.format(newValues);
+      
+                  });
+              */
             }
             //Methods
             //-+-+-+-+-+-+-+-+-+-+-+-

@@ -12,7 +12,7 @@ configuration.resources=
                 "type": "GET",
                 "uriList": [
                     {
-                        "uri": "/watershed?rcode={regioncode}&xlocation={X}&ylocation={Y}&crs={espg}&simplifyid={simplificationOption}&includeparameters={parameterList}&includeflowtypes={flowtypeList}&includegeometry={boolean}",
+                        "uri": "/watershed.{0}?rcode={1}&xlocation={2}&ylocation={3}&crs={4}&simplifyid={5}&includeparameters={6}&includeflowtypes={7}&includegeometry={8}",
                         "description":"This service returns a watershed",
                         "id":"gw0",
                         "parameters": [
@@ -23,8 +23,12 @@ configuration.resources=
                             { "name": "simplificationOption", "type": "number", "optional": true, "description": "", "value": false },
                             { "name": "parameterList", "type": "string", "optional": true, "description": "", "value": true },
                             { "name": "flowtypeList", "type": "string", "optional": true, "description": "", "value": false },
-                            { "name": "boolean", "type": "boolean", "optional": true, "description": "", "value": true }],
-                        "availableMedia":"xml, json, geojson"
+                            { "name": "includegeometry", "type": "boolean", "optional": true, "description": "", "value": true }],
+                        "availableMedia": ["xml", "json", "geojson"],
+                        "selectedMedia": "geojson"
+                            //{ "name": "XML format", "type": "xml"},
+                            //{ "name": "JSON format", "type": "json"},
+                            //{ "name": "geoJSON format", "type": "geojson" }]
                     }//,
                     //{
                     //    "uri": "/watershed?rcode={regioncode}&workspaceID={workspaceID}&simplifyid={simplificationOption}&includeparameters={parameterList}&includeflowtypes={flowtypeList}&includegeometry={boolean}",
