@@ -21,8 +21,9 @@ var StreamStats;
     (function (Controllers) {
         'use strinct';
         var MainController = (function () {
-            function MainController($scope, Resource) {
+            function MainController($scope, $filter, Resource) {
                 var _this = this;
+                this.$filter = $filter;
                 this.Resource = Resource;
                 $scope.vm = this;
                 this.sideBarCollapsed = false;
@@ -37,10 +38,11 @@ var StreamStats;
             }
             //Methods
             //-+-+-+-+-+-+-+-+-+-+-+-
-            MainController.prototype.loadURL = function (url) {
+            MainController.prototype.loadURL = function () {
                 var _this = this;
-                console.log("in load URL function");
-                this.Resource.getURL(url, this.selectedMedia).then(function (response) {
+                var newURL = this.$filter("makeURL")(this.selectedUri);
+                console.log(newURL);
+                this.Resource.getURL(newURL, this.selectedMedia).then(function (response) {
                     _this.requestResults = response.data;
                 });
             };
@@ -52,9 +54,10 @@ var StreamStats;
                 catch (e) {
                 }
             };
+            //public fullURL: string;
             //Constructor
             //-+-+-+-+-+-+-+-+-+-+-+-
-            MainController.$inject = ['$scope', 'StreamStats.Services.ResourceService'];
+            MainController.$inject = ['$scope', '$filter', 'StreamStats.Services.ResourceService'];
             return MainController;
         })(); //end class
         angular.module('StreamStats.Controllers').controller('StreamStats.Controllers.MainController', MainController);

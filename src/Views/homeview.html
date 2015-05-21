@@ -1,6 +1,8 @@
-﻿<div class="scrollable">
+﻿
+<div class="scrollable">
     <div class="scrollable-content">
         <div class="home-view">
+            <Urldirective></Urldirective>
             <div class="page-header">
                 <h2>StreamStats Webservices</h2>
             </div>
@@ -20,7 +22,7 @@
 
                 <h3>Service URL</h3>
                 <div class="well">
-     
+
                     <!--New URL is: {{vm.selectedUri | makeURL}}-->
                     <code>http://ssdev.cr.usgs.gov/servicesTest{{ vm.selectedUri.uri }}</code>
                 </div>
@@ -52,10 +54,10 @@
                 <h3>URL builder</h3>
                 <div class="well">
                    
-                     <pre><a ng-href="http://ssdev.cr.usgs.gov/servicesTest{{vm.selectedUri | makeURL}}" target="_blank">http://ssdev.cr.usgs.gov/servicesTest{{vm.selectedUri.newURL}}</a></pre>
+                     <pre><a ng-href="http://ssdev.cr.usgs.gov/servicesTest{{vm.selectedUri | makeURL}}" target="_blank">http://ssdev.cr.usgs.gov/servicesTest{{vm.selectedUri | makeURL}}</a></pre>
+                    
+                     <p><button ng-click="vm.loadURL('test')" type="button" class="btn btn-default">Load URL Below</button></p>
 
-                     <p><button ng-click="loadURL('test')" type="button" class="btn btn-default">Load URL Below</button></p>
-                  
                     <div class="panel panel-default">
                       <div class="panel-heading">Response</div>
                       <div class="panel-body">
@@ -65,7 +67,6 @@
 
                 </div>
                 
-           
             </div>
         </div>
     </div>

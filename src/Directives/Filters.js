@@ -9,8 +9,6 @@ angular.module('StreamStats').filter('makeURL', function () {
             }
             var func = input.uri.format;
             var newURL = func.apply(input.uri, inputParams);
-            //input.newURL = newURL;
-            input.newURL = newURL;
             return newURL;
         }
     };
