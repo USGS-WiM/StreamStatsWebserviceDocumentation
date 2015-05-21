@@ -47,6 +47,8 @@
     <TypeScriptCompile Include="src\Controllers\SidebarController.ts" />
     <TypeScriptCompile Include="src\Directives\directive.module.ts" />
     <TypeScriptCompile Include="src\Directives\urlDirective.ts" />
+    <TypeScriptCompile Include="src\Directives\Filters.ts" />
+    <TypeScriptCompile Include="src\Directives\filters.module.ts" />
     <TypeScriptCompile Include="src\Models\Method.ts" />
     <TypeScriptCompile Include="src\Models\Resource.ts" />
     <TypeScriptCompile Include="src\Models\URI.ts" />
