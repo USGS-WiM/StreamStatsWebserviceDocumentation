@@ -44,7 +44,7 @@
                             <tr><th>Name</th><th>Type</th><th>Description</th><th>Input Parameter</th></tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="item in vm.selectedUri.parameters"><th>{{item.name}}</th><th>{{item.type}}</th><th>{{item.description}}</th><th><input ng-model="item.value" class="form-control" type="text" placeholder="{{item.value}}"></th></tr>
+                            <tr ng-repeat="item in vm.selectedUri.parameters"><th>{{item.name}}</th><th>{{item.type}}</th><th>{{item.description}}</th><th><input ng-model="item.value" class="form-control" type="text" placeholder="{{item.value}}" required></th></tr>
                         </tbody>
                     </table>
                 </div>
