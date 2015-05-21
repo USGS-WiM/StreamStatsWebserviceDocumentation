@@ -1,7 +1,7 @@
 ﻿var configuration = {}
 configuration.baseurls =
 {
-    'StreamStats': 'http://ssdev.cr.usgs.gov'
+    'StreamStats': 'http://ssdev.cr.usgs.gov/servicesTest'
 }
 configuration.resources=
     [
@@ -16,19 +16,19 @@ configuration.resources=
                         "description":"This service returns a watershed",
                         "id":"gw0",
                         "parameters": [
-                            { "name": "regioncode", "type": "string", "description": "", "value":"NY" },
-                            { "name": "x", "type": "number", "description": "", "value": -74.524 },
-                            { "name": "y", "type": "number", "description": "", "value": 43.939 },
-                            { "name": "espg", "type": "string", "description": "", "value": "4326" },
-                            { "name": "simplificationOption", "type": "number", "optional": true, "description": "", "value": false },
-                            { "name": "parameterList", "type": "string", "optional": true, "description": "", "value": true },
-                            { "name": "flowtypeList", "type": "string", "optional": true, "description": "", "value": false },
-                            { "name": "includegeometry", "type": "boolean", "optional": true, "description": "", "value": true }],
+                            { "name": "regioncode", "type": "string", "description": "Region code", "value":"NY" },
+                            { "name": "x", "type": "number", "description": "X coordinate", "value": -74.524 },
+                            { "name": "y", "type": "number", "description": "Y coordinate", "value": 43.939 },
+                            { "name": "espg", "type": "string", "description": "Spatial reference", "value": "4326" },
+                            { "name": "simplificationOption", "type": "number", "optional": true, "description": "Simplify geometry", "value": false },
+                            { "name": "parameterList", "type": "string", "optional": true, "description": "List of parameters", "value": true },
+                            { "name": "flowtypeList", "type": "string", "optional": true, "description": "List of flow types", "value": false },
+                            { "name": "includegeometry", "type": "boolean", "optional": true, "description": "Include geometry", "value": true }],
                         "availableMedia": ["xml", "json", "geojson"],
                         "selectedMedia": "geojson"
-                            //{ "name": "XML format", "type": "xml"},
-                            //{ "name": "JSON format", "type": "json"},
-                            //{ "name": "geoJSON format", "type": "geojson" }]
+                        //{ "name": "XML format", "type": "xml"},
+                        //{ "name": "JSON format", "type": "json"},
+                        //{ "name": "geoJSON format", "type": "geojson" }]
                     }//,
                     //{
                     //    "uri": "/watershed?rcode={regioncode}&workspaceID={workspaceID}&simplifyid={simplificationOption}&includeparameters={parameterList}&includeflowtypes={flowtypeList}&includegeometry={boolean}",
@@ -132,5 +132,4 @@ configuration.resources=
                 ]
             }]
         }
-
-    ]//end resources
+    ]

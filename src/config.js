@@ -38,7 +38,8 @@ var StreamStats;
         "ui.router",
         "mobile-angular-ui",
         "StreamStats.Services",
-        "StreamStats.Controllers"
+        "StreamStats.Controllers",
+        'jsonFormatter'
     ]).config(config);
 })(StreamStats || (StreamStats = {})); //end module 
 //# sourceMappingURL=config.js.map
