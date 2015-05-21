@@ -33,6 +33,7 @@ var StreamStats;
                 Resource.onResourceChanged.subscribe(this._onSelectedResourceHandler);
                 this._onSelectedUriHandler = new WiM.Event.EventHandler(function () {
                     _this.selectedUri = Resource.SelectedUri;
+                    _this.requestResults = "";
                 });
                 Resource.onUriChanged.subscribe(this._onSelectedUriHandler);
             }

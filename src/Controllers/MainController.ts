@@ -62,8 +62,9 @@ module StreamStats.Controllers {
 
             this._onSelectedUriHandler = new WiM.Event.EventHandler<WiM.Event.EventArgs>(() => {
                 this.selectedUri = Resource.SelectedUri;
+                this.requestResults = ""
             });
-            Resource.onUriChanged.subscribe(this._onSelectedUriHandler);             
+            Resource.onUriChanged.subscribe(this._onSelectedUriHandler);            
             
         }
 
