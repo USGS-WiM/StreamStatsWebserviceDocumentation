@@ -34,7 +34,7 @@
                         <option value="" ng-if="false"></option>-->
                     </select>
 
-                    <p><span ng-show="vm.selectedUri.selectedMedia">You selected  {{vm.selectedUri.selectedMedia}}</span></p>
+                    <p><span ng-show="vm.selectedUri.selectedMedia">Media format is: {{vm.selectedUri.selectedMedia}}</span></p>
                 </div>
 
                 <h3>Parameters</h3>
@@ -52,7 +52,7 @@
                 <h3>URL builder</h3>
                 <div class="well">
                    
-                     <p><a ng-href="http://ssdev.cr.usgs.gov/servicesTest{{vm.selectedUri | makeURL}}" target="_blank">http://ssdev.cr.usgs.gov/servicesTest{{vm.selectedUri.newURL}}</a></p>
+                     <pre><a ng-href="http://ssdev.cr.usgs.gov/servicesTest{{vm.selectedUri | makeURL}}" target="_blank">http://ssdev.cr.usgs.gov/servicesTest{{vm.selectedUri.newURL}}</a></pre>
 
                      <p><button ng-click="loadURL('test')" type="button" class="btn btn-default">Load URL Below</button></p>
                   
