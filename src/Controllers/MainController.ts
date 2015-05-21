@@ -47,6 +47,7 @@ module StreamStats.Controllers {
         //public selectedUriParameters: Array<Models.IURIParameter>;
         public selectedMedia: string;
         public requestResults: string;
+        public waitCursor: boolean;
         //public fullURL: string;
 
         //Constructor
@@ -54,6 +55,7 @@ module StreamStats.Controllers {
         static $inject = ['$scope','$filter','StreamStats.Services.ResourceService'];
         constructor($scope: IMainControllerScope,private $filter, private Resource: Services.IResourceService) {
             $scope.vm = this;
+            this.waitCursor = false;
             this.sideBarCollapsed = false;
             this._onSelectedResourceHandler = new WiM.Event.EventHandler<WiM.Event.EventArgs>(() => {
                 this.selectedResource = Resource.SelectedResource;
@@ -64,7 +66,7 @@ module StreamStats.Controllers {
                 this.selectedUri = Resource.SelectedUri;
                 this.requestResults = ""
             });
-            Resource.onUriChanged.subscribe(this._onSelectedUriHandler);            
+            Resource.onUriChanged.subscribe(this._onSelectedUriHandler);             
             
         }
 
@@ -72,11 +74,15 @@ module StreamStats.Controllers {
         //-+-+-+-+-+-+-+-+-+-+-+-
         public loadURL() {
             var newURL = this.$filter("makeURL")(this.selectedUri)
-            console.log(newURL);
+            this.waitCursor = true;
             this.Resource.getURL(newURL,this.selectedMedia) 
                 .then(
                     (response: any) => {
                         this.requestResults = response.data;
+                },(error) => {
+                    this.requestResults = "("+error.status+") "+ error.data;
+                }).finally(() => {
+                    this.waitCursor=false;                    
                 });
         }
        

@@ -41,7 +41,8 @@ module StreamStats {
     angular.module('StreamStats',[
         "ui.router", "mobile-angular-ui",
         "StreamStats.Services",
-        "StreamStats.Controllers"
+        "StreamStats.Controllers",
+        'jsonFormatter'
         ])
         .config(config);
 }//end module 

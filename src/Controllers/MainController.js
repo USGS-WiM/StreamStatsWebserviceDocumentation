@@ -26,6 +26,7 @@ var StreamStats;
                 this.$filter = $filter;
                 this.Resource = Resource;
                 $scope.vm = this;
+                this.waitCursor = false;
                 this.sideBarCollapsed = false;
                 this._onSelectedResourceHandler = new WiM.Event.EventHandler(function () {
                     _this.selectedResource = Resource.SelectedResource;
@@ -42,9 +43,13 @@ var StreamStats;
             MainController.prototype.loadURL = function () {
                 var _this = this;
                 var newURL = this.$filter("makeURL")(this.selectedUri);
-                console.log(newURL);
+                this.waitCursor = true;
                 this.Resource.getURL(newURL, this.selectedMedia).then(function (response) {
                     _this.requestResults = response.data;
+                }, function (error) {
+                    _this.requestResults = "(" + error.status + ") " + error.data;
+                }).finally(function () {
+                    _this.waitCursor = false;
                 });
             };
             //Helper Methods
