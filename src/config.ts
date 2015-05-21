@@ -34,7 +34,7 @@ module StreamStats {
                           
             this.$urlRouterProvider.otherwise('/');
 
-            this.$locationProvider.html5Mode(true);                            
+            //this.$locationProvider.html5Mode(true);                            
         }//end constructor
     }//end class
 

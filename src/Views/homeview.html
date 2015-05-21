@@ -1,7 +1,9 @@
-﻿<div class="scrollable">
+﻿
+<div class="scrollable">
     <div class="scrollable-content">
         <div class="home-view">
-            <div ng-hide="vm.selectedResource" class="page-header">
+            <Urldirective></Urldirective>
+            <div class="page-header">
                 <h2>StreamStats Webservices</h2>
             </div>
             <div ng-hide="vm.selectedResource" class="well">
@@ -15,41 +17,49 @@
 
             <div style="padding:10px;" class="panel" ng-show="vm.selectedUri">
 
-                <h4>Service description</h4>
+                <h3>Uri description: </h3>
                 <div class="well">{{ vm.selectedUri.description }}</div>
 
-                <h4>Service URL</h4>
+                <h3>Service URL</h3>
                 <div class="well">
+
+                    <!--New URL is: {{vm.selectedUri | makeURL}}-->
                     <code>http://ssdev.cr.usgs.gov/servicesTest{{ vm.selectedUri.uri }}</code>
                 </div>
 
-                <h4>Response formats</h4>
+                <h3>Response formats</h3>
                 <div class="well">
+                    {{vm.selectedUri.paramters}}
+
                     <select ng-init="vm.selectedUri.selectedMedia" ng-model="vm.selectedUri.selectedMedia" ng-options="item for item in vm.selectedUri.availableMedia" >
-                    </select><span ng-show="vm.selectedUri.selectedMedia">&nbsp;&nbsp;Media format is: {{vm.selectedUri.selectedMedia}}</span>
+                        <!--<option style="display:none" value="">Available output formats</option>
+                        <option value="" ng-if="false"></option>-->
+                    </select>
+
+                    <p><span ng-show="vm.selectedUri.selectedMedia">Media format is: {{vm.selectedUri.selectedMedia}}</span></p>
                 </div>
 
-                <h4>Parameters</h4>
+                <h3>Parameters</h3>
                 <div class="well">
-                    <table class="table table-condensed" style="font-size:12px;margin-bottom:0px;">
+                    <table class="table" style="font-size:12px;">
                         <thead>
                             <tr><th>Name</th><th>Type</th><th>Description</th><th>Input Parameter</th></tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="item in vm.selectedUri.parameters"><td><strong>{{item.name}}</strong></td><td>{{item.type}}</td><td>{{item.description}}</td><td><input ng-model="item.value" type="text" placeholder="{{item.value}}" required></td></tr>
+                            <tr ng-repeat="item in vm.selectedUri.parameters"><th>{{item.name}}</th><th>{{item.type}}</th><th>{{item.description}}</th><th><input ng-model="item.value" class="form-control" type="text" placeholder="{{item.value}}" required></th></tr>
                         </tbody>
                     </table>
                 </div>
 
-                <h4>URL builder</h4>
+                <h3>URL builder</h3>
                 <div class="well">
                    
-                     <p><code><a ng-href="http://ssdev.cr.usgs.gov/servicesTest{{vm.selectedUri | makeURL}}" target="_blank">http://ssdev.cr.usgs.gov/servicesTest{{vm.selectedUri.newURL}}</a></code></p>
+                     <pre><a ng-href="http://ssdev.cr.usgs.gov/servicesTest{{vm.selectedUri | makeURL}}" target="_blank">http://ssdev.cr.usgs.gov/servicesTest{{vm.selectedUri | makeURL}}</a></pre>
+                    
+                     <p><button ng-click="vm.loadURL('test')" type="button" class="btn btn-default">Load URL Below</button></p>
 
-                     <p><button ng-click="loadURL('test')" type="button" class="btn btn-default">Load URL Below</button></p>
-                  
                     <div class="panel panel-default">
-                      <div class="panel-heading">Response in {{vm.selectedUri.selectedMedia}} format</div>
+                      <div class="panel-heading">Response</div>
                       <div class="panel-body">
                         <pre>{{vm.requestResults}}</pre>
                       </div>
@@ -57,7 +67,6 @@
 
                 </div>
                 
-           
             </div>
         </div>
     </div>
