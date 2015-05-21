@@ -54,9 +54,9 @@
                 <h3>URL builder</h3>
                 <div class="well">
                    
-                     <pre><a ng-href="http://ssdev.cr.usgs.gov/servicesTest{{vm.selectedUri | makeURL}}" target="_blank">http://ssdev.cr.usgs.gov/servicesTest{{vm.selectedUri.newURL}}</a></pre>
+                     <pre><a ng-href="http://ssdev.cr.usgs.gov/servicesTest{{vm.selectedUri | makeURL}}" target="_blank">http://ssdev.cr.usgs.gov/servicesTest{{vm.selectedUri | makeURL}}</a></pre>
                     
-                     <p><button ng-click="loadURL('test')" type="button" class="btn btn-default">Load URL Below</button></p>
+                     <p><button ng-click="vm.loadURL('test')" type="button" class="btn btn-default">Load URL Below</button></p>
 
                     <div class="panel panel-default">
                       <div class="panel-heading">Response</div>

@@ -44,14 +44,15 @@ module StreamStats.Controllers {
         public sideBarCollapsed: boolean;
         public selectedUri: Models.IURI;
         public selectedResource: Models.IResource;
-        public selectedUriParameters: Array<Models.IURIParameter>;
+        //public selectedUriParameters: Array<Models.IURIParameter>;
         public selectedMedia: string;
         public requestResults: string;
+        //public fullURL: string;
 
         //Constructor
         //-+-+-+-+-+-+-+-+-+-+-+-
-        static $inject = ['$scope', 'StreamStats.Services.ResourceService'];
-        constructor($scope: IMainControllerScope, public Resource: Services.IResourceService) {
+        static $inject = ['$scope','$filter','StreamStats.Services.ResourceService'];
+        constructor($scope: IMainControllerScope,private $filter, private Resource: Services.IResourceService) {
             $scope.vm = this;
             this.sideBarCollapsed = false;
             this._onSelectedResourceHandler = new WiM.Event.EventHandler<WiM.Event.EventArgs>(() => {
@@ -62,15 +63,16 @@ module StreamStats.Controllers {
             this._onSelectedUriHandler = new WiM.Event.EventHandler<WiM.Event.EventArgs>(() => {
                 this.selectedUri = Resource.SelectedUri;
             });
-            Resource.onUriChanged.subscribe(this._onSelectedUriHandler);  
+            Resource.onUriChanged.subscribe(this._onSelectedUriHandler);             
             
         }
 
         //Methods
         //-+-+-+-+-+-+-+-+-+-+-+-
-        public loadURL(url: string) {
-            console.log("in load URL function");
-            this.Resource.getURL(url, this.selectedMedia)
+        public loadURL() {
+            var newURL = this.$filter("makeURL")(this.selectedUri)
+            console.log(newURL);
+            this.Resource.getURL(newURL,this.selectedMedia) 
                 .then(
                     (response: any) => {
                         this.requestResults = response.data;
