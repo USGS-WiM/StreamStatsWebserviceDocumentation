@@ -12,7 +12,7 @@ configuration.resources=
                 "type": "GET",
                 "uriList": [
                     {
-                        "uri": "/watershed.{0}?rcode={1}&xlocation={2}&ylocation={3}&crs={4}&simplifyid={5}&includeparameters={6}&includeflowtypes={7}&includegeometry={8}",
+                        "uri": "/watershed.{0}?state={1}&xlocation={2}&ylocation={3}&wkid={4}&simplifyid={5}&includeparameters={6}&includeflowtypes={7}&includegeometry={8}",
                         "description":"This service returns a watershed",
                         "id":"gw0",
                         "parameters": [

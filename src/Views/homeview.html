@@ -18,8 +18,12 @@
                 <h3>Uri description: </h3>
                 <div class="well">{{ vm.selectedUri.description }}</div>
 
-                <h3>URL</h3>
-                <div class="well"><code>{{ vm.selectedUri.uri }}</code></div>
+                <h3>Service URL</h3>
+                <div class="well">
+     
+                    <!--New URL is: {{vm.selectedUri | makeURL}}-->
+                    <code>http://ssdev.cr.usgs.gov/servicesTest{{ vm.selectedUri.uri }}</code>
+                </div>
 
                 <h3>Response formats</h3>
                 <div class="well">
@@ -30,7 +34,7 @@
                         <option value="" ng-if="false"></option>-->
                     </select>
 
-                    <span ng-show="vm.selectedUri.selectedMedia">You selected  {{vm.selectedUri.selectedMedia}}</span> 
+                    <p><span ng-show="vm.selectedUri.selectedMedia">Media format is: {{vm.selectedUri.selectedMedia}}</span></p>
                 </div>
 
                 <h3>Parameters</h3>
@@ -40,21 +44,22 @@
                             <tr><th>Name</th><th>Type</th><th>Description</th><th>Input Parameter</th></tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="item in vm.selectedUri.parameters"><th>{{item.name}}</th><th>{{item.type}}</th><th>{{item.description}}</th><th><input class="form-control" type="text" placeholder="{{item.value}}"></th></tr>
+                            <tr ng-repeat="item in vm.selectedUri.parameters"><th>{{item.name}}</th><th>{{item.type}}</th><th>{{item.description}}</th><th><input ng-model="item.value" class="form-control" type="text" placeholder="{{item.value}}" required></th></tr>
                         </tbody>
                     </table>
                 </div>
 
                 <h3>URL builder</h3>
                 <div class="well">
-                     <a ng-href="http://ssdev.cr.usgs.gov/servicesTest{{ vm.selectedUri.uri }}">http://ssdev.cr.usgs.gov/servicesTest{{ vm.selectedUri.uri }}</a> 
-                     <div><button type="button" class="btn btn-default">Load URL Below</button></div>
-                    
+                   
+                     <pre><a ng-href="http://ssdev.cr.usgs.gov/servicesTest{{vm.selectedUri | makeURL}}" target="_blank">http://ssdev.cr.usgs.gov/servicesTest{{vm.selectedUri.newURL}}</a></pre>
 
+                     <p><button ng-click="loadURL('test')" type="button" class="btn btn-default">Load URL Below</button></p>
+                  
                     <div class="panel panel-default">
                       <div class="panel-heading">Response</div>
                       <div class="panel-body">
-                        <pre>$http request response goes here</pre>
+                        <pre>{{vm.requestResults}}</pre>
                       </div>
                     </div>
 

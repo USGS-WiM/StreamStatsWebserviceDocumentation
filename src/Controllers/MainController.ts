@@ -31,6 +31,7 @@ module StreamStats.Controllers {
     interface IMainController {
        
     }
+
     
     class MainController implements IMainController {
         //Events
@@ -41,15 +42,16 @@ module StreamStats.Controllers {
         //Properties
         //-+-+-+-+-+-+-+-+-+-+-+-
         public sideBarCollapsed: boolean;
-        private selectedUri: Models.IURI;
-        private selectedResource: Models.IResource;
-        private selectedUriParameters: Array<Models.IURIParameter>;
-        private selectedMedia: string;
+        public selectedUri: Models.IURI;
+        public selectedResource: Models.IResource;
+        public selectedUriParameters: Array<Models.IURIParameter>;
+        public selectedMedia: string;
+        public requestResults: string;
 
         //Constructor
         //-+-+-+-+-+-+-+-+-+-+-+-
         static $inject = ['$scope', 'StreamStats.Services.ResourceService'];
-        constructor($scope: IMainControllerScope, Resource: Services.IResourceService) {
+        constructor($scope: IMainControllerScope, public Resource: Services.IResourceService) {
             $scope.vm = this;
             this.sideBarCollapsed = false;
             this._onSelectedResourceHandler = new WiM.Event.EventHandler<WiM.Event.EventArgs>(() => {
@@ -66,7 +68,14 @@ module StreamStats.Controllers {
 
         //Methods
         //-+-+-+-+-+-+-+-+-+-+-+-
-       
+        public loadURL(url: string) {
+            console.log("in load URL function");
+            this.Resource.getURL(url, this.selectedMedia)
+                .then(
+                    (response: any) => {
+                        this.requestResults = response.data;
+                });
+        }
        
         //Helper Methods
         //-+-+-+-+-+-+-+-+-+-+-+-

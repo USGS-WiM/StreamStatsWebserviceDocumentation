@@ -99,6 +99,10 @@ var StreamStats;
             ResourceService.prototype.RemoveResource = function () {
                 //add the study area to studyAreaList
             };
+            ResourceService.prototype.getURL = function (url, selectedMedia) {
+                var request = new WiM.Services.Helpers.RequestInfo(url, WiM.Services.Helpers.methodType.GET, selectedMedia);
+                return this.Execute(request);
+            };
             //Helper Methods
             //-+-+-+-+-+-+-+-+-+-+-+-       
             ResourceService.prototype.loadResourceList = function () {
