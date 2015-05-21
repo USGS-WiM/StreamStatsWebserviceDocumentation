@@ -7,7 +7,7 @@
                 <div ng-repeat="method in vm.selectedResource.methods">
                     <p>{{method.type}}</p>
                     <div ng-repeat="url in method.uriList">
-                        <a ng-click="vm.selectUri(url)" href="#"><small title="{{url.uri}}">{{url.uri}}</small></a> 
+                        <a ng-click="vm.selectUri(url)" href="#"><small title="{{url.uri}}">{{url.id}}</small></a> 
                         <br />
                     </div>                    
                 </div>               
