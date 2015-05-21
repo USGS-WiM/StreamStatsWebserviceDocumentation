@@ -36,6 +36,7 @@
     <Content Include="src\Views\SidebarComponents\locationTemplate.html" />
     <Content Include="src\Views\SidebarComponents\studyareaview.html" />
     <Content Include="src\Views\sidebarview.html" />
+    <Content Include="src\Views\urltemplate.html" />
     <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -44,6 +45,8 @@
     <TypeScriptCompile Include="src\Controllers\MainController.ts" />
     <TypeScriptCompile Include="src\Controllers\NavbarController.ts" />
     <TypeScriptCompile Include="src\Controllers\SidebarController.ts" />
+    <TypeScriptCompile Include="src\Directives\directive.module.ts" />
+    <TypeScriptCompile Include="src\Directives\urlDirective.ts" />
     <TypeScriptCompile Include="src\Models\Method.ts" />
     <TypeScriptCompile Include="src\Models\Resource.ts" />
     <TypeScriptCompile Include="src\Models\URI.ts" />
@@ -68,9 +71,7 @@
       <DependentUpon>web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="src\Directives\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">12.0</VisualStudioVersion>
   </PropertyGroup>
