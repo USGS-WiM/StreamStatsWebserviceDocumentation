@@ -30,6 +30,7 @@ module StreamStats.Services {
         SelectedResource: Models.IResource;
         onUriChanged: WiM.Event.Delegate<WiM.Event.EventArgs>;
         SelectedUri: Models.IURI;
+        getURL(url: string, selectedMedia: string): ng.IPromise<any>;
        
     }
     class ResourceService extends WiM.Services.HTTPServiceBase implements IResourceService {
@@ -91,6 +92,11 @@ module StreamStats.Services {
         }
         public RemoveResource() {
             //add the study area to studyAreaList
+        }
+
+        public getURL(url: string, selectedMedia:string): ng.IPromise<any> {
+            var request: WiM.Services.Helpers.RequestInfo = new WiM.Services.Helpers.RequestInfo(url, WiM.Services.Helpers.methodType.GET, selectedMedia);
+            return this.Execute(request);
         }
         
 

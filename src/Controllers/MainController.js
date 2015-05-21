@@ -23,6 +23,7 @@ var StreamStats;
         var MainController = (function () {
             function MainController($scope, Resource) {
                 var _this = this;
+                this.Resource = Resource;
                 $scope.vm = this;
                 this.sideBarCollapsed = false;
                 this._onSelectedResourceHandler = new WiM.Event.EventHandler(function () {
@@ -36,6 +37,13 @@ var StreamStats;
             }
             //Methods
             //-+-+-+-+-+-+-+-+-+-+-+-
+            MainController.prototype.loadURL = function (url) {
+                var _this = this;
+                console.log("in load URL function");
+                this.Resource.getURL(url, this.selectedMedia).then(function (response) {
+                    _this.requestResults = response.data;
+                });
+            };
             //Helper Methods
             //-+-+-+-+-+-+-+-+-+-+-+-
             MainController.prototype.sm = function (msg) {
