@@ -17,13 +17,13 @@ configuration.resources=
                         "description": "Returns a watershed object. The request configuration will determine the overall request response. However all returns will return a watershed object with at least the workspaceid. The workspace id is the id to the service workspace where files are stored and can be used for further processing such as for downloads and flow statistics.",
                         "id":"Watershed By Location.",
                         "parameters": [
-                            { "name": "rcode", "type": "string", "description": "StreamStats 2-3 character code that identifies the region.", "value":"NY" },
+                            { "name": "rcode", "type": "text", "description": "StreamStats 2-3 character code that identifies the region.", "value":"NY" },
                             { "name": "xlocation", "type": "number", "description": "X location of the most downstream point of desired study area.", "value": -74.524 },
                             { "name": "ylocation", "type": "number", "description": "Y location of the most downstream point of desired study area.", "value": 43.939 },
-                            { "name": "src", "type": "string", "description": "ESPSG spatial reference code.", "value": "4326" },
+                            { "name": "src", "type": "text", "description": "ESPSG spatial reference code.", "value": "4326" },
                             { "name": "simplify", "type": "boolean", "optional": true, "description": "Whether to simplify returned result, defaut: true.", "value": true },
-                            { "name": "includeparameters", "type": "string", "optional": true, "description": "Comma separated list of region parameters to compute. Default: true, will return all parameters for region", "value": false },
-                            { "name": "includeflowtypes", "type": "string", "optional": true, "description": "Not yet implemented", "value": false },
+                            { "name": "includeparameters", "type": "text", "optional": true, "description": "Comma separated list of region parameters to compute. Default: true, will return all parameters for region", "value": false },
+                            { "name": "includeflowtypes", "type": "text", "optional": true, "description": "Not yet implemented", "value": false },
                             { "name": "includegeometry", "type": "boolean", "optional": true, "description": "Whether the resulting resource will include the study area and downstream point. Default: true.", "value": true }],
                         "availableMedia": [".xml", ".json", ".geojson"],
                         "selectedMedia": ".geojson"
@@ -35,11 +35,11 @@ configuration.resources=
                     //    "uri": "/watershed?rcode={regioncode}&workspaceID={workspaceID}&simplifyid={simplificationOption}&includeparameters={parameterList}&includeflowtypes={flowtypeList}&includegeometry={boolean}",
                     //    "description":"This service returns a watershed",
                     //    "parameters": [
-                    //       { "name": "rcode", "type": "string", "description": "", "value":"" },
-                    //       { "name": "workspaceID", "type": "string", "description": "", "value":"" },
+                    //       { "name": "rcode", "type": "text", "description": "", "value":"" },
+                    //       { "name": "workspaceID", "type": "text", "description": "", "value":"" },
                     //       { "name": "simplificationOption", "type": "number", "optional": true, "description": "", "value":"" },
-                    //       { "name": "parameterList", "type": "string", "optional": true, "description": "", "value":"" },
-                    //       { "name": "flowtypeList", "type": "string", "optional": true, "description": "", "value":"" },
+                    //       { "name": "parameterList", "type": "text", "optional": true, "description": "", "value":"" },
+                    //       { "name": "flowtypeList", "type": "text", "optional": true, "description": "", "value":"" },
                     //       { "name": "boolean", "type": "boolean", "optional": true, "description": "", "value":"" }],
                     //    "availableMedia": "xml, json, geojson"
                     //}
@@ -58,8 +58,8 @@ configuration.resources=
                         "description": "This service returns a list of parameters available to be computed in the selected region.",
                         "id": "Available Parameters",
                         "parameters": [
-                            { "name": "rcode", "type": "string", "description": "StreamStats 2-3 character code that identifies the region.", "value": "NY" },
-                            { "name": "group", "type": "string", "optional": true, "description": "Key word parameter group filter.", "value": "NY Set" }],
+                            { "name": "rcode", "type": "text", "description": "StreamStats 2-3 character code that identifies the region.", "value": "NY" },
+                            { "name": "group", "type": "text", "optional": true, "description": "Key word parameter group filter.", "value": "NY Set" }],
                         "availableMedia": [".xml", ".json"],
                         "selectedMedia": ".json"
                     },
@@ -68,9 +68,9 @@ configuration.resources=
                         "description": "This service returns the computed values based on the request configuration.",
                         "id": "Compute Parameters",
                         "parameters": [
-                           { "name": "rcode", "type": "string", "description": "StreamStats 2-3 character code that identifies the region.", "value": "NY" },
-                           { "name": "workspaceID", "type": "string", "description": "Service workspace received from watershed service result", "value": "___" },
-                           { "name": "includeparameters", "type": "string", "optional": true, "description": "Comma separated list of region parameters to compute. Default: true, will return all parameters for region", "value": true }, ],
+                           { "name": "rcode", "type": "text", "description": "StreamStats 2-3 character code that identifies the region.", "value": "NY" },
+                           { "name": "workspaceID", "type": "text", "description": "Service workspace received from watershed service result", "value": "___" },
+                           { "name": "includeparameters", "type": "text", "optional": true, "description": "Comma separated list of region parameters to compute. Default: true, will return all parameters for region", "value": true }, ],
                         "availableMedia": [".xml", ".json"],
                         "selectedMedia": ".json"
                     }
@@ -88,8 +88,8 @@ configuration.resources=
                         "description": "This service returns a zip file containing the workspace contents, in either a geodatabase or shape files",
                         "id": "Download by workspace and format",
                         "parameters": [
-                            { "name": "workspaceID", "type": "string", "description": "Service workspace received from watershed service result", "value": "___" },
-                            { "name": "format", "type": "string", "optional": true, "description": "Download return format; default (nothing specified) will return an ESRI geodatabase zipfile. Optional input: SHAPE,:will return a zip file containing shape format. ", "value": "" }],
+                            { "name": "workspaceID", "type": "text", "description": "Service workspace received from watershed service result", "value": "___" },
+                            { "name": "format", "type": "text", "optional": true, "description": "Download return format; default (nothing specified) will return an ESRI geodatabase zipfile. Optional input: SHAPE,:will return a zip file containing shape format. ", "value": "" }],
                         "availableMedia": [],
                         "selectedMedia": ""
                     }
@@ -107,9 +107,9 @@ configuration.resources=
                         "description": "This service returns the computed flow statistic values based on the request configuration",
                         "id": "Compute flow statistics",
                         "parameters": [
-                            { "name": "rcode", "type": "string", "description": "StreamStats 2-3 character code that identifies the region.", "value": "NY" },
-                            { "name": "workspaceID", "type": "string", "description": "Service workspace received from watershed service result", "value": "___" },
-                            { "name": "includeflowtypes", "type": "string", "optional": true, "description": "Comma separated list of region flow types to compute. Default: true, will return all flow types available for the region region", "value": true }],
+                            { "name": "rcode", "type": "text", "description": "StreamStats 2-3 character code that identifies the region.", "value": "NY" },
+                            { "name": "workspaceID", "type": "text", "description": "Service workspace received from watershed service result", "value": "___" },
+                            { "name": "includeflowtypes", "type": "text", "optional": true, "description": "Comma separated list of region flow types to compute. Default: true, will return all flow types available for the region region", "value": true }],
                         "availableMedia": [".xml", ".json"],
                         "selectedMedia": ".json"
                     }
@@ -127,10 +127,10 @@ configuration.resources=
                 //        "description": "This service returns a watershed",
                 //        "id": "nn0",
                 //        "parameters": [
-                //            { "name": "regioncode", "type": "string", "description": "", "value": "" },
-                //            { "name": "startpoint", "type": "string", "description": "", "value": "" },
-                //            { "name": "endpoint", "type": "string", "description": "", "value": "" },
-                //            { "name": "workspaceID", "type": "string", "optional": true, "description": "", "value": "" }],
+                //            { "name": "regioncode", "type": "text", "description": "", "value": "" },
+                //            { "name": "startpoint", "type": "text", "description": "", "value": "" },
+                //            { "name": "endpoint", "type": "text", "description": "", "value": "" },
+                //            { "name": "workspaceID", "type": "text", "optional": true, "description": "", "value": "" }],
                 //        "availableMedia": "xml, json, geojson"
                 //    }
                 //]
