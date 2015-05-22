@@ -36,7 +36,7 @@ tsd install
 ## Building a release
 
 #### 1.  Create dist build
-This will concatenate and minify all css and js files, trim and clean project and copy to "/test"
+This will concatenate and minify all css and js files, trim and clean project and copy to "/dist"
 
 ```bash
 gulp
