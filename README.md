@@ -1,6 +1,6 @@
 ﻿# streamstats web service descriptions
 
-> Describes the REST endpoint for StreamStats Web Services.  It is an angular that is styled with bootstrap and uses leaflet as its mapping API
+> Describes the REST endpoint for StreamStats Web Services.  It is an angular application that uses angular-ui-mobile
 
 > Build environment: Visual Studio 2013 with TypeScript 1.4
 
