@@ -1,0 +1,20 @@
+<div class="scrollable sidebar-content">
+    <div class="scrollable-content">
+        <div class="list-group">
+            <a class="list-group-item" ng-click="vm.selectResource(null)">Home <i class=" fa fa-chevron-right pull-right"></i></a>
+            <a ng-repeat-start="resource in vm.resourceList" ng-click="vm.selectResource(resource)" class="list-group-item">{{resource.name}} <i class="fa fa-chevron-down pull-right"></i></a>
+            <div ng-repeat-end ng-if="vm.selectedResource.name === resource.name" class="list-group-body">
+                <div ng-repeat="method in vm.selectedResource.methods">
+                    <p>{{method.type}}</p>
+                    <div ng-repeat="url in method.uriList">
+                        <a ng-click="vm.selectUri(url)" href="#"><small title="{{url.uri}}">{{url.id}}</small></a> 
+                        <br />
+                    </div>                    
+                </div>               
+            </div>           
+        </div>
+        <div class="identification pull-right">powered by <a href="http://wim.usgs.gov/" target="_blank">WiM</a></div>
+    </div>
+</div>
+
+
