@@ -48,7 +48,8 @@ module StreamStats.Controllers {
         public selectedMedia: string;
         public requestResults: string;
         public waitCursor: boolean;
-        //public fullURL: string;
+        public applicationURL: string;
+        public servicesBaseURL: string;
 
         //Constructor
         //-+-+-+-+-+-+-+-+-+-+-+-
@@ -57,6 +58,8 @@ module StreamStats.Controllers {
             $scope.vm = this;
             this.waitCursor = false;
             this.sideBarCollapsed = false;
+            this.applicationURL = configuration.baseurls['application'];
+            this.servicesBaseURL = configuration.baseurls['services'];
             this._onSelectedResourceHandler = new WiM.Event.EventHandler<WiM.Event.EventArgs>(() => {
                 this.selectedResource = Resource.SelectedResource;
             });

@@ -8,7 +8,7 @@
             </div>
             <div ng-hide="vm.selectedResource" class="well">
                 <h3>Introduction</h3>
-                <p>The<a href="link to ss app">StreamStats application</a> uses data services that were created for it. When in use, the application managages interactions 
+                <p>The<a href="{{vm.applicationURL}}">StreamStats application</a> uses data services that were created for it. When in use, the application managages interactions 
                 between the user and the services. However, the services can be directly accessed using the StreamStats Service API, documented here or consumed by custom client applications.</p>
                 
                 <p>The StreamStats Service API performs multiple high level procedures which include; database queries, geospatial calculations and service requests in order to
@@ -56,7 +56,7 @@
 
                 <h4>Service URL</h4>
                 <div class="well">
-                    <code>http://ssdev.cr.usgs.gov/streamstatsservices{{ vm.selectedUri.uri }}</code>
+                    <code>{{vm.servicesBaseURL}}{{ vm.selectedUri.uri }}</code>
                 </div>
 
                 <h4>Response formats</h4>
@@ -85,7 +85,7 @@
                     <div class="panel panel-default">
                       <div class="panel-heading">Response in {{vm.selectedUri.selectedMedia}} format</div>
                       <div class="panel-body">                          
-                        <p><a href="http://ssdev.cr.usgs.gov/streamstatsservices{{vm.selectedUri | makeURL}}" />http://ssdev.cr.usgs.gov/streamstatsservices{{vm.selectedUri | makeURL}}</a></p>
+                        <p><a href="{{vm.servicesBaseURL}}{{vm.selectedUri | makeURL}}" />{{vm.servicesBaseURL}}{{vm.selectedUri | makeURL}}</a></p>
                           <i ng-if="vm.waitCursor" class="fa fa-spinner fa-5x fa-spin"></i>  
                           <json-formatter ng-show="vm.requestResults" json="vm.requestResults" open="1"></json-formatter> 
                       </div>

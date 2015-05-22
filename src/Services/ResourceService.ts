@@ -77,7 +77,7 @@ module StreamStats.Services {
         //Constructor
         //-+-+-+-+-+-+-+-+-+-+-+-
         constructor($http: ng.IHttpService, private $q: ng.IQService) {
-            super($http, configuration.baseurls['StreamStats'])
+            super($http, configuration.baseurls['services'])
             this._onResourceChanged = new WiM.Event.Delegate<WiM.Event.EventArgs>();
             this._onUriChanged = new WiM.Event.Delegate<WiM.Event.EventArgs>();
             this.loadResourceList();
