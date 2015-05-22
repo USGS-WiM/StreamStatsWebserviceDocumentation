@@ -26,7 +26,7 @@ var StreamStats;
                 this.parameter = p;
                 this.value = v;
                 this.description = d;
-                this.required = r;
+                this.optional = r;
             }
             return URIParameter;
         })();

@@ -8,12 +8,12 @@
             </div>
             <div ng-hide="vm.selectedResource" class="well">
                 <h3>Introduction</h3>
-                <p>The<a href="{{vm.applicationURL}}">StreamStats application</a> uses data services that were created for it. When in use, the application managages interactions 
-                between the user and the services. However, the services can be directly accessed using the StreamStats Service API, documented here or consumed by custom client applications.</p>
+                <p>The <a href="{{vm.applicationURL}}" target="_blank">StreamStats application</a> uses data services that were created for it. When in use, the application manages interactions 
+                between the user and the services. However, the services can be directly accessed using the StreamStats Service API documented here, or consumed by a custom client application using HTTP protocols.</p>
                 
                 <p>The StreamStats Service API performs multiple high level procedures which include; database queries, geospatial calculations and service requests in order to
-                   compile and create simple objects that can be consumed by custom client applications. As documented by this page, which also serves as an URL builder, the StreamStats Service API are built 
-                   following <a href="http://en.wikipedia.org/wiki/Representational_state_transfer">RESTful</a> principles to esure scalability and predictable URLs. 
+                   compile and create simple objects that can be consumed by custom client applications. As documented by this page, which can also serve as an URL builder, the StreamStats Service API is built 
+                   following <a href="http://en.wikipedia.org/wiki/Representational_state_transfer" target="_blank">RESTful</a> principles to ensure scalability and predictable URLs. 
                 </p>
 
                 <h3>Getting Started</h3>
@@ -22,16 +22,16 @@
                 <p>Every resource is exposed as a URL and follows the outlined pattern described below:
                 
                 <ul>
-                    <li>The description of the Resource.</li>
+                    <li>The description of the resource.</li>
                     <li>The service URL.</li>
                     <li>Optional response formats, such as xml, json, or geojson</li>
                     <li>URL parameters (if any).
                         <ul>
                             <li>Parameter Name.</li>
                             <li>Value Type, (string, number, boolean, etc.).</li>
-                            <li>a description of what the parameter represents.</li>
+                            <li>A description of what the parameter represents.</li>
                             <li>Whether the parameter is required or optional.</li>
-                            <li>And and example input Parameter.</li>
+                            <li>And and example input parameter.</li>
                         </ul>
                     </li>
                     <li>A URL Builder that builds an example url, based on the given input parameter values.</li>
@@ -69,10 +69,10 @@
                 <div class="well">
                     <table class="table table-condensed" style="font-size:12px;margin-bottom:0px;">
                         <thead>
-                            <tr><th>Name</th><th>Type</th><th>Description</th><th>Input Parameter</th></tr>
+                            <tr><th>Name</th><th>Type</th><th>Optional</th><th>Description</th><th>Input Parameter</th></tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="item in vm.selectedUri.parameters"><td><strong>{{item.name}}</strong></td><td>{{item.type}}</td><td>{{item.description}}</td><td><input ng-model="item.value" type="text" placeholder="{{item.value}}" required></td></tr>
+                            <tr ng-repeat="item in vm.selectedUri.parameters"><td><strong>{{item.name}}</strong></td><td>{{item.type}}</td><td>{{item.optional}}</td><td>{{item.description}}</td><td><input ng-model="item.value" type="text" placeholder="{{item.value}}" required></td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -85,8 +85,8 @@
                     <div class="panel panel-default">
                       <div class="panel-heading">Response in {{vm.selectedUri.selectedMedia}} format</div>
                       <div class="panel-body">                          
-                        <p><a href="{{vm.servicesBaseURL}}{{vm.selectedUri | makeURL}}" />{{vm.servicesBaseURL}}{{vm.selectedUri | makeURL}}</a></p>
-                          <i ng-if="vm.waitCursor" class="fa fa-spinner fa-5x fa-spin"></i>  
+                        <p><a href="{{vm.servicesBaseURL}}{{vm.selectedUri | makeURL}}" target="_blank">{{vm.servicesBaseURL}}{{vm.selectedUri | makeURL}}</a></p>
+                          <i ng-show="vm.waitCursor" class="fa fa-spinner fa-5x fa-spin"></i>  
                           <json-formatter ng-show="vm.requestResults" json="vm.requestResults" open="1"></json-formatter> 
                       </div>
                     </div>

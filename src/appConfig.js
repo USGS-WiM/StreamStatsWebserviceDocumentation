@@ -14,7 +14,7 @@ configuration.resources=
                 "uriList": [
                     {
                         "uri": "/watershed{0}?rcode={1}&xlocation={2}&ylocation={3}&crs={4}&simplify={5}&includeparameters={6}&includeflowtypes={7}&includegeometry={8}",
-                        "description": "Returns a watershed object. The request configuration will determine the overall request response. However all returns will return a watershed object with at least the workspaceid. The workspace id is the id to the service workspace where files are stored and can be used for further processing such as for downloads and flow statistics.",
+                        "description": "Returns a watershed object. The request configuration will determine the overall request response. However all returns will return a watershed object with at least the workspaceid. The workspace id is the id to the service workspace where files are stored and can be used for further processing such as for downloads and flow statistic computations.",
                         "id":"Watershed By Location.",
                         "parameters": [
                             { "name": "rcode", "type": "string", "description": "StreamStats 2-3 character code that identifies the region.", "value":"NY" },
@@ -70,7 +70,7 @@ configuration.resources=
                         "parameters": [
                            { "name": "rcode", "type": "string", "description": "StreamStats 2-3 character code that identifies the region.", "value": "NY" },
                            { "name": "workspaceID", "type": "string", "description": "Service workspace received from watershed service result", "value": "___" },
-                           { "name": "includeparameters", "type": "string", "optional": true, "description": "Comma separated list of region parameters to compute. Default: true, will return all parameters for region", "value": true }, ],
+                           { "name": "includeparameters", "type": "string", "optional": true, "description": "Comma separated list of region parameter codes to compute. Default: true, will return all parameters for region", "value": true }, ],
                         "availableMedia": [".xml", ".json"],
                         "selectedMedia": ".json"
                     }
