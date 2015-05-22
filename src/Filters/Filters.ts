@@ -10,7 +10,7 @@ angular.module('StreamStats')
             }
             var func = input.uri.format;
             var newURL = func.apply(input.uri, inputParams);
-            return newURL;
+            return newURL.replace(/\{(.+?)\}/g, "");
         }
     };
     });
