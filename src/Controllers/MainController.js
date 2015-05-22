@@ -28,6 +28,8 @@ var StreamStats;
                 $scope.vm = this;
                 this.waitCursor = false;
                 this.sideBarCollapsed = false;
+                this.applicationURL = configuration.baseurls['application'];
+                this.servicesBaseURL = configuration.baseurls['services'];
                 this._onSelectedResourceHandler = new WiM.Event.EventHandler(function () {
                     _this.selectedResource = Resource.SelectedResource;
                 });
@@ -60,7 +62,6 @@ var StreamStats;
                 catch (e) {
                 }
             };
-            //public fullURL: string;
             //Constructor
             //-+-+-+-+-+-+-+-+-+-+-+-
             MainController.$inject = ['$scope', '$filter', 'StreamStats.Services.ResourceService'];

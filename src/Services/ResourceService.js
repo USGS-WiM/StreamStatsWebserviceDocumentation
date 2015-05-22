@@ -33,7 +33,7 @@ var StreamStats;
             //Constructor
             //-+-+-+-+-+-+-+-+-+-+-+-
             function ResourceService($http, $q) {
-                _super.call(this, $http, configuration.baseurls['StreamStats']);
+                _super.call(this, $http, configuration.baseurls['services']);
                 this.$q = $q;
                 this._onResourceChanged = new WiM.Event.Delegate();
                 this._onUriChanged = new WiM.Event.Delegate();
@@ -100,7 +100,7 @@ var StreamStats;
                 //add the study area to studyAreaList
             };
             ResourceService.prototype.getURL = function (url, selectedMedia) {
-                var request = new WiM.Services.Helpers.RequestInfo(url, 0 /* GET */, selectedMedia);
+                var request = new WiM.Services.Helpers.RequestInfo(url, WiM.Services.Helpers.methodType.GET, selectedMedia);
                 return this.Execute(request);
             };
             //Helper Methods
