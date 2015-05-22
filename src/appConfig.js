@@ -100,21 +100,30 @@ configuration.resources=
             "name": "Flow statistics",
             "description": "The Flow statistics resource represent a list of flow statistics computed for the study area.",
             "methods": [{
-                "type": "GET",
-                "uriList": [
-                    {
-                        "uri": "/flowstatistics{0}?rcode={1}&workspaceID={2}&includeflowtypes={3}",
-                        "description": "This service returns the computed flow statistic values based on the request configuration",
-                        "id": "Compute flow statistics",
-                        "parameters": [
-                            { "name": "rcode", "type": "string", "description": "StreamStats 2-3 character code that identifies the region.", "value": "NY" },
-                            { "name": "workspaceID", "type": "string", "description": "Service workspace received from watershed service result", "value": "___" },
-                            { "name": "includeflowtypes", "type": "string", "optional": true, "description": "Comma separated list of region flow types to compute. Default: true, will return all flow types available for the region region", "value": true }],
-                        "availableMedia": [".xml", ".json"],
-                        "selectedMedia": ".json"
-                    }
-                ]
-            }]
+                    "type": "GET",
+                    "uriList": [
+                        {
+                            "uri": "/flowstatistics{0}?rcode={1}",
+                            "description": "This service returns a list of flowstatistics available to be computed in the selected region.",
+                            "id": "Available flow statistics",
+                            "parameters": [
+                                { "name": "rcode", "type": "string", "description": "StreamStats 2-3 character code that identifies the region.", "value": "NY" }],
+                            "availableMedia": [".xml", ".json"],
+                            "selectedMedia": ".json"
+                        },
+                        {
+                            "uri": "/flowstatistics{0}?rcode={1}&workspaceID={2}&includeflowtypes={3}",
+                            "description": "This service returns the computed flow statistic values based on the request configuration",
+                            "id": "Compute flow statistics",
+                            "parameters": [
+                                { "name": "rcode", "type": "string", "description": "StreamStats 2-3 character code that identifies the region.", "value": "NY" },
+                                { "name": "workspaceID", "type": "string", "description": "Service workspace received from watershed service result", "value": "___" },
+                                { "name": "includeflowtypes", "type": "string", "optional": true, "description": "Comma separated list of region flow types to compute. Default: true, will return all flow types available for the region region", "value": true }],
+                            "availableMedia": [".xml", ".json"],
+                            "selectedMedia": ".json"
+                        }
+                    ]
+                }]
         },
         {
             "name": "Network navigation",
