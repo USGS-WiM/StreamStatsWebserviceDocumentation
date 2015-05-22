@@ -1,6 +1,6 @@
-﻿# streamstats
+﻿# streamstats web service descriptions
 
-> This is the pre-alpha version of StreamStats v4.  It is an angular that is styled with bootstrap and uses leaflet as its mapping API
+> Describes the REST endpoint for StreamStats Web Services.  It is an angular that is styled with bootstrap and uses leaflet as its mapping API
 
 > Build environment: Visual Studio 2013 with TypeScript 1.4
 
@@ -35,7 +35,7 @@ tsd install
 
 ## Building a release
 
-#### 1.  Create test build
+#### 1.  Create dist build
 This will concatenate and minify all css and js files, trim and clean project and copy to "/test"
 
 ```bash
@@ -47,8 +47,8 @@ Optionally to view distribution build in a lightweight webserver use:
 gulp watch
 ```
 
-#### 2.  Create release build
-Copies "/test" to "/dist", bumps version number and tagging the repository with it.   
+#### 2.  Create release tag
+Bumps version number and tagging the repository with it.   
 Please read http://semver.org/
 
 You can use the commands
@@ -61,6 +61,5 @@ gulp release   # makes v0.2.1 → v1.0.0
 To run, use the appropriate versioning text above, then use "gulp push" to push the commit with the release tags up to the repository
 
 ```bash
-gulp patch
 gulp push
 ```
