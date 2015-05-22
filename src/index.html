@@ -4,7 +4,6 @@
 <head>
     <meta charset="utf-8" />
     <title>StreamStats Service Documentation</title>
-    <!--<base href="src/" />-->
 
     <!-- build:css styles/vendor.min.css -->
      <!-- bower:css -->
@@ -14,44 +13,50 @@
     <link rel="stylesheet" href="../bower_components/mobile-angular-ui/dist/css/mobile-angular-ui-desktop.min.css" />
     <link rel="stylesheet" href="../bower_components/json-formatter/dist/json-formatter.css" />
     <!-- endbuild -->
+
     <!-- build:css styles/custom.min.css -->
     <link rel="stylesheet" href="css/main.css" />
     <!-- endbower -->
     <!-- endbuild -->
+
     <!-- build:js scripts/vendor.min.js -->
     <!-- bower:js -->
     <script src="../bower_components/angular/angular.js"></script>
     <script src="../bower_components/angular-ui-router/release/angular-ui-router.js"></script>
     <script src="../bower_components/mobile-angular-ui/dist/js/mobile-angular-ui.min.js"></script>   
+    <script src="../bower_components/json-formatter/dist/json-formatter.js"></script>
     <script src="../bower_components/wim_angular/dist/src/Extensions/String.js"></script>
     <script src="../bower_components/wim_angular/dist/src/Events/Delegate.js"></script>
     <script src="../bower_components/wim_angular/dist/src/Events/EventArgs.js"></script>
     <script src="../bower_components/wim_angular/dist/src/Events/EventHandler.js"></script>
     <script src="../bower_components/wim_angular/dist/src/Services/Helpers/RequestInfo.js"></script>
     <script src="../bower_components/wim_angular/dist/src/Services/HTTPServiceBase.js"></script>
-
-    <script src="../bower_components/json-formatter/dist/json-formatter.js"></script>
     <!-- endbuild -->
+
+    <!-- build:js scripts/appConfig.min.js --> 
+    <script src="appConfig.js"></script>
+    <!-- endbuild -->
+
     <!-- build:js scripts/custom.min.js -->
     <script src="Config.js"></script>
-    <script src="appConfig.js"></script>
     <!-- Models ref-->
 
     <!-- Services ref-->
     <script src="Services/service.module.js"></script>
     <script src="Services/ResourceService.js"></script>
-    <!-- Filters ref-->
-    <script src="Filters/Filters.js"></script>
-    <!-- Directives ref-->
-    <script src="Directives/directive.module.js"></script>
-    <script src="Directives/urlDirective.js"></script>
     <!-- Controllers ref-->
     <script src="Controllers/controller.module.js"></script>
     <script src="Controllers/MainController.js"></script>
     <script src="Controllers/SidebarController.js"></script>
     <script src="Controllers/NavbarController.js"></script>
-    <!-- endbower -->
+    <!-- Filters ref-->
+    <script src="Filters/Filters.js"></script>
+    <!-- Directives ref-->
+    <script src="Directives/directive.module.js"></script>
+    <script src="Directives/urlDirective.js"></script>
     <!-- endbuild -->
+    <!-- endbower -->
+    
 </head>
 <body>
 
