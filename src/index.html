@@ -6,7 +6,7 @@
     <title>StreamStats Service Documentation</title>
 
     <!-- build:css styles/vendor.min.css -->
-    <!-- bower:css -->
+     <!-- bower:css -->
     <link rel="stylesheet" href="../bower_components/font-awesome/css/font-awesome.css"> 
     <link rel="stylesheet" href="../bower_components/mobile-angular-ui/dist/css/mobile-angular-ui-hover.min.css" />
     <link rel="stylesheet" href="../bower_components/mobile-angular-ui/dist/css/mobile-angular-ui-base.min.css" />
@@ -30,6 +30,9 @@
     <script src="../bower_components/wim_angular/dist/src/Events/EventHandler.js"></script>
     <script src="../bower_components/wim_angular/dist/src/Services/Helpers/RequestInfo.js"></script>
     <script src="../bower_components/wim_angular/dist/src/Services/HTTPServiceBase.js"></script>
+    <script src="../bower_components/wim_angular/dist/src/Directives/wimAbout.js"></script>
+
+    <script src="../bower_components/json-formatter/dist/json-formatter.js"></script>
     <!-- endbuild -->
     <!-- build:js scripts/appConfig.min.js --> 
     <script src="appConfig.js"></script>
@@ -47,11 +50,14 @@
     <script src="Controllers/NavbarController.js"></script>
     <!-- Filters ref-->
     <script src="Filters/Filters.js"></script>
-    <!-- Directives ref-->
-    <script src="Directives/directive.module.js"></script>
-    <script src="Directives/urlDirective.js"></script>
+
+    <!-- Controllers ref-->
+    <script src="Controllers/controller.module.js"></script>
+    <script src="Controllers/MainController.js"></script>
+    <script src="Controllers/SidebarController.js"></script>
+    <script src="Controllers/NavbarController.js"></script>
     <!-- endbower -->
-    <!-- endbuild --> 
+    <!-- endbuild -->
 </head>
 <body>
     <div ui-view="navbar" class="navbar-app navbar-absolute-top"></div>
