@@ -68,7 +68,14 @@ gulp release   # makes v0.2.1 → v1.0.0
 ##### Step 3.   
  Create and merge pull request with version incremented (github.com)
 
-##### Step 4.   
+##### Step 4.  
+Get latest version from upstream (all this should be is a commit for the pull request in Step 3.) 
+
+ ```bash
+ git pull USGS-WiM master
+ ```
+
+##### Step 5.   
 Run "gulp push" to push the commit with the release tags up to the upstream (WiM) repository.
 
 ```bash
