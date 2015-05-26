@@ -81,9 +81,9 @@
                    
                     <h4>Built URL<small>&nbsp;&nbsp;Updated based on parameters above</small></h4> 
                     <p><a href="{{vm.servicesBaseURL}}{{vm.selectedUri | makeURL}}" target="_blank">{{vm.servicesBaseURL}}{{vm.selectedUri.newURL}}</a></p>
-                    
+                     <p><button ng-click="vm.loadURL()" type="button" class="btn btn-primary">Load Built URL</button></p>
+
                     <h4>Response in {{vm.selectedUri.selectedMedia}} format</h4> 
-                    <p><button ng-click="vm.loadURL()" type="button" class="btn btn-primary">Load Built URL</button></p>
                     <div class="panel panel-default">
                       <div class="panel-body">                          
                           <i ng-show="vm.waitCursor" class="fa fa-spinner fa-5x fa-spin"></i>  
