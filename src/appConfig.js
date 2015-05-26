@@ -21,10 +21,10 @@ configuration.resources =
                             { "name": "xlocation", "type": "number", "description": "X location of the most downstream point of desired study area.", "value": -74.524 },
                             { "name": "ylocation", "type": "number", "description": "Y location of the most downstream point of desired study area.", "value": 43.939 },
                             { "name": "src", "type": "string", "description": "ESPSG spatial reference code.", "value": "4326" },
-                            { "name": "simplify", "type": "boolean", "optional": true, "description": "Whether to simplify returned result, defaut: true.", "value": true },
-                            { "name": "includeparameters", "type": "string", "optional": true, "description": "Comma separated list of region parameters to compute. Default: true, will return all parameters for region", "value": false },
-                            { "name": "includeflowtypes", "type": "string", "optional": true, "description": "Not yet implemented", "value": false },
-                            { "name": "includegeometry", "type": "boolean", "optional": true, "description": "Whether the resulting resource will include the study area and downstream point. Default: true.", "value": true }],
+                            { "name": "simplify", "type": "boolean", "optional": true, "description": "Whether to simplify returned result, defaut: true.", "value": "true" },
+                            { "name": "includeparameters", "type": "string", "optional": true, "description": "Comma separated list of region parameters to compute. Default: true, will return all parameters for region", "value": "false" },
+                            { "name": "includeflowtypes", "type": "string", "optional": true, "description": "Not yet implemented", "value": "false" },
+                            { "name": "includegeometry", "type": "boolean", "optional": true, "description": "Whether the resulting resource will include the study area and downstream point. Default: true.", "value": "true" }],
                         "availableMedia": [".xml", ".json", ".geojson"],
                         "selectedMedia": ".geojson"
                         //{ "name": "XML format", "type": "xml"},
@@ -69,8 +69,8 @@ configuration.resources =
                         "id": "Compute Parameters",
                         "parameters": [
                            { "name": "rcode", "type": "string", "description": "StreamStats 2-3 character code that identifies the region.", "value": "NY" },
-                           { "name": "workspaceID", "type": "string", "description": "Service workspace received from watershed service result", "value": "___" },
-                           { "name": "includeparameters", "type": "string", "optional": true, "description": "Comma separated list of region parameter codes to compute. Default: true, will return all parameters for region", "value": true }, ],
+                           { "name": "workspaceID", "type": "string", "description": "Service workspace received from watershed service result", "value": "" },
+                           { "name": "includeparameters", "type": "string", "optional": "true", "description": "Comma separated list of region parameter codes to compute. Default: true, will return all parameters for region", "value": "true" }, ],
                         "availableMedia": [".xml", ".json"],
                         "selectedMedia": ".json"
                     }
@@ -88,7 +88,7 @@ configuration.resources =
                         "description": "This service returns a zip file containing the workspace contents, in either a geodatabase or shape files",
                         "id": "Download by workspace and format",
                         "parameters": [
-                            { "name": "workspaceID", "type": "string", "description": "Service workspace received from watershed service result", "value": "___" },
+                            { "name": "workspaceID", "type": "string", "description": "Service workspace received from watershed service result", "value": "" },
                             { "name": "format", "type": "string", "optional": true, "description": "Download return format; default (nothing specified) will return an ESRI geodatabase zipfile. Optional input: SHAPE,:will return a zip file containing shape format. ", "value": "" }],
                         "availableMedia": [],
                         "selectedMedia": ""
@@ -117,8 +117,8 @@ configuration.resources =
                         "id": "Compute flow statistics",
                         "parameters": [
                             { "name": "rcode", "type": "string", "description": "StreamStats 2-3 character code that identifies the region.", "value": "NY" },
-                            { "name": "workspaceID", "type": "string", "description": "Service workspace received from watershed service result", "value": "___" },
-                            { "name": "includeflowtypes", "type": "string", "optional": true, "description": "Comma separated list of region flow types to compute. Default: true, will return all flow types available for the region region", "value": true }],
+                            { "name": "workspaceID", "type": "string", "description": "Service workspace received from watershed service result", "value": "" },
+                            { "name": "includeflowtypes", "type": "string", "optional": true, "description": "Comma separated list of region flow types to compute. Default: true, will return all flow types available for the region region", "value": "true" }],
                         "availableMedia": [".xml", ".json"],
                         "selectedMedia": ".json"
                     }

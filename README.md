@@ -47,18 +47,36 @@ Optionally to view distribution build in a lightweight webserver use:
 gulp watch
 ```
 
-#### 2.  Create release tag
-Bumps version number and tagging the repository with it.   
-Please read http://semver.org/
+#### 2.  Tag distribution release with new version
 
-You can use the commands
+##### Step 1.
+Bump the version.  This creates a local commit with the package.json, bower.json and tsd.json updated to the new version number
+
  ```bash
 gulp patch     # makes v0.1.0 → v0.1.1
 gulp feature   # makes v0.1.1 → v0.2.0
 gulp release   # makes v0.2.1 → v1.0.0
  ```
 
-To run, use the appropriate versioning text above, then use "gulp push" to push the commit with the release tags up to the repository
+##### Step 2.   
+ Push the commit that contains the json files with bumped versions to your personal github repo 
+ 
+ ```bash
+ git push origin master
+ ```
+
+##### Step 3.   
+ Create and merge pull request with version incremented (github.com)
+
+##### Step 4.  
+Get latest version from upstream (all this should be is a commit for the pull request in Step 3.) 
+
+ ```bash
+ git pull USGS-WiM master
+ ```
+
+##### Step 5.   
+Run "gulp push" to push the commit with the release tags up to the upstream (WiM) repository.
 
 ```bash
 gulp push

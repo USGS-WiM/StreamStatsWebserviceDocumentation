@@ -15,7 +15,7 @@
                 </p>
 
                 <h3>Getting Started</h3>
-                <p>The URL of each resource can be obtained by accessing one of the resources located to the right.</p>
+                <p>The URL of each resource can be obtained by accessing one of the resources located to the left.</p>
                 
                 <p>Every resource is exposed as a URL and follows the outlined pattern described below:
                 
@@ -32,8 +32,8 @@
                             <li>And and example input parameter.</li>
                         </ul>
                     </li>
-                    <li>A URL Builder that builds an example url, based on the given input parameter values.</li>
-                    <li>And an example response from the URL Builder.</li>
+                    <li>A REST Query URL test tool that builds an example url, based on the given input parameter values.</li>
+                    <li>And an example response from the REST Query</li>
                 </ul>
                 
                 
@@ -57,10 +57,11 @@
                     <code>{{vm.servicesBaseURL}}{{ vm.selectedUri.uri }}</code>
                 </div>
 
+                <div ng-show="vm.selectedUri.selectedMedia">
                 <h4>Response formats</h4>
                 <div class="well">
-                    <select ng-init="vm.selectedUri.selectedMedia" ng-model="vm.selectedUri.selectedMedia" ng-options="item for item in vm.selectedUri.availableMedia" >
-                    </select><span ng-show="vm.selectedUri.selectedMedia">&nbsp;&nbsp;Media format is: {{vm.selectedUri.selectedMedia}}</span>
+                        <select ng-init="vm.selectedUri.selectedMedia" ng-model="vm.selectedUri.selectedMedia" ng-options="item for item in vm.selectedUri.availableMedia" ></select>
+                </div>
                 </div>
 
                 <h4>Parameters</h4>
@@ -70,31 +71,25 @@
                             <tr><th>Name</th><th>Type</th><th>Optional</th><th>Description</th><th>Input Parameter</th></tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="item in vm.selectedUri.parameters"><td><strong>{{item.name}}</strong></td><td>{{item.type}}</td><td>{{item.optional}}</td><td>{{item.description}}</td><td><input ng-model="item.value" placeholder="{{item.value}}" ng-required="!item.optional" novalidate></td></tr>
+                            <tr ng-repeat="item in vm.selectedUri.parameters"><td><strong>{{item.name}}</strong></td><td>{{item.type}}</td><td>{{item.optional}}</td><td>{{item.description}}</td><td><i  ng-class="item.value || item.optional ? 'fa fa-check green': 'fa fa-warning red'"></i><input ng-model="item.value" placeholder="{{item.value}}" ng-required="!item.optional" novalidate></td></tr>
                         </tbody>
                     </table>
                 </div>
 
-                <h4>URL builder</h4>
+                <h4>REST Query URL</h4>
                 <div class="well">
                    
-                    <h4>Built URL<small>&nbsp;&nbsp;Updated based on parameters above</small></h4> 
+                    <p><i>Updated based on parameters above</i></p>
                     <p><a href="{{vm.servicesBaseURL}}{{vm.selectedUri | makeURL}}" target="_blank">{{vm.servicesBaseURL}}{{vm.selectedUri.newURL}}</a></p>
-<<<<<<< HEAD
-                     <p><button ng-click="vm.loadURL()" type="button" class="btn btn-primary">Load Built URL</button></p>
-=======
->>>>>>> 277b80a741cbb3bfed6798a292cf7dbe7c4e66a1
-                    
-                    <h4>Response in {{vm.selectedUri.selectedMedia}} format</h4> 
+                    <p><button ng-click="vm.loadURL()" type="button" class="btn btn-primary">Load Response in {{vm.selectedUri.selectedMedia}} format</button></p>
+
                     <div class="panel panel-default">
                       <div class="panel-body">                          
                           <i ng-show="vm.waitCursor" class="fa fa-spinner fa-5x fa-spin"></i>  
                           <json-formatter ng-show="vm.requestResults" json="vm.requestResults" open="1"></json-formatter> 
                       </div>
                     </div>
-
                 </div>
-                
             </div>
         </div>
     </div>
