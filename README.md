@@ -69,7 +69,7 @@ gulp release   # makes v0.2.1 → v1.0.0
  Create and merge pull request with version incremented (github.com)
 
 ##### Step 4.   
-Run "gulp push" to push the commit with the release tags up to the repository
+Run "gulp push" to push the commit with the release tags up to the upstream (WiM) repository.
 
 ```bash
 gulp push
