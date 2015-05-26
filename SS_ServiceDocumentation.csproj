@@ -30,11 +30,11 @@
     <Content Include="src\images\sw_act_30.png" />
     <Content Include="src\images\usgs-logo.png" />
     <Content Include="src\images\usgs_logo.png" />
+    <Content Include="src\images\wim.png" />
     <Content Include="src\index.html" />
+    <Content Include="src\Views\about\about.html" />
     <Content Include="src\Views\homeview.html" />
     <Content Include="src\Views\navigationview.html" />
-    <Content Include="src\Views\SidebarComponents\locationTemplate.html" />
-    <Content Include="src\Views\SidebarComponents\studyareaview.html" />
     <Content Include="src\Views\sidebarview.html" />
     <Content Include="src\Views\urltemplate.html" />
     <Content Include="web.config" />
@@ -45,8 +45,6 @@
     <TypeScriptCompile Include="src\Controllers\MainController.ts" />
     <TypeScriptCompile Include="src\Controllers\NavbarController.ts" />
     <TypeScriptCompile Include="src\Controllers\SidebarController.ts" />
-    <TypeScriptCompile Include="src\Directives\directive.module.ts" />
-    <TypeScriptCompile Include="src\Directives\urlDirective.ts" />
     <TypeScriptCompile Include="src\Filters\Filters.ts" />
     <TypeScriptCompile Include="src\Models\Method.ts" />
     <TypeScriptCompile Include="src\Models\Resource.ts" />
