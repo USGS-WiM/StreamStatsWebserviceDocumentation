@@ -8,6 +8,14 @@
 	left: 40%;
 	top: 10%;
 }
+
+.red {
+    color:red;
+}
+.green {
+    color:green;
+}
+
 .home-view {
     padding: 20px;
 }
