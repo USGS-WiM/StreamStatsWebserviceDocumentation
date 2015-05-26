@@ -1,5 +1,4 @@
-﻿
-<div class="scrollable">
+﻿<div class="scrollable">
     <div class="scrollable-content">
         <div class="home-view">
             <div ng-hide="vm.selectedResource" class="page-header">
@@ -71,7 +70,7 @@
                             <tr><th>Name</th><th>Type</th><th>Optional</th><th>Description</th><th>Input Parameter</th></tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="item in vm.selectedUri.parameters"><td><strong>{{item.name}}</strong></td><td>{{item.type}}</td><td>{{item.optional}}</td><td>{{item.description}}</td><td><input ng-model="item.value" type="text" placeholder="{{item.value}}" required></td></tr>
+                            <tr ng-repeat="item in vm.selectedUri.parameters"><td><strong>{{item.name}}</strong></td><td>{{item.type}}</td><td>{{item.optional}}</td><td>{{item.description}}</td><td><input ng-model="item.value" placeholder="{{item.value}}" ng-required="!item.optional" novalidate></td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -79,12 +78,13 @@
                 <h4>URL builder</h4>
                 <div class="well">
                    
-                    <p><button ng-click="vm.loadURL()" type="button" class="btn btn-default">Load URL Below</button></p>
+                    <h4>Built URL<small>&nbsp;&nbsp;Updated based on parameters above</small></h4> 
+                    <p><a href="{{vm.servicesBaseURL}}{{vm.selectedUri | makeURL}}" target="_blank">{{vm.servicesBaseURL}}{{vm.selectedUri.newURL}}</a></p>
 
+                    <h4>Response in {{vm.selectedUri.selectedMedia}} format</h4> 
+                    <p><button ng-click="vm.loadURL()" type="button" class="btn btn-primary">Load Built URL</button></p>
                     <div class="panel panel-default">
-                      <div class="panel-heading">Response in {{vm.selectedUri.selectedMedia}} format</div>
                       <div class="panel-body">                          
-                        <p><a href="{{vm.servicesBaseURL}}{{vm.selectedUri | makeURL}}" target="_blank">{{vm.servicesBaseURL}}{{vm.selectedUri | makeURL}}</a></p>
                           <i ng-show="vm.waitCursor" class="fa fa-spinner fa-5x fa-spin"></i>  
                           <json-formatter ng-show="vm.requestResults" json="vm.requestResults" open="1"></json-formatter> 
                       </div>

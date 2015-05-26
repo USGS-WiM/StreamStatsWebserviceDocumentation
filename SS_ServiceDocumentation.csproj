@@ -36,7 +36,6 @@
     <Content Include="src\Views\homeview.html" />
     <Content Include="src\Views\navigationview.html" />
     <Content Include="src\Views\sidebarview.html" />
-    <Content Include="src\Views\urltemplate.html" />
     <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>
