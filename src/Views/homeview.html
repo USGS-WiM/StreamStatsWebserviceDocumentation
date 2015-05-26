@@ -80,10 +80,7 @@
                    
                     <h4>Built URL<small>&nbsp;&nbsp;Updated based on parameters above</small></h4> 
                     <p><a href="{{vm.servicesBaseURL}}{{vm.selectedUri | makeURL}}" target="_blank">{{vm.servicesBaseURL}}{{vm.selectedUri.newURL}}</a></p>
-<<<<<<< HEAD
-                     <p><button ng-click="vm.loadURL()" type="button" class="btn btn-primary">Load Built URL</button></p>
-=======
->>>>>>> 277b80a741cbb3bfed6798a292cf7dbe7c4e66a1
+                    <p><button ng-click="vm.loadURL()" type="button" class="btn btn-primary">Load Built URL</button></p>
 
                     <h4>Response in {{vm.selectedUri.selectedMedia}} format</h4> 
                     <div class="panel panel-default">
@@ -92,9 +89,7 @@
                           <json-formatter ng-show="vm.requestResults" json="vm.requestResults" open="1"></json-formatter> 
                       </div>
                     </div>
-
                 </div>
-                
             </div>
         </div>
     </div>
