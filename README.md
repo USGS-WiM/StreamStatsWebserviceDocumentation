@@ -51,19 +51,25 @@ gulp watch
 
 ##### Step 1.
 Bump the version.  This creates a local commit with the package.json, bower.json and tsd.json updated to the new version number
+
  ```bash
 gulp patch     # makes v0.1.0 → v0.1.1
 gulp feature   # makes v0.1.1 → v0.2.0
 gulp release   # makes v0.2.1 → v1.0.0
  ```
- ##### Step 2.
- Sync the version increment commit to your personal github repot
 
- ##### Step 3.
- Create and merge pull request with version incremented
+##### Step 2.   
+ Push the commit to your personal github repo 
+ 
+ ```bash
+ git push origin master
+ ```
 
- ##### Step 4.
-Run "gulp push" to push the commit with the release tags up to the repository
+##### Step 3.   
+ Create and merge pull request with version incremented (github.com)
+
+##### Step 4.   
+Run "gulp push" to push the commit with the release tags up to the upstream (WiM) repository.
 
 ```bash
 gulp push
