@@ -15,7 +15,7 @@
                 </p>
 
                 <h3>Getting Started</h3>
-                <p>The URL of each resource can be obtained by accessing one of the resources located to the right.</p>
+                <p>The URL of each resource can be obtained by accessing one of the resources located to the left.</p>
                 
                 <p>Every resource is exposed as a URL and follows the outlined pattern described below:
                 
@@ -58,10 +58,10 @@
                 </div>
 
                 <div ng-show="vm.selectedUri.selectedMedia">
-                    <h4>Response formats</h4>
-                    <div class="well">
+                <h4>Response formats</h4>
+                <div class="well">
                         <select ng-init="vm.selectedUri.selectedMedia" ng-model="vm.selectedUri.selectedMedia" ng-options="item for item in vm.selectedUri.availableMedia" ></select>
-                    </div>
+                </div>
                 </div>
 
                 <h4>Parameters</h4>
