@@ -42,7 +42,7 @@ module StreamStats {
         "ui.router", "mobile-angular-ui",
         "StreamStats.Services",
         "StreamStats.Controllers",
-        'jsonFormatter'
+        'jsonFormatter','wim_angular'
         ])
         .config(config);
 }//end module 

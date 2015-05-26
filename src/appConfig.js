@@ -128,21 +128,21 @@ configuration.resources =
         {
             "name": "Network navigation",
             "description": "!!!Not yet fully implemented!!!",
-            "methods": [{
-                //"type": "GET",
-                //"uriList": [
-                //    {
-                //        "uri": "/networkpath{0}?rcode={1}&spoint={2}epoint={3}&workspaceID={4}",
-                //        "description": "This service returns a watershed",
-                //        "id": "nn0",
-                //        "parameters": [
-                //            { "name": "regioncode", "type": "string", "description": "", "value": "" },
-                //            { "name": "startpoint", "type": "string", "description": "", "value": "" },
-                //            { "name": "endpoint", "type": "string", "description": "", "value": "" },
-                //            { "name": "workspaceID", "type": "string", "optional": true, "description": "", "value": "" }],
-                //        "availableMedia": "xml, json, geojson"
-                //    }
-                //]
-            }]
+            //"methods": [{
+            //    "type": "GET",
+            //    "uriList": [
+            //        {
+            //            "uri": "/networkpath{0}?rcode={1}&spoint={2}epoint={3}&workspaceID={4}",
+            //            "description": "This service returns a watershed",
+            //            "id": "nn0",
+            //            "parameters": [
+            //                { "name": "regioncode", "type": "string", "description": "", "value": "" },
+            //                { "name": "startpoint", "type": "string", "description": "", "value": "" },
+            //                { "name": "endpoint", "type": "string", "description": "", "value": "" },
+            //                { "name": "workspaceID", "type": "string", "optional": true, "description": "", "value": "" }],
+            //            "availableMedia": "xml, json, geojson"
+            //        }
+            //    ]
+            //}]
         }
     ]

@@ -32,9 +32,10 @@
 .navbar-app .btn {
     line-height: 0;
     padding-top:20px;
+    color:gray;
 }
 .navbar-absolute-top {
-    min-width: 1050px;
+    min-width: 700px;
 }
 .list-group-body {
     background-color:white;
@@ -60,3 +61,13 @@
 	height: 31px;
 	width: 60px;
 }
+#wim_logo {
+    background: black none repeat scroll 0 0;
+    border-radius: 5px;
+    width: 45px;
+}
+#wim_logo:hover{
+            background: blue none repeat scroll 0 0;
+			opacity: 0.8;
+			cursor: pointer;
+		}
