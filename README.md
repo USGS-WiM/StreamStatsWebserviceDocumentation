@@ -47,18 +47,23 @@ Optionally to view distribution build in a lightweight webserver use:
 gulp watch
 ```
 
-#### 2.  Create release tag
-Bumps version number and tagging the repository with it.   
-Please read http://semver.org/
+#### 2.  Tag distribution release with new version
 
-You can use the commands
+##### Step 1.
+Bump the version.  This creates a local commit with the package.json, bower.json and tsd.json updated to the new version number
  ```bash
 gulp patch     # makes v0.1.0 → v0.1.1
 gulp feature   # makes v0.1.1 → v0.2.0
 gulp release   # makes v0.2.1 → v1.0.0
  ```
+ ##### Step 2.
+ Sync the version increment commit to your personal github repot
 
-To run, use the appropriate versioning text above, then use "gulp push" to push the commit with the release tags up to the repository
+ ##### Step 3.
+ Create and merge pull request with version incremented
+
+ ##### Step 4.
+Run "gulp push" to push the commit with the release tags up to the repository
 
 ```bash
 gulp push
