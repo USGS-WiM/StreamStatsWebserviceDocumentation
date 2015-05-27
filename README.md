@@ -50,7 +50,7 @@ gulp watch
 #### 2.  Tag distribution release with new version
 
 ##### Step 1.
-Bump the version.  This creates a local commit with the package.json, bower.json and tsd.json updated to the new version number
+Bump the version.  Run only one of the below commands.  This creates a local commit with the package.json, bower.json and tsd.json updated to the new version number
 
  ```bash
 gulp patch     # makes v0.1.0 → v0.1.1
