@@ -59,8 +59,7 @@ module StreamStats.Controllers {
             this.waitCursor = false;
             this.sideBarCollapsed = false;
             this.applicationURL = configuration.baseurls['application'];
-            var href = window.location.href.split('/');
-            this.servicesBaseURL = href[0] + '//' + href[2] + '/' + href[3];
+            this.servicesBaseURL = configuration.baseurls['services'];
             this._onSelectedResourceHandler = new WiM.Event.EventHandler<WiM.Event.EventArgs>(() => {
                 this.selectedResource = Resource.SelectedResource;
             });
