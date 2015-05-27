@@ -12,7 +12,7 @@
 [github for windows](https://windows.github.com/)   
 [cmder](http://gooseberrycreative.com/cmder/)   
 
-#### 1.  Install global dependencies 
+#### 1.  Install global dependencies
 This will install the following packages globally
 
 ```bash
@@ -48,6 +48,12 @@ gulp watch
 ```
 
 #### 2.  Tag distribution release with new version
+
+Install git windows credential helper so you dont need to enter git info every time
+
+ ```bash
+git config --global credential.helper wincred
+ ```
 
 ##### Step 1.
 Bump the version.  Run only one of the below commands.  
