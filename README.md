@@ -12,7 +12,7 @@
 [github for windows](https://windows.github.com/)   
 [cmder](http://gooseberrycreative.com/cmder/)   
 
-#### 1.  Install global dependencies
+#### 1.  Install global dependencies 
 This will install the following packages globally
 
 ```bash
