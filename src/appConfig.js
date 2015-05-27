@@ -1,8 +1,7 @@
 ﻿var configuration = {}
 configuration.baseurls =
 {
-    'services': 'http://ssdev.cr.usgs.gov/streamstatsservices',
-    'application': 'http://ssdev.cr.usgs.gov/ss3/'
+    'application': 'http://ssdev.cr.usgs.gov/v3_beta/'
 }
 configuration.resources =
     [

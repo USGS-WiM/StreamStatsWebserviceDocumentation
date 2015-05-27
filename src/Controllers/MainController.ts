@@ -53,13 +53,14 @@ module StreamStats.Controllers {
 
         //Constructor
         //-+-+-+-+-+-+-+-+-+-+-+-
-        static $inject = ['$scope','$filter','StreamStats.Services.ResourceService'];
-        constructor($scope: IMainControllerScope,private $filter, private Resource: Services.IResourceService) {
+        static $inject = ['$scope', '$filter','StreamStats.Services.ResourceService'];
+        constructor($scope: IMainControllerScope, private $filter, private Resource: Services.IResourceService) {
             $scope.vm = this;
             this.waitCursor = false;
             this.sideBarCollapsed = false;
             this.applicationURL = configuration.baseurls['application'];
-            this.servicesBaseURL = configuration.baseurls['services'];
+            var href = window.location.href.split('/');
+            this.servicesBaseURL = href[0] + '//' + href[2] + '/' + href[3];
             this._onSelectedResourceHandler = new WiM.Event.EventHandler<WiM.Event.EventArgs>(() => {
                 this.selectedResource = Resource.SelectedResource;
             });
