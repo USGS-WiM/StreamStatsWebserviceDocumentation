@@ -1,7 +1,7 @@
 //Filters
 angular.module('StreamStats').filter('makeURL', function () {
     return function (input) {
-        if (input) {
+        if (input.uri) {
             console.log('in makeURL filter');
             var inputParams = [input.selectedMedia];
             for (var i = 0; i < input.parameters.length; i++) {
