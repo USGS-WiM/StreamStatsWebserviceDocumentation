@@ -64,6 +64,7 @@
     <TypeScriptCompile Include="src\Controllers\SidebarController.ts" />
     <TypeScriptCompile Include="src\Filters\Filters.ts" />
     <TypeScriptCompile Include="src\Models\Method.ts" />
+    <TypeScriptCompile Include="src\Models\model.module.ts" />
     <TypeScriptCompile Include="src\Models\Resource.ts" />
     <TypeScriptCompile Include="src\Models\URI.ts" />
     <TypeScriptCompile Include="src\Models\URIParameter.ts" />
@@ -85,6 +86,7 @@
     <Content Include="dist\fonts\fontawesome-webfont.woff" />
     <Content Include="dist\fonts\fontawesome-webfont.woff2" />
     <Content Include="dist\fonts\FontAwesome.otf" />
+    <Content Include="package.json" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

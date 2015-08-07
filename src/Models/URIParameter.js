@@ -23,7 +23,7 @@ var StreamStats;
         var URIParameter = (function () {
             function URIParameter(p, v, d, r) {
                 if (r === void 0) { r = false; }
-                this.parameter = p;
+                this.name = p;
                 this.value = v;
                 this.description = d;
                 this.optional = r;

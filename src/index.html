@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="../bower_components/mobile-angular-ui/dist/css/mobile-angular-ui-base.min.css" />
     <link rel="stylesheet" href="../bower_components/mobile-angular-ui/dist/css/mobile-angular-ui-desktop.min.css" />
     <link rel="stylesheet" href="../bower_components/json-formatter/dist/json-formatter.css" />
+    <link rel="stylesheet" href="../bower_components/leaflet/dist/leaflet.css">
     <!-- endbuild -->
     <!-- build:css styles/custom.min.css -->
     <link rel="stylesheet" href="css/main.css" />
@@ -26,6 +27,9 @@
     <script src="../bower_components/angular/angular.js"></script>
     <script src="../bower_components/angular-ui-router/release/angular-ui-router.js"></script>
     <script src="../bower_components/mobile-angular-ui/dist/js/mobile-angular-ui.min.js"></script>   
+    <script src="../bower_components/angular-leaflet-directive/dist/angular-leaflet-directive.js"></script>
+    <script src="../bower_components/leaflet/dist/leaflet.js"></script>
+    <script src="../bower_components/esri-leaflet/dist/esri-leaflet.js"></script>
     <script src="../bower_components/json-formatter/dist/json-formatter.js"></script>
     <script src="../bower_components/wim_angular/dist/src/Extensions/String.js"></script>
     <script src="../bower_components/wim_angular/dist/src/Events/Delegate.js"></script>
@@ -34,7 +38,6 @@
     <script src="../bower_components/wim_angular/dist/src/Services/Helpers/RequestInfo.js"></script>
     <script src="../bower_components/wim_angular/dist/src/Services/HTTPServiceBase.js"></script>
     <script src="../bower_components/wim_angular/dist/src/Directives/wimAbout.js"></script>
-
     <script src="../bower_components/json-formatter/dist/json-formatter.js"></script>
     <!-- endbuild -->
     <!-- build:js scripts/appConfig.min.js --> 
@@ -43,6 +46,8 @@
     <!-- build:js scripts/custom.min.js -->
     <script src="Config.js"></script>
     <!-- Models ref-->
+    <script src="Models/model.module.js"></script>
+    <script src="Models/URI.js"></script>
     <!-- Services ref-->
     <script src="Services/service.module.js"></script>
     <script src="Services/ResourceService.js"></script>
