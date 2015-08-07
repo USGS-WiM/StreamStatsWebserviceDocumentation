@@ -151,6 +151,12 @@ module StreamStats.Controllers {
                 this.studyArea.lat = latlng.lat;
                 this.studyArea.lng = latlng.lng;
 
+                this.markers['pourpoint'] = {
+                    lat: this.studyArea.lat,
+                    lng: this.studyArea.lng,
+                    focus: true
+                }
+
                 for (var index in this.selectedUri.parameters) {
                     if (this.selectedUri.parameters[index].name == "xlocation") {
                         this.selectedUri.parameters[index].value = latlng.lng.toFixed(4);
@@ -253,19 +259,7 @@ module StreamStats.Controllers {
                 });
         }
 
-        private startDelineate(latlng: any) {
-            console.log('in startDelineate');
-
-            this.markers['pourpoint'] = {
-                lat: this.studyArea.lat,
-                lng: this.studyArea.lng,
-                message: 'new pourpoint',
-                focus: true
-            }
-            this.loadStudyBoundary();
-        }
-
-        public loadStudyBoundary() {
+        public startDelineate() {
             
             //this.canUpdate = false;
             var url = configuration.queryparams['SSdelineation'].format(this.studyArea.rcode, this.studyArea.lng.toString(),
@@ -345,7 +339,7 @@ module StreamStats.Controllers {
             }
             this.markers = {};
             this.geojson = {};
-            //L.Icon.Default.imagePath = 'images';
+            L.Icon.Default.imagePath = '../../images';
         }
 
         private removeOverlayLayers(name: string, isPartial: boolean = false) {
