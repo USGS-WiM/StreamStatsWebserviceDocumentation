@@ -68,6 +68,11 @@ var StreamStats;
                     var latlng = args.leafletEvent.latlng;
                     _this.studyArea.lat = latlng.lat;
                     _this.studyArea.lng = latlng.lng;
+                    _this.markers['pourpoint'] = {
+                        lat: _this.studyArea.lat,
+                        lng: _this.studyArea.lng,
+                        focus: true
+                    };
                     for (var index in _this.selectedUri.parameters) {
                         if (_this.selectedUri.parameters[index].name == "xlocation") {
                             _this.selectedUri.parameters[index].value = latlng.lng.toFixed(4);
@@ -147,17 +152,7 @@ var StreamStats;
                     _this.waitCursor = false;
                 });
             };
-            MainController.prototype.startDelineate = function (latlng) {
-                console.log('in startDelineate');
-                this.markers['pourpoint'] = {
-                    lat: this.studyArea.lat,
-                    lng: this.studyArea.lng,
-                    message: 'new pourpoint',
-                    focus: true
-                };
-                this.loadStudyBoundary();
-            };
-            MainController.prototype.loadStudyBoundary = function () {
+            MainController.prototype.startDelineate = function () {
                 var _this = this;
                 //this.canUpdate = false;
                 var url = configuration.queryparams['SSdelineation'].format(this.studyArea.rcode, this.studyArea.lng.toString(), this.studyArea.lat.toString(), "4326", false);
@@ -225,7 +220,7 @@ var StreamStats;
                 };
                 this.markers = {};
                 this.geojson = {};
-                //L.Icon.Default.imagePath = 'images';
+                L.Icon.Default.imagePath = '../../images';
             };
             MainController.prototype.removeOverlayLayers = function (name, isPartial) {
                 var _this = this;
