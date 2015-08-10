@@ -35,7 +35,7 @@ configuration.resources =
                         "selectedMedia": ".geojson"
                     },
                     {
-                        "uri": "/watershed{0}?rcode={1}&workspaceID={2}&includeparameters={3}&includeflowtypes={4}&includefeatures={5}&simplify={6}",
+                        "uri": "/watershed{0}?rcode={1}&workspaceID={2}&includeparameters={3}&includeflowtypes={4}&includefeatures={5}&crs={6}&simplify={7}",
                         "description": "This service returns a watershed",
                         "id": "Watershed By Workspace",
                         "parameters": [
@@ -44,6 +44,7 @@ configuration.resources =
                             { "name": "includeparameters", "type": "string", "optional": true, "description": "Comma separated list of region parameters to compute. Default: true, will return all parameters for region", "value": "false" },
                             { "name": "includeflowtypes", "type": "string", "optional": true, "description": "Not yet implemented", "value": "false" },
                             { "name": "includefeatures", "type": "string", "optional": true, "description": "Comma separated list of features to include in response. See Feature resource for more information. Default: true, returns delineated basin and pourpoint", "value": "true" },
+                            { "name": "crs", "type": "string", "optional": true, "description": "ESPSG spatial reference code. Default is local projection", "value": "4326" },
                             { "name": "simplify", "type": "boolean", "optional": true, "description": "Whether to simplify returned result, defaut: true.", "value": "true" }],
                         "availableMedia": [".xml", ".json", ".geojson"],
                         "selectedMedia": ".geojson"
@@ -146,11 +147,12 @@ configuration.resources =
                         "selectedMedia": ".json"
                     },
                     {
-                        "uri": "/features{0}?workspaceID={1}&includefeatures={2}&crs={3}&simplify={4}",
+                        "uri": "/features{0}?workspaceID={1}&crs={2}&includefeatures={3}&simplify={4}",
                         "description": "This service returns a collection of spatial features available for the workspace.",
                         "id": "Features",
                         "parameters": [
                             { "name": "workspaceID", "type": "string", "description": "Service workspace received from watershed service result", "value": "" },
+                            { "name": "crs", "type": "string", "optional": true, "description": "ESPSG spatial reference code. Default is local projection", "value": "4326" },
                             { "name": "includefeatures", "type": "string", "description": "Comma separated list of feature names to include in response.", "value": "pourpoint,delineatedbasin" },
                             { "name": "simplify", "type": "boolean", "optional": true, "description": "Whether to simplify returned result, defaut: true.", "value": "true" }],
                         "availableMedia": [".xml", ".json", ".geojson"],
