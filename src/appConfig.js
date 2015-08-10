@@ -140,12 +140,13 @@ configuration.resources =
                         "selectedMedia": ".json"
                     },
                     {
-                        "uri": "/features{0}?workspaceID={1}&includefeatures={2}&simplify={3}",
+                        "uri": "/features{0}?workspaceID={1}&includefeatures={2}&crs={3}&simplify={4}",
                         "description": "This service returns a collection of spatial features available for the workspace.",
                         "id": "Features",
                         "parameters": [
                             { "name": "workspaceID", "type": "string", "description": "Service workspace received from watershed service result", "value": "" },
                             { "name": "includefeatures", "type": "string", "description": "Comma separated list of feature names to include in response.", "value": "pourpoint,delineatedbasin" },
+                            { "name": "crs", "type": "string", "description": "ESPSG spatial reference code.", "value": "4326" },
                             { "name": "simplify", "type": "boolean", "optional": true, "description": "Whether to simplify returned result, defaut: true.", "value": "true" }],
                         "availableMedia": [".xml", ".json", ".geojson"],
                         "selectedMedia": ".geojson"

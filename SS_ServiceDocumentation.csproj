@@ -18,24 +18,6 @@
     <IISExpressUseClassicPipelineMode />
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="dist\fonts\fontawesome-webfont.svg" />
-    <Content Include="dist\images\usgs-logo.png" />
-    <Content Include="dist\images\usgs_logo.png" />
-    <Content Include="dist\images\wim.png" />
-    <Content Include="dist\images\wimvectorxs.png" />
-    <Content Include="dist\index.html" />
-    <Content Include="dist\scripts\appConfig.min.js" />
-    <Content Include="dist\scripts\custom.min.js" />
-    <Content Include="dist\scripts\vendor.min.js" />
-    <Content Include="dist\styles\custom.min.css" />
-    <Content Include="dist\styles\vendor.min.css" />
-    <Content Include="dist\Views\about\about.html" />
-    <Content Include="dist\Views\homeview.html" />
-    <Content Include="dist\Views\navigationview.html" />
-    <Content Include="dist\Views\SidebarComponents\locationTemplate.html" />
-    <Content Include="dist\Views\SidebarComponents\studyareaview.html" />
-    <Content Include="dist\Views\sidebarview.html" />
-    <Content Include="dist\Views\urltemplate.html" />
     <Content Include="gulpfile.js" />
     <Content Include="src\appConfig.js" />
     <Content Include="src\Controllers\controller.module.js" />
@@ -80,11 +62,6 @@
     <Content Include="src\fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="bower.json" />
     <Content Include="tsd.json" />
-    <Content Include="dist\fonts\fontawesome-webfont.eot" />
-    <Content Include="dist\fonts\fontawesome-webfont.ttf" />
-    <Content Include="dist\fonts\fontawesome-webfont.woff" />
-    <Content Include="dist\fonts\fontawesome-webfont.woff2" />
-    <Content Include="dist\fonts\FontAwesome.otf" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
