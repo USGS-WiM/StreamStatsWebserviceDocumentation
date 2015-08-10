@@ -46,6 +46,7 @@
     <TypeScriptCompile Include="src\Controllers\SidebarController.ts" />
     <TypeScriptCompile Include="src\Filters\Filters.ts" />
     <TypeScriptCompile Include="src\Models\Method.ts" />
+    <TypeScriptCompile Include="src\Models\model.module.ts" />
     <TypeScriptCompile Include="src\Models\Resource.ts" />
     <TypeScriptCompile Include="src\Models\URI.ts" />
     <TypeScriptCompile Include="src\Models\URIParameter.ts" />
@@ -62,6 +63,11 @@
     <Content Include="src\fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="bower.json" />
     <Content Include="tsd.json" />
+    <Content Include="dist\fonts\fontawesome-webfont.eot" />
+    <Content Include="dist\fonts\fontawesome-webfont.ttf" />
+    <Content Include="dist\fonts\fontawesome-webfont.woff" />
+    <Content Include="dist\fonts\fontawesome-webfont.woff2" />
+    <Content Include="dist\fonts\FontAwesome.otf" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

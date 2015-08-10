@@ -24,7 +24,7 @@
 // Interface
 module StreamStats.Models {
     export interface IURIParameter {
-        parameter: string;
+        name: string;
         value: string;
         optional?: boolean;
         description: string;
@@ -32,13 +32,13 @@ module StreamStats.Models {
 
     export class URIParameter implements IURIParameter {
         //properties
-        public parameter: string;
+        public name: string;
         public value: string;
         public optional: boolean;
         public description: string;
 
         constructor(p:string, v:string, d:string, r:boolean = false) {
-            this.parameter = p;
+            this.name = p;
             this.value = v;
             this.description = d;
             this.optional = r;

@@ -40,7 +40,9 @@ module StreamStats {
 
     angular.module('StreamStats',[
         "ui.router", "mobile-angular-ui",
+        'leaflet-directive',
         "StreamStats.Services",
+        "StreamStats.Models",
         "StreamStats.Controllers",
         'jsonFormatter','wim_angular'
         ])

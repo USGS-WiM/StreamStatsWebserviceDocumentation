@@ -23,6 +23,7 @@ var StreamStats;
         var URI = (function () {
             function URI(u) {
                 this.uri = u;
+                this.parameters = [];
             }
             return URI;
         })();

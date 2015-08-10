@@ -45,6 +45,7 @@ module StreamStats.Models {
 
         constructor(u: string) {
             this.uri = u;
+            this.parameters = [];
         }
 
     }//end class
