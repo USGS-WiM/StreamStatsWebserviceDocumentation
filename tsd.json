@@ -8,6 +8,7 @@
     "bundle": "typings/tsd.d.ts",
     "installed": {
         "angularjs/angular.d.ts": {
+<<<<<<< HEAD
             "commit": "da995655d8f810e5e860d908bf5422ee59ef8ab6"
         },
         "leaflet/leaflet.d.ts": {
@@ -18,6 +19,18 @@
         },
         "jquery/jquery.d.ts": {
             "commit": "da995655d8f810e5e860d908bf5422ee59ef8ab6"
+=======
+            "commit": "3b0f362204ea965952dafdb682a5274d527ef9d0"
+        },
+        "leaflet/leaflet.d.ts": {
+            "commit": "3b0f362204ea965952dafdb682a5274d527ef9d0"
+        },
+        "angular-ui-router/angular-ui-router.d.ts": {
+            "commit": "3b0f362204ea965952dafdb682a5274d527ef9d0"
+        },
+        "jquery/jquery.d.ts": {
+            "commit": "3b0f362204ea965952dafdb682a5274d527ef9d0"
+>>>>>>> 306346e340036ac43576e646645752d33a92af13
         }
     }
 }

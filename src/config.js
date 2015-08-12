@@ -39,7 +39,6 @@ var StreamStats;
         "mobile-angular-ui",
         'leaflet-directive',
         "StreamStats.Services",
-        "StreamStats.Models",
         "StreamStats.Controllers",
         'jsonFormatter',
         'wim_angular'
