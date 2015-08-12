@@ -118,6 +118,8 @@ var StreamStats;
                                 }
                                 if ((_this.selectedUri.parameters[key].name == "rcode") && (newVal[key].value != oldVal[key].value)) {
                                     console.log(newVal[key].value);
+                                    //clear overlays
+                                    _this.layers.overlays = new Layer('', '', '', true);
                                 }
                             }
                         }
@@ -140,23 +142,27 @@ var StreamStats;
             }
             //Methods
             //-+-+-+-+-+-+-+-+-+-+-+-
+            /*
+            public loadURL() {
+                var newURL = this.$filter("makeURL")(this.selectedUri)
+                
+                this.Resource.getURL(newURL,this.selectedMedia)
+                    .then(
+                        (response: any) => {
+                            this.requestResults = response.data;
+                    },(error) => {
+                        this.requestResults = "("+error.status+") "+ error.data;
+                    }).finally(() => {
+                        this.waitCursor=false;
+                    });
+            }
+            */
             MainController.prototype.loadURL = function () {
                 var _this = this;
-                var newURL = this.$filter("makeURL")(this.selectedUri);
                 this.waitCursor = true;
-                this.Resource.getURL(newURL, this.selectedMedia).then(function (response) {
-                    _this.requestResults = response.data;
-                }, function (error) {
-                    _this.requestResults = "(" + error.status + ") " + error.data;
-                }).finally(function () {
-                    _this.waitCursor = false;
-                });
-            };
-            MainController.prototype.startDelineate = function () {
-                var _this = this;
-                //this.canUpdate = false;
                 var url = configuration.queryparams['SSdelineation'].format(this.studyArea.rcode, this.studyArea.lng.toString(), this.studyArea.lat.toString(), "4326", false);
-                //var request: WiM.Services.Helpers.RequestInfo = new WiM.Services.Helpers.RequestInfo(url);
+                //clear study area
+                this.studyArea = new studyArea(this.studyArea.rcode);
                 this.Resource.getURL(url, "JSON").then(function (response) {
                     _this.studyArea.features = response.data.hasOwnProperty("featurecollection") ? response.data["featurecollection"] : null;
                     _this.studyArea.workspaceID = response.data.hasOwnProperty("workspaceID") ? response.data["workspaceID"] : null;
@@ -164,13 +170,12 @@ var StreamStats;
                 }, function (error) {
                     //sm when error
                 }).finally(function () {
-                    _this.onSelectedStudyAreaChanged();
-                    //this.canUpdate = true;
-                    //this._onSelectedStudyAreaChanged.raise(null, WiM.Event.EventArgs.Empty);
+                    _this.waitCursor = false;
                 });
             };
-            MainController.prototype.onSelectedStudyAreaChanged = function () {
+            MainController.prototype.showResultsOnMap = function () {
                 var _this = this;
+                this.geojson = {};
                 console.log('features returned: ', this.studyArea.features);
                 if (!this.studyArea.features)
                     return;
@@ -220,7 +225,7 @@ var StreamStats;
                 };
                 this.markers = {};
                 this.geojson = {};
-                L.Icon.Default.imagePath = '../../images';
+                L.Icon.Default.imagePath = './images';
             };
             MainController.prototype.removeOverlayLayers = function (name, isPartial) {
                 var _this = this;

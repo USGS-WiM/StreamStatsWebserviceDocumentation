@@ -76,8 +76,8 @@
                     </table>
                 </div>
 
-                <div class="well" ng-if="vm.selectedUri.id == 'Watershed By Location' && vm.selectedUri.parameters[0].value">
-                    <leaflet width="100%" height="400px" layers="vm.layers" center="vm.center" markers="vm.markers" geojson="vm.geojson" geojson-nested="true" style="{cursor:vm.cursorStyle}"></leaflet>
+                <div class="well" ng-if="vm.selectedUri.id == 'Watershed By Location' && vm.selectedUri.parameters[0].value && vm.selectedUri.selectedMedia == '.geojson'">
+                    <leaflet width="100%" height="400px" layers="vm.layers" center="vm.center" markers="vm.markers" geojson="vm.geojson" geojson-nested="true" style="{cursor:vm.cursorStyle}"><i id="loadingSpinner" class="fa map-spinner fa-5x fa-spin" ng-show="vm.mapSpinner"></i></leaflet>
                 </div>
 
                 <h4>REST Query URL</h4>
@@ -85,12 +85,12 @@
                    
                     <p><i>Updated based on parameters above</i></p>
                     <p><a href="{{vm.servicesBaseURL}}{{vm.selectedUri | makeURL}}" target="_blank">{{vm.servicesBaseURL}}{{vm.selectedUri.newURL}}</a></p>
-                    <p><button ng-click="vm.loadURL()" type="button" class="btn btn-primary">Load Response in {{vm.selectedUri.selectedMedia}} format</button><button ng-click="vm.startDelineate()" type="button" class="btn btn-primary">Show basin on map</button></p>
+                    <p><button ng-click="vm.loadURL()" type="button" class="btn btn-primary">Load Response in {{vm.selectedUri.selectedMedia}} format</button><button ng-click="vm.showResultsOnMap()" type="button" class="btn btn-primary" ng-if="vm.selectedUri.selectedMedia == '.geojson'">Show basin on map</button></p>
 
                     <div class="panel panel-default">
                       <div class="panel-body">                          
                           <i ng-show="vm.waitCursor" class="fa fa-spinner fa-5x fa-spin"></i>  
-                          <json-formatter ng-show="vm.requestResults" json="vm.requestResults" open="1"></json-formatter> 
+                          <json-formatter ng-show="vm.studyArea.features" json="vm.studyArea.features" open="1"></json-formatter> 
                       </div>
                     </div>
                 </div>

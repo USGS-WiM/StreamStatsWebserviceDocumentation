@@ -9,6 +9,14 @@
 	top: 10%;
 }
 
+.map-spinner {
+	position: fixed;
+	height: 31px;
+	width: 60px;
+	left: 55%;
+	top: 40%;
+}
+
 .red {
     color:red;
 }

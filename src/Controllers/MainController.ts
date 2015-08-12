@@ -135,6 +135,7 @@ module StreamStats.Controllers {
         public geojson: Object = null;
         public fitBounds: IBounds;
         public studyArea: studyArea;
+        public mapSpinner;
 
         //Constructor
         //-+-+-+-+-+-+-+-+-+-+-+-
@@ -216,8 +217,8 @@ module StreamStats.Controllers {
                             if ((this.selectedUri.parameters[key].name == "rcode") && (newVal[key].value != oldVal[key].value)) {
                                 console.log(newVal[key].value);
                             
-                                //change map bounds and overlay here for region change
-
+                                //clear overlays
+                                this.layers.overlays = new Layer('','','',true);
                             }
 
                         }
@@ -245,9 +246,10 @@ module StreamStats.Controllers {
 
         //Methods
         //-+-+-+-+-+-+-+-+-+-+-+-
+        /*
         public loadURL() {
             var newURL = this.$filter("makeURL")(this.selectedUri)
-            this.waitCursor = true;
+            
             this.Resource.getURL(newURL,this.selectedMedia) 
                 .then(
                     (response: any) => {
@@ -258,31 +260,33 @@ module StreamStats.Controllers {
                     this.waitCursor=false;                    
                 });
         }
+        */
 
-        public startDelineate() {
-            
-            //this.canUpdate = false;
+        public loadURL() {
+
+            this.waitCursor = true;
+
             var url = configuration.queryparams['SSdelineation'].format(this.studyArea.rcode, this.studyArea.lng.toString(),
                 this.studyArea.lat.toString(), "4326", false)
-            //var request: WiM.Services.Helpers.RequestInfo = new WiM.Services.Helpers.RequestInfo(url);
+            
+            //clear study area
+            this.studyArea = new studyArea(this.studyArea.rcode);
 
             this.Resource.getURL(url,"JSON").then(
                 (response: any) => {
                     this.studyArea.features = response.data.hasOwnProperty("featurecollection") ? response.data["featurecollection"] : null;
                     this.studyArea.workspaceID = response.data.hasOwnProperty("workspaceID") ? response.data["workspaceID"] : null;
                     //sm when complete
-                },(error) => {
-                    //sm when error
-                }).finally(() => {
-                    this.onSelectedStudyAreaChanged();
-                
-                //this.canUpdate = true;
-                //this._onSelectedStudyAreaChanged.raise(null, WiM.Event.EventArgs.Empty);
-            });
-            
-        }
+                    },(error) => {
+                        //sm when error
+                    }).finally(() => {
+                        this.waitCursor = false;
+                    });
+                }
 
-        private onSelectedStudyAreaChanged() {
+        private showResultsOnMap() {
+
+            this.geojson = {};
 
             console.log('features returned: ', this.studyArea.features);
 
@@ -339,7 +343,7 @@ module StreamStats.Controllers {
             }
             this.markers = {};
             this.geojson = {};
-            L.Icon.Default.imagePath = '../../images';
+            L.Icon.Default.imagePath = './images';
         }
 
         private removeOverlayLayers(name: string, isPartial: boolean = false) {
