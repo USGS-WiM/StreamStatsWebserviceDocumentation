@@ -231,7 +231,7 @@ var StreamStats;
                 };
                 this.markers = {};
                 this.geojson = {};
-                //L.Icon.Default.imagePath = './images';
+                L.Icon.Default.imagePath = '/images';
             };
             //Constructor
             //-+-+-+-+-+-+-+-+-+-+-+-
