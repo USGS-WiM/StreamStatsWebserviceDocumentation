@@ -354,7 +354,7 @@ module StreamStats.Controllers {
             }
             this.markers = {};
             this.geojson = {};
-            L.Icon.Default.imagePath = './images';
+            //L.Icon.Default.imagePath = './images';
         } 
     }//end class
 

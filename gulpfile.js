@@ -113,7 +113,7 @@ gulp.task('images', function () {
 
 // Leaflet
 gulp.task('leaflet', function () {
-    return gulp.src('src/images/**/*')
+    return gulp.src('bower_components/leaflet/dist/images/**/*')
         .pipe(gulp.dest('dist/styles/images'))
         .pipe(size());
 });
