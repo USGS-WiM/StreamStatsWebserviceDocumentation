@@ -102,8 +102,10 @@ module StreamStats.Controllers {
         public workspaceID: string;
         //Constructor
         //-+-+-+-+-+-+-+-+-+-+-+-
-        constructor(rcode: string) {
+        constructor(rcode: string, lat: number, lng: number) {
             this.rcode = rcode;
+            this.lat = lat;
+            this.lng = lng;
         }
     }   
     
@@ -122,6 +124,7 @@ module StreamStats.Controllers {
         public selectedMedia: string;
         public requestResults: string;
         public waitCursor: boolean;
+        public showOnMap: boolean;
         public applicationURL: string;
         public servicesBaseURL: string;
 
@@ -170,13 +173,13 @@ module StreamStats.Controllers {
 
             //manage map cursor
             $scope.$on('leafletDirectiveMap.zoomend',(event, args) => {
-                console.log('map zoom changed', args.leafletEvent.target._animateToZoom, 15);
+                //console.log('map zoom changed', args.leafletEvent.target._animateToZoom, 15);
                 (args.leafletEvent.target._animateToZoom >= 15) ? this.cursorStyle = 'crosshair' : this.cursorStyle = 'hand'
             });
 
             //check for map load
             $scope.$on('leafletDirectiveMap.load',(event, args) => {
-                console.log('map loaded');
+                //console.log('map loaded');
             });
 
             //watch for changes to rcode only
@@ -191,36 +194,23 @@ module StreamStats.Controllers {
                         if (this.selectedUri.parameters.hasOwnProperty(key)) {
 
                             //if oldval doesnt exists were on first page load
-                            if (oldVal.length == 0) {
+                            if ((oldVal.length == 0) && (this.selectedUri.parameters[key].name == "rcode")) {
                                 console.log('first page load');
-
-                                this.studyArea = new studyArea(newVal[0].value);
-                                //do something here
-                                this.leafletData.getMap().then((map: any) => {
-                                    console.log('getting the map for fitbounds');
-                                    for (var index in configuration.regions) {
-                                        var value = configuration.regions[index];
-                                        if (value.RegionID == newVal[0].value.toUpperCase()) {
-
-                                            console.log('match found', value.RegionID + "_region", value.Bounds);
-                                            map.fitBounds(value.Bounds);
-
-                                            this.layers.overlays[value.RegionID + "_region"] = new Layer(value.RegionID + " Region", configuration.baseurls['StreamStats'] + "/arcgis/rest/services/{0}_ss/MapServer".format(value.RegionID.toLowerCase()), "agsDynamic", true, { "opacity": 0.5 });
-
-                                        }
-                                    }
-                                });
-
-                                return;
-                            }
-
-                            if ((this.selectedUri.parameters[key].name == "rcode") && (newVal[key].value != oldVal[key].value)) {
-                                console.log(newVal[key].value);
                             
-                                //clear overlays
-                                this.layers.overlays = new Layer('','','',true);
+                                //create new studyArea object
+                                //this.studyArea = new studyArea(newVal[0].value);
+                                this.changeMapRegion(newVal[0].value);
+                                //this.removeOverlayLayers("_region", true)
+                                //this.addRegionOverlayLayers(this.studyArea.rcode);  
                             }
 
+                            //change studyArea
+                            else if ((this.selectedUri.parameters[key].name == "rcode") && (newVal[key].value != oldVal[key].value)) {
+
+                                //this.studyArea = new studyArea(newVal[key].value);
+                                console.log('rcode changed');
+                                this.changeMapRegion(newVal[key].value);
+                            }              
                         }
                     }
             }
@@ -228,6 +218,7 @@ module StreamStats.Controllers {
 
             this.leafletData = leafletData;
             this.waitCursor = false;
+            this.showOnMap = false;
             this.sideBarCollapsed = false;
             this.applicationURL = configuration.baseurls['application'];
             this.servicesBaseURL = configuration.baseurls['services'];
@@ -246,31 +237,43 @@ module StreamStats.Controllers {
 
         //Methods
         //-+-+-+-+-+-+-+-+-+-+-+-
-        /*
-        public loadURL() {
-            var newURL = this.$filter("makeURL")(this.selectedUri)
-            
-            this.Resource.getURL(newURL,this.selectedMedia) 
-                .then(
-                    (response: any) => {
-                        this.requestResults = response.data;
-                },(error) => {
-                    this.requestResults = "("+error.status+") "+ error.data;
-                }).finally(() => {
-                    this.waitCursor=false;                    
-                });
+        private changeMapRegion(region: string) {
+
+            this.leafletData.getMap().then((map: any) => {
+                console.log('getting the map for fitbounds');
+                for (var index in configuration.regions) {
+                    var value = configuration.regions[index];
+                    if (value.RegionID == region.toUpperCase()) {
+                        console.log('match found', value.RegionID + "_region", value.Bounds);
+                        map.fitBounds(value.Bounds);
+                    }
+                }
+            });
         }
-        */
 
         public loadURL() {
 
             this.waitCursor = true;
+            this.showOnMap = false;
 
-            var url = configuration.queryparams['SSdelineation'].format(this.studyArea.rcode, this.studyArea.lng.toString(),
-                this.studyArea.lat.toString(), "4326", false)
+            //get values for lat, lng, and rcode from form
+            for (var key in this.selectedUri.parameters) {
+                if (this.selectedUri.parameters[key].name == 'rcode') {
+                    var region = this.selectedUri.parameters[key].value;
+                }
+                if (this.selectedUri.parameters[key].name == 'xlocation') {
+                    var lng = this.selectedUri.parameters[key].value;
+                }
+                if (this.selectedUri.parameters[key].name == 'ylocation') {
+                    var lat = this.selectedUri.parameters[key].value;
+                }
+            }
+
+            var url = configuration.queryparams['SSdelineation'].format(region, lng.toString(),
+                lat.toString(), "4326", false)
             
             //clear study area
-            this.studyArea = new studyArea(this.studyArea.rcode);
+            this.studyArea = new studyArea(region, Number(lat), Number(lng));
 
             this.Resource.getURL(url,"JSON").then(
                 (response: any) => {
@@ -281,8 +284,9 @@ module StreamStats.Controllers {
                         //sm when error
                     }).finally(() => {
                         this.waitCursor = false;
+                        this.showOnMap = true;
                     });
-                }
+        }
 
         private showResultsOnMap() {
 
@@ -292,13 +296,18 @@ module StreamStats.Controllers {
 
             if (!this.studyArea.features) return;
 
+            var lat = this.studyArea.lat;
+            var lng = this.studyArea.lng;
+            var rcode = this.studyArea.rcode;
+            var workspaceID = this.studyArea.workspaceID;
+
             this.studyArea.features.forEach((item) => {
                 this.geojson[item.name] = {
                     data: item.feature
                 }
 
                 //do layer styling or labelling here
-                if (item.name == 'delineatedbasin(simplified)') {
+                if (item.name == 'globalwatershed') {
                     this.geojson[item.name].style = {
                         fillColor: "yellow",
                         weight: 2,
@@ -308,12 +317,13 @@ module StreamStats.Controllers {
                     }
                 }
 
-                else if (item.name == 'pourpoint') {
+                else if (item.name == 'globalwatershedpoint') {
                     this.geojson[item.name].onEachFeature = function (feature, layer) {
-                        var popupContent = '';
+                        var popupContent = '<strong>Latitude: </strong>' + lat + '</br><strong>Longitude: </strong>' + lng + '</br><strong>Region: </strong>' + rcode + '</br><strong>WorkspaceID: </strong>' + workspaceID + '</br>';
                         angular.forEach(feature.properties, function (value, key) {
                             popupContent += '<strong>' + key + ': </strong>' + value + '</br>';
                         });
+                        
                         layer.bindPopup(popupContent);
                     }
                 }
@@ -332,6 +342,7 @@ module StreamStats.Controllers {
        
         //Helper Methods
         //-+-+-+-+-+-+-+-+-+-+-+-
+
         private initMap(): void { 
             //init map
             this.center = new Center(39, -100, 4);
@@ -344,43 +355,7 @@ module StreamStats.Controllers {
             this.markers = {};
             this.geojson = {};
             L.Icon.Default.imagePath = './images';
-        }
-
-        private removeOverlayLayers(name: string, isPartial: boolean = false) {
-            var layeridList: Array<string>;
-
-            layeridList = this.getLayerIdsByID(name, this.layers.overlays, isPartial);
-            layeridList.forEach((item) => { delete this.layers.overlays[item] });
-        }
-        private getLayerIdsByID(id: string, layerObj: Object, isPartial: boolean): Array<string> {
-            var layeridList: Array<string> = [];
-
-            for (var variable in layerObj) {
-                if (isPartial ? (variable.indexOf(id) > -1) : (variable === id)) {
-                    layeridList.push(variable);
-                }
-            }//next variable
-            return layeridList;
-        }
-        private sm(msg: string) {
-            try {
-                //toastr.options = {
-                //    positionClass: "toast-bottom-right"
-                //};
-
-                //this.NotificationList.unshift(new LogEntry(msg.msg, msg.type));
-
-                //setTimeout(() => {
-                //    toastr[msg.type](msg.msg);
-                //    if (msg.ShowWaitCursor != undefined)
-                //        this.IsLoading(msg.ShowWaitCursor)
-                //}, 0)
-            }
-            catch (e) {
-            }
-        }
-
-  
+        } 
     }//end class
 
     angular.module('StreamStats.Controllers')

@@ -182,28 +182,21 @@ configuration.resources =
     ]
 configuration.basemaps =
 {
-    "mapquestOSM": {
-        "name": "Mapquest Streets",
-        "url": "http://{s}.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png",
-        "visible": false,
-        "type": 'xyz',
-        "layerOptions": {
-            "maxZoom": 19,
-            "subdomains": ['otile1', 'otile2', 'otile3', 'otile4'],
-            "attribution": "Tiles courtesy of <a href='http://www.mapquest.com/' target='_blank'>MapQuest</a> <img src='http://developer.mapquest.com/content/osm/mq_logo.png'>. Map data (c) <a href='http://www.openstreetmap.org/' target='_blank'>OpenStreetMap</a> contributors, CC-BY-SA."
-        }
+    national: {
+        name: "National Geographic",
+        type: "agsBase",
+        layer: "NationalGeographic",
+        visible: true
+    },
+    streets: {
+        name: "Streets",
+        type: "agsBase",
+        layer: "Streets",
+        visible: false
     }
 }// end baselayer
 configuration.overlayedLayers = {
-    "SSLayer": {
-        "name": "Implementated Regions",
-        "url": configuration.baseurls['StreamStats'] + "/arcgis/rest/services/ss_studyAreas_prod/MapServer",
-        "type": 'agsDynamic',
-        "visible": true,
-        "layerOptions": {
-            "opacity": 0.5
-        }
-    }   
+  
 }//end overlayedLayers
 configuration.regions = [
     { "RegionID": "AL", "Name": "Alabama", "Bounds": [[30.189622, -88.47203], [35.00888, -84.893486]] },

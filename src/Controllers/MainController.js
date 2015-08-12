@@ -44,8 +44,10 @@ var StreamStats;
         var studyArea = (function () {
             //Constructor
             //-+-+-+-+-+-+-+-+-+-+-+-
-            function studyArea(rcode) {
+            function studyArea(rcode, lat, lng) {
                 this.rcode = rcode;
+                this.lat = lat;
+                this.lng = lng;
             }
             return studyArea;
         })();
@@ -84,12 +86,12 @@ var StreamStats;
                 });
                 //manage map cursor
                 $scope.$on('leafletDirectiveMap.zoomend', function (event, args) {
-                    console.log('map zoom changed', args.leafletEvent.target._animateToZoom, 15);
+                    //console.log('map zoom changed', args.leafletEvent.target._animateToZoom, 15);
                     (args.leafletEvent.target._animateToZoom >= 15) ? _this.cursorStyle = 'crosshair' : _this.cursorStyle = 'hand';
                 });
                 //check for map load
                 $scope.$on('leafletDirectiveMap.load', function (event, args) {
-                    console.log('map loaded');
+                    //console.log('map loaded');
                 });
                 //watch for changes to rcode only
                 $scope.$watch(function () { return _this.selectedUri.parameters; }, function (newVal, oldVal) {
@@ -99,27 +101,16 @@ var StreamStats;
                             //make sure there is a value
                             if (_this.selectedUri.parameters.hasOwnProperty(key)) {
                                 //if oldval doesnt exists were on first page load
-                                if (oldVal.length == 0) {
+                                if ((oldVal.length == 0) && (_this.selectedUri.parameters[key].name == "rcode")) {
                                     console.log('first page load');
-                                    _this.studyArea = new studyArea(newVal[0].value);
-                                    //do something here
-                                    _this.leafletData.getMap().then(function (map) {
-                                        console.log('getting the map for fitbounds');
-                                        for (var index in configuration.regions) {
-                                            var value = configuration.regions[index];
-                                            if (value.RegionID == newVal[0].value.toUpperCase()) {
-                                                console.log('match found', value.RegionID + "_region", value.Bounds);
-                                                map.fitBounds(value.Bounds);
-                                                _this.layers.overlays[value.RegionID + "_region"] = new Layer(value.RegionID + " Region", configuration.baseurls['StreamStats'] + "/arcgis/rest/services/{0}_ss/MapServer".format(value.RegionID.toLowerCase()), "agsDynamic", true, { "opacity": 0.5 });
-                                            }
-                                        }
-                                    });
-                                    return;
+                                    //create new studyArea object
+                                    //this.studyArea = new studyArea(newVal[0].value);
+                                    _this.changeMapRegion(newVal[0].value);
                                 }
-                                if ((_this.selectedUri.parameters[key].name == "rcode") && (newVal[key].value != oldVal[key].value)) {
-                                    console.log(newVal[key].value);
-                                    //clear overlays
-                                    _this.layers.overlays = new Layer('', '', '', true);
+                                else if ((_this.selectedUri.parameters[key].name == "rcode") && (newVal[key].value != oldVal[key].value)) {
+                                    //this.studyArea = new studyArea(newVal[key].value);
+                                    console.log('rcode changed');
+                                    _this.changeMapRegion(newVal[key].value);
                                 }
                             }
                         }
@@ -127,6 +118,7 @@ var StreamStats;
                 }, true);
                 this.leafletData = leafletData;
                 this.waitCursor = false;
+                this.showOnMap = false;
                 this.sideBarCollapsed = false;
                 this.applicationURL = configuration.baseurls['application'];
                 this.servicesBaseURL = configuration.baseurls['services'];
@@ -142,27 +134,36 @@ var StreamStats;
             }
             //Methods
             //-+-+-+-+-+-+-+-+-+-+-+-
-            /*
-            public loadURL() {
-                var newURL = this.$filter("makeURL")(this.selectedUri)
-                
-                this.Resource.getURL(newURL,this.selectedMedia)
-                    .then(
-                        (response: any) => {
-                            this.requestResults = response.data;
-                    },(error) => {
-                        this.requestResults = "("+error.status+") "+ error.data;
-                    }).finally(() => {
-                        this.waitCursor=false;
-                    });
-            }
-            */
+            MainController.prototype.changeMapRegion = function (region) {
+                this.leafletData.getMap().then(function (map) {
+                    console.log('getting the map for fitbounds');
+                    for (var index in configuration.regions) {
+                        var value = configuration.regions[index];
+                        if (value.RegionID == region.toUpperCase()) {
+                            console.log('match found', value.RegionID + "_region", value.Bounds);
+                            map.fitBounds(value.Bounds);
+                        }
+                    }
+                });
+            };
             MainController.prototype.loadURL = function () {
                 var _this = this;
                 this.waitCursor = true;
-                var url = configuration.queryparams['SSdelineation'].format(this.studyArea.rcode, this.studyArea.lng.toString(), this.studyArea.lat.toString(), "4326", false);
+                this.showOnMap = false;
+                for (var key in this.selectedUri.parameters) {
+                    if (this.selectedUri.parameters[key].name == 'rcode') {
+                        var region = this.selectedUri.parameters[key].value;
+                    }
+                    if (this.selectedUri.parameters[key].name == 'xlocation') {
+                        var lng = this.selectedUri.parameters[key].value;
+                    }
+                    if (this.selectedUri.parameters[key].name == 'ylocation') {
+                        var lat = this.selectedUri.parameters[key].value;
+                    }
+                }
+                var url = configuration.queryparams['SSdelineation'].format(region, lng.toString(), lat.toString(), "4326", false);
                 //clear study area
-                this.studyArea = new studyArea(this.studyArea.rcode);
+                this.studyArea = new studyArea(region, Number(lat), Number(lng));
                 this.Resource.getURL(url, "JSON").then(function (response) {
                     _this.studyArea.features = response.data.hasOwnProperty("featurecollection") ? response.data["featurecollection"] : null;
                     _this.studyArea.workspaceID = response.data.hasOwnProperty("workspaceID") ? response.data["workspaceID"] : null;
@@ -171,6 +172,7 @@ var StreamStats;
                     //sm when error
                 }).finally(function () {
                     _this.waitCursor = false;
+                    _this.showOnMap = true;
                 });
             };
             MainController.prototype.showResultsOnMap = function () {
@@ -179,12 +181,16 @@ var StreamStats;
                 console.log('features returned: ', this.studyArea.features);
                 if (!this.studyArea.features)
                     return;
+                var lat = this.studyArea.lat;
+                var lng = this.studyArea.lng;
+                var rcode = this.studyArea.rcode;
+                var workspaceID = this.studyArea.workspaceID;
                 this.studyArea.features.forEach(function (item) {
                     _this.geojson[item.name] = {
                         data: item.feature
                     };
                     //do layer styling or labelling here
-                    if (item.name == 'delineatedbasin(simplified)') {
+                    if (item.name == 'globalwatershed') {
                         _this.geojson[item.name].style = {
                             fillColor: "yellow",
                             weight: 2,
@@ -193,9 +199,9 @@ var StreamStats;
                             fillOpacity: 0.5
                         };
                     }
-                    else if (item.name == 'pourpoint') {
+                    else if (item.name == 'globalwatershedpoint') {
                         _this.geojson[item.name].onEachFeature = function (feature, layer) {
-                            var popupContent = '';
+                            var popupContent = '<strong>Latitude: </strong>' + lat + '</br><strong>Longitude: </strong>' + lng + '</br><strong>Region: </strong>' + rcode + '</br><strong>WorkspaceID: </strong>' + workspaceID + '</br>';
                             angular.forEach(feature.properties, function (value, key) {
                                 popupContent += '<strong>' + key + ': </strong>' + value + '</br>';
                             });
@@ -226,30 +232,6 @@ var StreamStats;
                 this.markers = {};
                 this.geojson = {};
                 L.Icon.Default.imagePath = './images';
-            };
-            MainController.prototype.removeOverlayLayers = function (name, isPartial) {
-                var _this = this;
-                if (isPartial === void 0) { isPartial = false; }
-                var layeridList;
-                layeridList = this.getLayerIdsByID(name, this.layers.overlays, isPartial);
-                layeridList.forEach(function (item) {
-                    delete _this.layers.overlays[item];
-                });
-            };
-            MainController.prototype.getLayerIdsByID = function (id, layerObj, isPartial) {
-                var layeridList = [];
-                for (var variable in layerObj) {
-                    if (isPartial ? (variable.indexOf(id) > -1) : (variable === id)) {
-                        layeridList.push(variable);
-                    }
-                }
-                return layeridList;
-            };
-            MainController.prototype.sm = function (msg) {
-                try {
-                }
-                catch (e) {
-                }
             };
             //Constructor
             //-+-+-+-+-+-+-+-+-+-+-+-
