@@ -102,10 +102,8 @@ module StreamStats.Controllers {
         public workspaceID: string;
         //Constructor
         //-+-+-+-+-+-+-+-+-+-+-+-
-        constructor(rcode: string, lat: number, lng: number) {
+        constructor(rcode: string) {
             this.rcode = rcode;
-            this.lat = lat;
-            this.lng = lng;
         }
     }   
     
@@ -150,7 +148,6 @@ module StreamStats.Controllers {
 
             //update lat lng on click
             $scope.$on('leafletDirectiveMap.click',(event, args) => {
-
                 var latlng = args.leafletEvent.latlng;
                 this.studyArea.lat = latlng.lat;
                 this.studyArea.lng = latlng.lng;
@@ -182,11 +179,6 @@ module StreamStats.Controllers {
                 //console.log('map loaded');
             });
 
-            //watch for changes to rcode only
-      
-            console.log('here5');
-            //this.makeRequestURL();
-
             $scope.$watch(() => this.selectedUri.parameters,(newVal, oldVal) => {
 
                 this.makeRequestURL();
@@ -203,16 +195,14 @@ module StreamStats.Controllers {
                                 console.log('first page load');
                             
                                 //create new studyArea object
-                                //this.studyArea = new studyArea(newVal[0].value);
+                                this.studyArea = new studyArea(newVal[0].value);
                                 this.changeMapRegion(newVal[0].value);
-                                //this.removeOverlayLayers("_region", true)
-                                //this.addRegionOverlayLayers(this.studyArea.rcode);  
                             }
 
                             //change studyArea
                             else if ((this.selectedUri.parameters[key].name == "rcode") && (newVal[key].value != oldVal[key].value)) {
 
-                                //this.studyArea = new studyArea(newVal[key].value);
+                                this.studyArea = new studyArea(newVal[key].value);
                                 console.log('rcode changed');
                                 this.changeMapRegion(newVal[key].value);
                             }
@@ -294,7 +284,7 @@ module StreamStats.Controllers {
                     lat.toString(), "4326", false)
             
                 //clear study area
-                this.studyArea = new studyArea(region, Number(lat), Number(lng));
+                //this.studyArea = new studyArea(region, Number(lat), Number(lng));
 
                 this.Resource.getURL(url, "JSON").then(
                     (response: any) => {
