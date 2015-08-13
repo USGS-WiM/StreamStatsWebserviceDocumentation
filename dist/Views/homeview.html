@@ -46,8 +46,7 @@
                 <h4>{{vm.selectedResource.name}}</h4>
                 <div class="well">{{ vm.selectedResource.description }}</div>
             </div>
-            {{vm.selectedUri}}
-            <div style="padding:10px;" class="panel" ng-show="vm.selectedUri">
+            <div style="padding:10px;" class="panel" ng-if="vm.selectedUri && vm.selectedUri.uri">
 
                 <h4>Service Description</h4>
                 <div class="well">{{ vm.selectedUri.description }}</div>
@@ -84,7 +83,8 @@
                 <div class="well">
                    
                     <p><i>Updated based on parameters above</i></p>
-                    <p><a href="{{vm.servicesBaseURL}}{{vm.selectedUri | makeURL}}" target="_blank">{{vm.servicesBaseURL}}{{vm.selectedUri.newURL}}</a></p>
+
+                    <p><a href="{{vm.servicesBaseURL}}{{vm.selectedUri.newURL}}" target="_blank">{{vm.servicesBaseURL}}{{vm.selectedUri.newURL}}</a></p>
                     <p>
                         <div class="btn-toolbar" role="toolbar" aria-label="...">
                             <button ng-click="vm.loadURL()" type="button" class="btn btn-primary btn-sm"><i class="fa fa-refresh" ng-class="(vm.waitCursor) ? 'fa-spin' : ''"></i>&nbsp;&nbsp;Load response in {{vm.selectedUri.selectedMedia}} format</button>
@@ -95,7 +95,7 @@
 
                     <div class="panel panel-default">
                       <div class="panel-body">                          
-                          <json-formatter ng-show="vm.studyArea.features" json="vm.studyArea.features" open="1"></json-formatter> 
+                          <json-formatter ng-show="vm.requestResults" json="vm.requestResults" open="1"></json-formatter> 
                       </div>
                     </div>
                 </div>

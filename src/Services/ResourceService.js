@@ -77,11 +77,14 @@ var StreamStats;
             });
             Object.defineProperty(ResourceService.prototype, "SelectedUri", {
                 get: function () {
+                    //console.log('here1');
                     return this._selectedUri;
                 },
                 set: function (v) {
-                    if (this._selectedUri == v)
+                    if ((!v) || (this._selectedUri == v))
                         return;
+                    //console.log('here', v);
+                    //if (this._selectedUri == v) return;
                     this._selectedUri = v;
                     // notify listeners
                     this._onUriChanged.raise(this, WiM.Event.EventArgs.Empty);
@@ -100,7 +103,7 @@ var StreamStats;
                 //add the study area to studyAreaList
             };
             ResourceService.prototype.getURL = function (url, selectedMedia) {
-                var request = new WiM.Services.Helpers.RequestInfo(url, 0 /* GET */, selectedMedia);
+                var request = new WiM.Services.Helpers.RequestInfo(url, WiM.Services.Helpers.methodType.GET, selectedMedia);
                 return this.Execute(request);
             };
             //Helper Methods

@@ -65,11 +65,16 @@ module StreamStats.Services {
 
         private _selectedUri: Models.IURI;
         public get SelectedUri(): Models.IURI {
+            //console.log('here1');
             return this._selectedUri;
         }
         public set SelectedUri(v: Models.IURI) {
-            if (this._selectedUri == v) return;
+            if ((!v) || (this._selectedUri == v)) return;
+
+            //console.log('here', v);
+            //if (this._selectedUri == v) return;
             this._selectedUri = v;
+
             // notify listeners
             this._onUriChanged.raise(this, WiM.Event.EventArgs.Empty);
         }
