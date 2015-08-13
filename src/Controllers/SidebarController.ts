@@ -62,7 +62,6 @@ module StreamStats.Controllers {
 
         public selectUri(r: Models.IURI) {
             this.resourceService.SelectedUri = r;
-
         }
         
        

@@ -183,9 +183,14 @@ module StreamStats.Controllers {
             });
 
             //watch for changes to rcode only
+      
+            console.log('here5');
+            //this.makeRequestURL();
+
             $scope.$watch(() => this.selectedUri.parameters,(newVal, oldVal) => {
 
-                //make sure we are on the right uri
+                this.makeRequestURL();
+
                 if (this.selectedUri.id == 'Watershed By Location') {
 
                     //loop over parameters
@@ -210,10 +215,11 @@ module StreamStats.Controllers {
                                 //this.studyArea = new studyArea(newVal[key].value);
                                 console.log('rcode changed');
                                 this.changeMapRegion(newVal[key].value);
-                            }              
+                            }
                         }
                     }
-            }
+                }
+
             }, true);
 
             this.leafletData = leafletData;
@@ -251,41 +257,71 @@ module StreamStats.Controllers {
             });
         }
 
+        public makeRequestURL() {
+            //if (!this.selectedUri) return;
+            console.log('in makeRequest URL function');
+            var inputParams = [this.selectedUri.selectedMedia];
+            for (var i = 0; i < this.selectedUri.parameters.length; i++) {
+                inputParams.push(this.selectedUri.parameters[i].value);
+            }
+            var func = this.selectedUri.uri.format;
+            var newURL = func.apply(this.selectedUri.uri, inputParams);
+            this.selectedUri.newURL = newURL;
+            return newURL.replace(/\{(.+?)\}/g, "");
+        }
+
         public loadURL() {
 
-            this.waitCursor = true;
-            this.showOnMap = false;
+            if (this.selectedUri.id == 'Watershed By Location') {
 
-            //get values for lat, lng, and rcode from form
-            for (var key in this.selectedUri.parameters) {
-                if (this.selectedUri.parameters[key].name == 'rcode') {
-                    var region = this.selectedUri.parameters[key].value;
-                }
-                if (this.selectedUri.parameters[key].name == 'xlocation') {
-                    var lng = this.selectedUri.parameters[key].value;
-                }
-                if (this.selectedUri.parameters[key].name == 'ylocation') {
-                    var lat = this.selectedUri.parameters[key].value;
-                }
-            }
+                this.waitCursor = true;
+                this.showOnMap = false;
 
-            var url = configuration.queryparams['SSdelineation'].format(region, lng.toString(),
-                lat.toString(), "4326", false)
+                //get values for lat, lng, and rcode from form
+                for (var key in this.selectedUri.parameters) {
+                    if (this.selectedUri.parameters[key].name == 'rcode') {
+                        var region = this.selectedUri.parameters[key].value;
+                    }
+                    if (this.selectedUri.parameters[key].name == 'xlocation') {
+                        var lng = this.selectedUri.parameters[key].value;
+                    }
+                    if (this.selectedUri.parameters[key].name == 'ylocation') {
+                        var lat = this.selectedUri.parameters[key].value;
+                    }
+                }
+
+                var url = configuration.queryparams['SSdelineation'].format(region, lng.toString(),
+                    lat.toString(), "4326", false)
             
-            //clear study area
-            this.studyArea = new studyArea(region, Number(lat), Number(lng));
+                //clear study area
+                this.studyArea = new studyArea(region, Number(lat), Number(lng));
 
-            this.Resource.getURL(url,"JSON").then(
-                (response: any) => {
-                    this.studyArea.features = response.data.hasOwnProperty("featurecollection") ? response.data["featurecollection"] : null;
-                    this.studyArea.workspaceID = response.data.hasOwnProperty("workspaceID") ? response.data["workspaceID"] : null;
-                    //sm when complete
+                this.Resource.getURL(url, "JSON").then(
+                    (response: any) => {
+                        this.requestResults = response.data;
+                        this.studyArea.features = response.data.hasOwnProperty("featurecollection") ? response.data["featurecollection"] : null;
+                        this.studyArea.workspaceID = response.data.hasOwnProperty("workspaceID") ? response.data["workspaceID"] : null;
+                        //sm when complete
                     },(error) => {
                         //sm when error
                     }).finally(() => {
-                        this.waitCursor = false;
-                        this.showOnMap = true;
-                    });
+                    this.waitCursor = false;
+                    this.showOnMap = true;
+                });
+            }
+
+            else {
+                this.waitCursor = true;
+                this.Resource.getURL(this.selectedUri.newURL, this.selectedMedia)
+                    .then(
+                    (response: any) => {
+                        this.requestResults = response.data;
+                    },(error) => {
+                        this.requestResults = "(" + error.status + ") " + error.data;
+                    }).finally(() => {
+                    this.waitCursor = false;
+                });
+            }
         }
 
         private showResultsOnMap() {

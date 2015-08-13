@@ -94,8 +94,10 @@ var StreamStats;
                     //console.log('map loaded');
                 });
                 //watch for changes to rcode only
+                console.log('here5');
+                //this.makeRequestURL();
                 $scope.$watch(function () { return _this.selectedUri.parameters; }, function (newVal, oldVal) {
-                    //make sure we are on the right uri
+                    _this.makeRequestURL();
                     if (_this.selectedUri.id == 'Watershed By Location') {
                         for (var key in _this.selectedUri.parameters) {
                             //make sure there is a value
@@ -146,34 +148,59 @@ var StreamStats;
                     }
                 });
             };
+            MainController.prototype.makeRequestURL = function () {
+                //if (!this.selectedUri) return;
+                console.log('in makeRequest URL function');
+                var inputParams = [this.selectedUri.selectedMedia];
+                for (var i = 0; i < this.selectedUri.parameters.length; i++) {
+                    inputParams.push(this.selectedUri.parameters[i].value);
+                }
+                var func = this.selectedUri.uri.format;
+                var newURL = func.apply(this.selectedUri.uri, inputParams);
+                this.selectedUri.newURL = newURL;
+                return newURL.replace(/\{(.+?)\}/g, "");
+            };
             MainController.prototype.loadURL = function () {
                 var _this = this;
-                this.waitCursor = true;
-                this.showOnMap = false;
-                for (var key in this.selectedUri.parameters) {
-                    if (this.selectedUri.parameters[key].name == 'rcode') {
-                        var region = this.selectedUri.parameters[key].value;
+                if (this.selectedUri.id == 'Watershed By Location') {
+                    this.waitCursor = true;
+                    this.showOnMap = false;
+                    for (var key in this.selectedUri.parameters) {
+                        if (this.selectedUri.parameters[key].name == 'rcode') {
+                            var region = this.selectedUri.parameters[key].value;
+                        }
+                        if (this.selectedUri.parameters[key].name == 'xlocation') {
+                            var lng = this.selectedUri.parameters[key].value;
+                        }
+                        if (this.selectedUri.parameters[key].name == 'ylocation') {
+                            var lat = this.selectedUri.parameters[key].value;
+                        }
                     }
-                    if (this.selectedUri.parameters[key].name == 'xlocation') {
-                        var lng = this.selectedUri.parameters[key].value;
-                    }
-                    if (this.selectedUri.parameters[key].name == 'ylocation') {
-                        var lat = this.selectedUri.parameters[key].value;
-                    }
+                    var url = configuration.queryparams['SSdelineation'].format(region, lng.toString(), lat.toString(), "4326", false);
+                    //clear study area
+                    this.studyArea = new studyArea(region, Number(lat), Number(lng));
+                    this.Resource.getURL(url, "JSON").then(function (response) {
+                        _this.requestResults = response.data;
+                        _this.studyArea.features = response.data.hasOwnProperty("featurecollection") ? response.data["featurecollection"] : null;
+                        _this.studyArea.workspaceID = response.data.hasOwnProperty("workspaceID") ? response.data["workspaceID"] : null;
+                        //sm when complete
+                    }, function (error) {
+                        //sm when error
+                    }).finally(function () {
+                        _this.waitCursor = false;
+                        _this.showOnMap = true;
+                    });
                 }
-                var url = configuration.queryparams['SSdelineation'].format(region, lng.toString(), lat.toString(), "4326", false);
-                //clear study area
-                this.studyArea = new studyArea(region, Number(lat), Number(lng));
-                this.Resource.getURL(url, "JSON").then(function (response) {
-                    _this.studyArea.features = response.data.hasOwnProperty("featurecollection") ? response.data["featurecollection"] : null;
-                    _this.studyArea.workspaceID = response.data.hasOwnProperty("workspaceID") ? response.data["workspaceID"] : null;
-                    //sm when complete
-                }, function (error) {
-                    //sm when error
-                }).finally(function () {
-                    _this.waitCursor = false;
-                    _this.showOnMap = true;
-                });
+                else {
+                    this.waitCursor = true;
+                    this.Resource.getURL(this.selectedUri.newURL, this.selectedMedia).then(function (response) {
+                        _this.requestResults = response.data;
+                    }, function (error) {
+                        _this.requestResults = "(" + error.status + ") " + error.data;
+                    }).finally(function () {
+                        _this.waitCursor = false;
+                    });
+                }
             };
             MainController.prototype.showResultsOnMap = function () {
                 var _this = this;

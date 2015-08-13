@@ -44,7 +44,6 @@
     <TypeScriptCompile Include="src\Controllers\MainController.ts" />
     <TypeScriptCompile Include="src\Controllers\NavbarController.ts" />
     <TypeScriptCompile Include="src\Controllers\SidebarController.ts" />
-    <TypeScriptCompile Include="src\Filters\Filters.ts" />
     <TypeScriptCompile Include="src\Models\Method.ts" />
     <TypeScriptCompile Include="src\Models\model.module.ts" />
     <TypeScriptCompile Include="src\Models\Resource.ts" />
