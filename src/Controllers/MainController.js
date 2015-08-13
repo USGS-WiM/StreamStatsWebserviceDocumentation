@@ -44,10 +44,8 @@ var StreamStats;
         var studyArea = (function () {
             //Constructor
             //-+-+-+-+-+-+-+-+-+-+-+-
-            function studyArea(rcode, lat, lng) {
+            function studyArea(rcode) {
                 this.rcode = rcode;
-                this.lat = lat;
-                this.lng = lng;
             }
             return studyArea;
         })();
@@ -93,9 +91,6 @@ var StreamStats;
                 $scope.$on('leafletDirectiveMap.load', function (event, args) {
                     //console.log('map loaded');
                 });
-                //watch for changes to rcode only
-                console.log('here5');
-                //this.makeRequestURL();
                 $scope.$watch(function () { return _this.selectedUri.parameters; }, function (newVal, oldVal) {
                     _this.makeRequestURL();
                     if (_this.selectedUri.id == 'Watershed By Location') {
@@ -106,11 +101,11 @@ var StreamStats;
                                 if ((oldVal.length == 0) && (_this.selectedUri.parameters[key].name == "rcode")) {
                                     console.log('first page load');
                                     //create new studyArea object
-                                    //this.studyArea = new studyArea(newVal[0].value);
+                                    _this.studyArea = new studyArea(newVal[0].value);
                                     _this.changeMapRegion(newVal[0].value);
                                 }
                                 else if ((_this.selectedUri.parameters[key].name == "rcode") && (newVal[key].value != oldVal[key].value)) {
-                                    //this.studyArea = new studyArea(newVal[key].value);
+                                    _this.studyArea = new studyArea(newVal[key].value);
                                     console.log('rcode changed');
                                     _this.changeMapRegion(newVal[key].value);
                                 }
@@ -178,7 +173,7 @@ var StreamStats;
                     }
                     var url = configuration.queryparams['SSdelineation'].format(region, lng.toString(), lat.toString(), "4326", false);
                     //clear study area
-                    this.studyArea = new studyArea(region, Number(lat), Number(lng));
+                    //this.studyArea = new studyArea(region, Number(lat), Number(lng));
                     this.Resource.getURL(url, "JSON").then(function (response) {
                         _this.requestResults = response.data;
                         _this.studyArea.features = response.data.hasOwnProperty("featurecollection") ? response.data["featurecollection"] : null;
