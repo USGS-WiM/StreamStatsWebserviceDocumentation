@@ -1,5 +1,5 @@
 ﻿//------------------------------------------------------------------------------
-//----- SidebarController ------------------------------------------------------
+//----- MainController ------------------------------------------------------
 //------------------------------------------------------------------------------
 
 //-------1---------2---------3---------4---------5---------6---------7---------8
@@ -142,9 +142,28 @@ module StreamStats.Controllers {
         //-+-+-+-+-+-+-+-+-+-+-+-
         static $inject = ['$scope', '$filter', 'StreamStats.Services.ResourceService', 'leafletBoundsHelpers', 'leafletData'];
         constructor($scope: IMainControllerScope, private $filter, private Resource: Services.IResourceService, leafletBoundsHelper: any, leafletData: ILeafletData) {
-            $scope.vm = this;
-            this.initMap();
+            $scope.vm = this;         
             this.selectedUri = new StreamStats.Models.URI('');
+            this.waitCursor = false;
+            this.sideBarCollapsed = false;
+            this.applicationURL = configuration.baseurls['application'];
+            this.servicesBaseURL = configuration.baseurls['services'];
+            this._onSelectedResourceHandler = new WiM.Event.EventHandler<WiM.Event.EventArgs>(() => {
+                this.selectedResource = Resource.SelectedResource;
+            });
+            Resource.onResourceChanged.subscribe(this._onSelectedResourceHandler);
+
+            this._onSelectedUriHandler = new WiM.Event.EventHandler<WiM.Event.EventArgs>(() => {
+                this.selectedUri = Resource.SelectedUri;
+                this.requestResults = ""
+            });
+            Resource.onUriChanged.subscribe(this._onSelectedUriHandler);             
+            
+            //MAP STUFF
+            //-+-+-+-+-+-+-+-+-+-+-+-
+            this.initMap();
+            this.leafletData = leafletData;
+            this.showOnMap = false;
 
             //update lat lng on click
             $scope.$on('leafletDirectiveMap.click',(event, args) => {
@@ -168,15 +187,13 @@ module StreamStats.Controllers {
                 }
             });
 
-            //manage map cursor
             $scope.$on('leafletDirectiveMap.zoomend',(event, args) => {
-                //console.log('map zoom changed', args.leafletEvent.target._animateToZoom, 15);
-                (args.leafletEvent.target._animateToZoom >= 15) ? this.cursorStyle = 'crosshair' : this.cursorStyle = 'hand'
+                console.log('map zoom changed', args.leafletEvent.target._animateToZoom, 15, this.cursorStyle);
+                (args.leafletEvent.target._animateToZoom > 14) ? this.cursorStyle = 'crosshair' : this.cursorStyle = 'hand'
             });
 
-            //check for map load
-            $scope.$on('leafletDirectiveMap.load',(event, args) => {
-                //console.log('map loaded');
+            $scope.$watch(() => this.selectedUri.selectedMedia,(newVal, oldVal) => {
+                this.makeRequestURL();
             });
 
             $scope.$watch(() => this.selectedUri.parameters,(newVal, oldVal) => {
@@ -185,56 +202,67 @@ module StreamStats.Controllers {
 
                 if (this.selectedUri.id == 'Watershed By Location') {
 
-                    //loop over parameters
                     for (var key in this.selectedUri.parameters) {
-                        //make sure there is a value
-                        if (this.selectedUri.parameters.hasOwnProperty(key)) {
 
-                            //if oldval doesnt exists were on first page load
-                            if ((oldVal.length == 0) && (this.selectedUri.parameters[key].name == "rcode")) {
+                        //if oldval doesnt exists were on first page load
+                        if (this.selectedUri.parameters[key].name == "rcode") {
+
+                            //if there isn't a study area
+                            if (!this.studyArea) {
                                 console.log('first page load');
-                            
-                                //create new studyArea object
-                                this.studyArea = new studyArea(newVal[0].value);
-                                this.changeMapRegion(newVal[0].value);
+                                this.studyArea = new studyArea(this.selectedUri.parameters[key].value);
+                                this.changeMapRegion(this.selectedUri.parameters[key].value);
                             }
 
-                            //change studyArea
-                            else if ((this.selectedUri.parameters[key].name == "rcode") && (newVal[key].value != oldVal[key].value)) {
-
-                                this.studyArea = new studyArea(newVal[key].value);
+                            //otherwise change studyArea
+                            else if (this.studyArea.rcode != this.selectedUri.parameters[key].value) {
                                 console.log('rcode changed');
+                                this.studyArea = new studyArea(newVal[key].value);
                                 this.changeMapRegion(newVal[key].value);
                             }
                         }
                     }
                 }
-
             }, true);
 
-            this.leafletData = leafletData;
-            this.waitCursor = false;
-            this.showOnMap = false;
-            this.sideBarCollapsed = false;
-            this.applicationURL = configuration.baseurls['application'];
-            this.servicesBaseURL = configuration.baseurls['services'];
-            this._onSelectedResourceHandler = new WiM.Event.EventHandler<WiM.Event.EventArgs>(() => {
-                this.selectedResource = Resource.SelectedResource;
-            });
-            Resource.onResourceChanged.subscribe(this._onSelectedResourceHandler);   
-
-            this._onSelectedUriHandler = new WiM.Event.EventHandler<WiM.Event.EventArgs>(() => {
-                this.selectedUri = Resource.SelectedUri;
-                this.requestResults = ""
-            });
-            Resource.onUriChanged.subscribe(this._onSelectedUriHandler);             
-            
         }
 
         //Methods
         //-+-+-+-+-+-+-+-+-+-+-+-
-        private changeMapRegion(region: string) {
+        public loadResponse() {
 
+            this.waitCursor = true;
+            this.showOnMap = false;
+            this.requestResults = '';
+
+            this.Resource.getURL(this.selectedUri.newURL, this.selectedMedia)
+                .then(
+                (response: any) => {
+                    this.requestResults = response.data;
+                },(error) => {
+                    this.requestResults = "(" + error.status + ") " + error.data;
+                }).finally(() => {
+                this.waitCursor = false;
+                this.showOnMap = true;
+            });
+        }
+
+        public makeRequestURL() {
+            console.log('in makeRequest URL function');
+            var inputParams = [this.selectedUri.selectedMedia];
+            for (var i = 0; i < this.selectedUri.parameters.length; i++) {
+                inputParams.push(this.selectedUri.parameters[i].value);
+            }
+            var func = this.selectedUri.uri.format;
+            var newURL = func.apply(this.selectedUri.uri, inputParams);
+            this.selectedUri.newURL = newURL;
+            return newURL.replace(/\{(.+?)\}/g, "");
+        }
+
+
+        //MAP STUFF
+        //-+-+-+-+-+-+-+-+-+-+-+-
+        private changeMapRegion(region: string) {
             this.leafletData.getMap().then((map: any) => {
                 console.log('getting the map for fitbounds');
                 for (var index in configuration.regions) {
@@ -247,78 +275,14 @@ module StreamStats.Controllers {
             });
         }
 
-        public makeRequestURL() {
-            //if (!this.selectedUri) return;
-            console.log('in makeRequest URL function');
-            var inputParams = [this.selectedUri.selectedMedia];
-            for (var i = 0; i < this.selectedUri.parameters.length; i++) {
-                inputParams.push(this.selectedUri.parameters[i].value);
-            }
-            var func = this.selectedUri.uri.format;
-            var newURL = func.apply(this.selectedUri.uri, inputParams);
-            this.selectedUri.newURL = newURL;
-            return newURL.replace(/\{(.+?)\}/g, "");
-        }
+        private showResponseOnMap() {
 
-        public loadURL() {
+            this.studyArea.features = this.requestResults.hasOwnProperty("featurecollection") ? this.requestResults["featurecollection"] : null;
+            this.studyArea.workspaceID = this.requestResults.hasOwnProperty("workspaceID") ? this.requestResults["workspaceID"] : null;
 
-            if (this.selectedUri.id == 'Watershed By Location') {
-
-                this.waitCursor = true;
-                this.showOnMap = false;
-
-                //get values for lat, lng, and rcode from form
-                for (var key in this.selectedUri.parameters) {
-                    if (this.selectedUri.parameters[key].name == 'rcode') {
-                        var region = this.selectedUri.parameters[key].value;
-                    }
-                    if (this.selectedUri.parameters[key].name == 'xlocation') {
-                        var lng = this.selectedUri.parameters[key].value;
-                    }
-                    if (this.selectedUri.parameters[key].name == 'ylocation') {
-                        var lat = this.selectedUri.parameters[key].value;
-                    }
-                }
-
-                var url = configuration.queryparams['SSdelineation'].format(region, lng.toString(),
-                    lat.toString(), "4326", false)
-            
-                //clear study area
-                //this.studyArea = new studyArea(region, Number(lat), Number(lng));
-
-                this.Resource.getURL(url, "JSON").then(
-                    (response: any) => {
-                        this.requestResults = response.data;
-                        this.studyArea.features = response.data.hasOwnProperty("featurecollection") ? response.data["featurecollection"] : null;
-                        this.studyArea.workspaceID = response.data.hasOwnProperty("workspaceID") ? response.data["workspaceID"] : null;
-                        //sm when complete
-                    },(error) => {
-                        //sm when error
-                    }).finally(() => {
-                    this.waitCursor = false;
-                    this.showOnMap = true;
-                });
-            }
-
-            else {
-                this.waitCursor = true;
-                this.Resource.getURL(this.selectedUri.newURL, this.selectedMedia)
-                    .then(
-                    (response: any) => {
-                        this.requestResults = response.data;
-                    },(error) => {
-                        this.requestResults = "(" + error.status + ") " + error.data;
-                    }).finally(() => {
-                    this.waitCursor = false;
-                });
-            }
-        }
-
-        private showResultsOnMap() {
-
+            //clear out this.markers
+            this.markers = {};
             this.geojson = {};
-
-            console.log('features returned: ', this.studyArea.features);
 
             if (!this.studyArea.features) return;
 
@@ -353,24 +317,16 @@ module StreamStats.Controllers {
                         layer.bindPopup(popupContent);
                     }
                 }
-            });
-
-            //clear out this.markers
-            this.markers = {};
-
-            //console.log(JSON.stringify(this.geojson));    
+            });            
+  
             var bbox = this.geojson['globalwatershed'].data.features[0].bbox;
             console.log(bbox);
             this.leafletData.getMap().then((map: any) => {
                 map.fitBounds([[bbox[1], bbox[0]], [bbox[3], bbox[2]]]);
             });
         }
-       
-        //Helper Methods
-        //-+-+-+-+-+-+-+-+-+-+-+-
 
-        private initMap(): void { 
-            //init map
+        private initMap(): void {
             this.center = new Center(39, -100, 4);
             this.layers = {
                 baselayers: configuration.basemaps,
@@ -382,6 +338,26 @@ module StreamStats.Controllers {
             this.geojson = {};
             L.Icon.Default.imagePath = 'images';
         } 
+       
+        //Helper Methods
+        //-+-+-+-+-+-+-+-+-+-+-+-
+        private sm(msg: string) {
+            try {
+                //toastr.options = {
+                //    positionClass: "toast-bottom-right"
+                //};
+
+                //this.NotificationList.unshift(new LogEntry(msg.msg, msg.type));
+
+                //setTimeout(() => {
+                //    toastr[msg.type](msg.msg);
+                //    if (msg.ShowWaitCursor != undefined)
+                //        this.IsLoading(msg.ShowWaitCursor)
+                //}, 0)
+            }
+            catch (e) {
+            }
+        }
     }//end class
 
     angular.module('StreamStats.Controllers')
