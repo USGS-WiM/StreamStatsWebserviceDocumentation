@@ -100,8 +100,8 @@ var StreamStats;
                     }
                 });
                 $scope.$on('leafletDirectiveMap.zoomend', function (event, args) {
-                    console.log('map zoom changed', args.leafletEvent.target._animateToZoom, 15, _this.cursorStyle);
-                    (args.leafletEvent.target._animateToZoom > 14) ? _this.cursorStyle = 'crosshair' : _this.cursorStyle = 'hand';
+                    //console.log('map zoom changed', args.leafletEvent.target._animateToZoom, 15, this.cursorStyle);
+                    (args.leafletEvent.target._animateToZoom > 13) ? _this.cursorStyle = 'crosshair' : _this.cursorStyle = 'hand';
                 });
                 $scope.$watch(function () { return _this.selectedUri.selectedMedia; }, function (newVal, oldVal) {
                     _this.makeRequestURL();
