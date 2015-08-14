@@ -188,8 +188,8 @@ module StreamStats.Controllers {
             });
 
             $scope.$on('leafletDirectiveMap.zoomend',(event, args) => {
-                console.log('map zoom changed', args.leafletEvent.target._animateToZoom, 15, this.cursorStyle);
-                (args.leafletEvent.target._animateToZoom > 14) ? this.cursorStyle = 'crosshair' : this.cursorStyle = 'hand'
+                //console.log('map zoom changed', args.leafletEvent.target._animateToZoom, 15, this.cursorStyle);
+                (args.leafletEvent.target._animateToZoom > 13) ? this.cursorStyle = 'crosshair' : this.cursorStyle = 'hand'
             });
 
             $scope.$watch(() => this.selectedUri.selectedMedia,(newVal, oldVal) => {
