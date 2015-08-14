@@ -89,7 +89,7 @@
                         <div class="btn-toolbar" role="toolbar" aria-label="...">
                             <button ng-click="vm.loadResponse()" type="button" class="btn btn-primary btn-sm"><i class="fa fa-refresh" ng-class="(vm.waitCursor) ? 'fa-spin' : ''"></i>&nbsp;&nbsp;Load response in {{vm.selectedUri.selectedMedia}} format</button>
                             <button ng-click="vm.showResponseOnMap()" type="button" class="btn btn-primary btn-sm" ng-if="vm.selectedUri.id == 'Watershed By Location' && vm.selectedUri.selectedMedia == '.geojson'" ng-disabled="!vm.showOnMap"><i class="fa fa-map"></i>&nbsp;&nbsp;Show response on map</button>
-                            <a id="exportButton" class="btn btn-sm btn-success pull left" type="button" ng-href="http://ssdev.cr.usgs.gov/streamstatsservices/download?workspaceID={{vm.studyArea.workspaceID}}" ng-if="vm.selectedUri.id == 'Watershed By Location' && vm.selectedUri.selectedMedia == '.geojson'"ng-show="vm.showOnMap"><span><i class="fa fa-download"></i></span>&nbsp;&nbsp;Export Basin</a>
+                            <a id="exportButton" class="btn btn-sm btn-success pull left" type="button" ng-href="http://ssdev.cr.usgs.gov/streamstatsservices/download?workspaceID={{vm.studyArea.workspaceID}}" ng-if="vm.selectedUri.id == 'Watershed By Location' && vm.selectedUri.selectedMedia == '.geojson'" ng-disabled="!vm.showOnMap"><span><i class="fa fa-download"></i></span>&nbsp;&nbsp;Export Basin</a>
                         </div>
                     </p>
 
