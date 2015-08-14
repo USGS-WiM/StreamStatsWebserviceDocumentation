@@ -1,5 +1,5 @@
 //------------------------------------------------------------------------------
-//----- SidebarController ------------------------------------------------------
+//----- MainController ------------------------------------------------------
 //------------------------------------------------------------------------------
 //-------1---------2---------3---------4---------5---------6---------7---------8
 //       01234567890123456789012345678901234567890123456789012345678901234567890
@@ -61,8 +61,25 @@ var StreamStats;
                 this.markers = null;
                 this.geojson = null;
                 $scope.vm = this;
-                this.initMap();
                 this.selectedUri = new StreamStats.Models.URI('');
+                this.waitCursor = false;
+                this.sideBarCollapsed = false;
+                this.applicationURL = configuration.baseurls['application'];
+                this.servicesBaseURL = configuration.baseurls['services'];
+                this._onSelectedResourceHandler = new WiM.Event.EventHandler(function () {
+                    _this.selectedResource = Resource.SelectedResource;
+                });
+                Resource.onResourceChanged.subscribe(this._onSelectedResourceHandler);
+                this._onSelectedUriHandler = new WiM.Event.EventHandler(function () {
+                    _this.selectedUri = Resource.SelectedUri;
+                    _this.requestResults = "";
+                });
+                Resource.onUriChanged.subscribe(this._onSelectedUriHandler);
+                //MAP STUFF
+                //-+-+-+-+-+-+-+-+-+-+-+-
+                this.initMap();
+                this.leafletData = leafletData;
+                this.showOnMap = false;
                 //update lat lng on click
                 $scope.$on('leafletDirectiveMap.click', function (event, args) {
                     var latlng = args.leafletEvent.latlng;
@@ -82,54 +99,63 @@ var StreamStats;
                         }
                     }
                 });
-                //manage map cursor
                 $scope.$on('leafletDirectiveMap.zoomend', function (event, args) {
-                    //console.log('map zoom changed', args.leafletEvent.target._animateToZoom, 15);
-                    (args.leafletEvent.target._animateToZoom >= 15) ? _this.cursorStyle = 'crosshair' : _this.cursorStyle = 'hand';
+                    console.log('map zoom changed', args.leafletEvent.target._animateToZoom, 15, _this.cursorStyle);
+                    (args.leafletEvent.target._animateToZoom > 14) ? _this.cursorStyle = 'crosshair' : _this.cursorStyle = 'hand';
                 });
-                //check for map load
-                $scope.$on('leafletDirectiveMap.load', function (event, args) {
-                    //console.log('map loaded');
+                $scope.$watch(function () { return _this.selectedUri.selectedMedia; }, function (newVal, oldVal) {
+                    _this.makeRequestURL();
                 });
                 $scope.$watch(function () { return _this.selectedUri.parameters; }, function (newVal, oldVal) {
                     _this.makeRequestURL();
                     if (_this.selectedUri.id == 'Watershed By Location') {
                         for (var key in _this.selectedUri.parameters) {
-                            //make sure there is a value
-                            if (_this.selectedUri.parameters.hasOwnProperty(key)) {
-                                //if oldval doesnt exists were on first page load
-                                if ((oldVal.length == 0) && (_this.selectedUri.parameters[key].name == "rcode")) {
+                            //if oldval doesnt exists were on first page load
+                            if (_this.selectedUri.parameters[key].name == "rcode") {
+                                //if there isn't a study area
+                                if (!_this.studyArea) {
                                     console.log('first page load');
-                                    //create new studyArea object
-                                    _this.studyArea = new studyArea(newVal[0].value);
-                                    _this.changeMapRegion(newVal[0].value);
+                                    _this.studyArea = new studyArea(_this.selectedUri.parameters[key].value);
+                                    _this.changeMapRegion(_this.selectedUri.parameters[key].value);
                                 }
-                                else if ((_this.selectedUri.parameters[key].name == "rcode") && (newVal[key].value != oldVal[key].value)) {
-                                    _this.studyArea = new studyArea(newVal[key].value);
+                                else if (_this.studyArea.rcode != _this.selectedUri.parameters[key].value) {
                                     console.log('rcode changed');
+                                    _this.studyArea = new studyArea(newVal[key].value);
                                     _this.changeMapRegion(newVal[key].value);
                                 }
                             }
                         }
                     }
                 }, true);
-                this.leafletData = leafletData;
-                this.waitCursor = false;
-                this.showOnMap = false;
-                this.sideBarCollapsed = false;
-                this.applicationURL = configuration.baseurls['application'];
-                this.servicesBaseURL = configuration.baseurls['services'];
-                this._onSelectedResourceHandler = new WiM.Event.EventHandler(function () {
-                    _this.selectedResource = Resource.SelectedResource;
-                });
-                Resource.onResourceChanged.subscribe(this._onSelectedResourceHandler);
-                this._onSelectedUriHandler = new WiM.Event.EventHandler(function () {
-                    _this.selectedUri = Resource.SelectedUri;
-                    _this.requestResults = "";
-                });
-                Resource.onUriChanged.subscribe(this._onSelectedUriHandler);
             }
             //Methods
+            //-+-+-+-+-+-+-+-+-+-+-+-
+            MainController.prototype.loadResponse = function () {
+                var _this = this;
+                this.waitCursor = true;
+                this.showOnMap = false;
+                this.requestResults = '';
+                this.Resource.getURL(this.selectedUri.newURL, this.selectedMedia).then(function (response) {
+                    _this.requestResults = response.data;
+                }, function (error) {
+                    _this.requestResults = "(" + error.status + ") " + error.data;
+                }).finally(function () {
+                    _this.waitCursor = false;
+                    _this.showOnMap = true;
+                });
+            };
+            MainController.prototype.makeRequestURL = function () {
+                console.log('in makeRequest URL function');
+                var inputParams = [this.selectedUri.selectedMedia];
+                for (var i = 0; i < this.selectedUri.parameters.length; i++) {
+                    inputParams.push(this.selectedUri.parameters[i].value);
+                }
+                var func = this.selectedUri.uri.format;
+                var newURL = func.apply(this.selectedUri.uri, inputParams);
+                this.selectedUri.newURL = newURL;
+                return newURL.replace(/\{(.+?)\}/g, "");
+            };
+            //MAP STUFF
             //-+-+-+-+-+-+-+-+-+-+-+-
             MainController.prototype.changeMapRegion = function (region) {
                 this.leafletData.getMap().then(function (map) {
@@ -143,64 +169,13 @@ var StreamStats;
                     }
                 });
             };
-            MainController.prototype.makeRequestURL = function () {
-                //if (!this.selectedUri) return;
-                console.log('in makeRequest URL function');
-                var inputParams = [this.selectedUri.selectedMedia];
-                for (var i = 0; i < this.selectedUri.parameters.length; i++) {
-                    inputParams.push(this.selectedUri.parameters[i].value);
-                }
-                var func = this.selectedUri.uri.format;
-                var newURL = func.apply(this.selectedUri.uri, inputParams);
-                this.selectedUri.newURL = newURL;
-                return newURL.replace(/\{(.+?)\}/g, "");
-            };
-            MainController.prototype.loadURL = function () {
+            MainController.prototype.showResponseOnMap = function () {
                 var _this = this;
-                if (this.selectedUri.id == 'Watershed By Location') {
-                    this.waitCursor = true;
-                    this.showOnMap = false;
-                    for (var key in this.selectedUri.parameters) {
-                        if (this.selectedUri.parameters[key].name == 'rcode') {
-                            var region = this.selectedUri.parameters[key].value;
-                        }
-                        if (this.selectedUri.parameters[key].name == 'xlocation') {
-                            var lng = this.selectedUri.parameters[key].value;
-                        }
-                        if (this.selectedUri.parameters[key].name == 'ylocation') {
-                            var lat = this.selectedUri.parameters[key].value;
-                        }
-                    }
-                    var url = configuration.queryparams['SSdelineation'].format(region, lng.toString(), lat.toString(), "4326", false);
-                    //clear study area
-                    //this.studyArea = new studyArea(region, Number(lat), Number(lng));
-                    this.Resource.getURL(url, "JSON").then(function (response) {
-                        _this.requestResults = response.data;
-                        _this.studyArea.features = response.data.hasOwnProperty("featurecollection") ? response.data["featurecollection"] : null;
-                        _this.studyArea.workspaceID = response.data.hasOwnProperty("workspaceID") ? response.data["workspaceID"] : null;
-                        //sm when complete
-                    }, function (error) {
-                        //sm when error
-                    }).finally(function () {
-                        _this.waitCursor = false;
-                        _this.showOnMap = true;
-                    });
-                }
-                else {
-                    this.waitCursor = true;
-                    this.Resource.getURL(this.selectedUri.newURL, this.selectedMedia).then(function (response) {
-                        _this.requestResults = response.data;
-                    }, function (error) {
-                        _this.requestResults = "(" + error.status + ") " + error.data;
-                    }).finally(function () {
-                        _this.waitCursor = false;
-                    });
-                }
-            };
-            MainController.prototype.showResultsOnMap = function () {
-                var _this = this;
+                this.studyArea.features = this.requestResults.hasOwnProperty("featurecollection") ? this.requestResults["featurecollection"] : null;
+                this.studyArea.workspaceID = this.requestResults.hasOwnProperty("workspaceID") ? this.requestResults["workspaceID"] : null;
+                //clear out this.markers
+                this.markers = {};
                 this.geojson = {};
-                console.log('features returned: ', this.studyArea.features);
                 if (!this.studyArea.features)
                     return;
                 var lat = this.studyArea.lat;
@@ -231,19 +206,13 @@ var StreamStats;
                         };
                     }
                 });
-                //clear out this.markers
-                this.markers = {};
-                //console.log(JSON.stringify(this.geojson));    
                 var bbox = this.geojson['globalwatershed'].data.features[0].bbox;
                 console.log(bbox);
                 this.leafletData.getMap().then(function (map) {
                     map.fitBounds([[bbox[1], bbox[0]], [bbox[3], bbox[2]]]);
                 });
             };
-            //Helper Methods
-            //-+-+-+-+-+-+-+-+-+-+-+-
             MainController.prototype.initMap = function () {
-                //init map
                 this.center = new Center(39, -100, 4);
                 this.layers = {
                     baselayers: configuration.basemaps,
@@ -254,6 +223,14 @@ var StreamStats;
                 this.markers = {};
                 this.geojson = {};
                 L.Icon.Default.imagePath = 'images';
+            };
+            //Helper Methods
+            //-+-+-+-+-+-+-+-+-+-+-+-
+            MainController.prototype.sm = function (msg) {
+                try {
+                }
+                catch (e) {
+                }
             };
             //Constructor
             //-+-+-+-+-+-+-+-+-+-+-+-
