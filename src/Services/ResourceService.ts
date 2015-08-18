@@ -100,7 +100,7 @@ module StreamStats.Services {
         }
 
         public getURL(url: string, selectedMedia:string): ng.IPromise<any> {
-            var request: WiM.Services.Helpers.RequestInfo = new WiM.Services.Helpers.RequestInfo(url, WiM.Services.Helpers.methodType.GET, selectedMedia);
+            var request: WiM.Services.Helpers.RequestInfo = new WiM.Services.Helpers.RequestInfo(url, false, WiM.Services.Helpers.methodType.GET, selectedMedia);
             return this.Execute(request);
         }
         
