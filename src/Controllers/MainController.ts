@@ -308,6 +308,13 @@ module StreamStats.Controllers {
                         color: 'white',
                         fillOpacity: 0.5
                     }
+
+                    var bbox = this.geojson['globalwatershed'].data.features[0].bbox;
+                    //console.log(bbox);
+                    this.leafletData.getMap().then((map: any) => {
+                        map.fitBounds([[bbox[1], bbox[0]], [bbox[3], bbox[2]]]);
+                    });
+
                 }
 
                 else if (item.name == 'globalwatershedpoint') {
@@ -316,17 +323,10 @@ module StreamStats.Controllers {
                         angular.forEach(feature.properties, function (value, key) {
                             popupContent += '<strong>' + key + ': </strong>' + value + '</br>';
                         });
-                        
                         layer.bindPopup(popupContent);
                     }
                 }
             });            
-  
-            var bbox = this.geojson['globalwatershed'].data.features[0].bbox;
-            //console.log(bbox);
-            this.leafletData.getMap().then((map: any) => {
-                map.fitBounds([[bbox[1], bbox[0]], [bbox[3], bbox[2]]]);
-            });
         }
 
         private initMap(): void {
