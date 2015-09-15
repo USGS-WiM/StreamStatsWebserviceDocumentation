@@ -56,7 +56,6 @@ module StreamStats.Services {
             return this._selectedResource;
         }
         public set SelectedResource(v: Models.IResource) {
-            console.log('selecting resource');
             if (this._selectedResource == v) return;
             this._selectedResource = v;
             this.SelectedUri = null;
@@ -71,11 +70,8 @@ module StreamStats.Services {
         }
         public set SelectedUri(v: Models.IURI) {
             if ((!v) || (this._selectedUri == v)) return;
-
-            //console.log('here', v);
             //if (this._selectedUri == v) return;
             this._selectedUri = v;
-
             // notify listeners
             this._onUriChanged.raise(this, WiM.Event.EventArgs.Empty);
         }

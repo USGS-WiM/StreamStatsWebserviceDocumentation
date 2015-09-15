@@ -65,7 +65,6 @@ var StreamStats;
                     return this._selectedResource;
                 },
                 set: function (v) {
-                    console.log('selecting resource');
                     if (this._selectedResource == v)
                         return;
                     this._selectedResource = v;
@@ -84,7 +83,6 @@ var StreamStats;
                 set: function (v) {
                     if ((!v) || (this._selectedUri == v))
                         return;
-                    //console.log('here', v);
                     //if (this._selectedUri == v) return;
                     this._selectedUri = v;
                     // notify listeners
