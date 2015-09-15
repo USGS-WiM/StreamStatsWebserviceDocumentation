@@ -67,6 +67,8 @@ var StreamStats;
                 this.applicationURL = configuration.baseurls['application'];
                 this.servicesBaseURL = configuration.baseurls['services'];
                 this._onSelectedResourceHandler = new WiM.Event.EventHandler(function () {
+                    //clear selectedUri on resource change
+                    _this.selectedUri = new StreamStats.Models.URI('');
                     _this.selectedResource = Resource.SelectedResource;
                 });
                 Resource.onResourceChanged.subscribe(this._onSelectedResourceHandler);

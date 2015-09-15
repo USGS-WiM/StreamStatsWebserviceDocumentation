@@ -65,6 +65,7 @@ var StreamStats;
                     return this._selectedResource;
                 },
                 set: function (v) {
+                    console.log('selecting resource');
                     if (this._selectedResource == v)
                         return;
                     this._selectedResource = v;
@@ -103,7 +104,7 @@ var StreamStats;
                 //add the study area to studyAreaList
             };
             ResourceService.prototype.getURL = function (url, selectedMedia) {
-                var request = new WiM.Services.Helpers.RequestInfo(url, false, 0 /* GET */, selectedMedia);
+                var request = new WiM.Services.Helpers.RequestInfo(url, false, WiM.Services.Helpers.methodType.GET, selectedMedia);
                 return this.Execute(request);
             };
             //Helper Methods

@@ -148,7 +148,10 @@ module StreamStats.Controllers {
             this.sideBarCollapsed = false;
             this.applicationURL = configuration.baseurls['application'];
             this.servicesBaseURL = configuration.baseurls['services'];
+
             this._onSelectedResourceHandler = new WiM.Event.EventHandler<WiM.Event.EventArgs>(() => {
+                //clear selectedUri on resource change
+                this.selectedUri = new StreamStats.Models.URI('');
                 this.selectedResource = Resource.SelectedResource;
             });
             Resource.onResourceChanged.subscribe(this._onSelectedResourceHandler);

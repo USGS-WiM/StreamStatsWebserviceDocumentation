@@ -56,6 +56,7 @@ module StreamStats.Services {
             return this._selectedResource;
         }
         public set SelectedResource(v: Models.IResource) {
+            console.log('selecting resource');
             if (this._selectedResource == v) return;
             this._selectedResource = v;
             this.SelectedUri = null;
