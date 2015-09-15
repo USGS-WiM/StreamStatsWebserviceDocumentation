@@ -1,7 +1,7 @@
 <div class="scrollable sidebar-content">
     <div class="scrollable-content">
         <div class="list-group">
-            <a class="list-group-item" ng-click="vm.selectResource(null)">Home <i ng-class="!vm.selectedResource ? 'fa fa-chevron-right pull-right list-group-item-active': 'fa fa-chevron-down pull-right .list-group-item'"></i></a>
+            <a ng-class="!vm.selectedResource ? 'list-group-item-active': 'list-group-item'" ng-click="vm.selectResource(null)">Home <i ng-class="!vm.selectedResource ? 'fa fa-chevron-right pull-right': 'fa fa-chevron-down pull-right'"></i></a>
             <a ng-repeat-start="resource in vm.resourceList" ng-click="vm.selectResource(resource)" ng-class="vm.selectedResource.name === resource.name ? 'list-group-item-active': 'list-group-item'">{{resource.name}} <i ng-class="vm.selectedResource.name === resource.name ? 'fa fa-chevron-right pull-right': 'fa fa-chevron-down pull-right'"></i></a>
             <div ng-repeat-end ng-if="vm.selectedResource.name === resource.name" class="list-group-body">
                 <div ng-repeat="method in vm.selectedResource.methods">
