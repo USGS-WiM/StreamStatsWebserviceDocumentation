@@ -202,7 +202,7 @@ var StreamStats;
                             map.fitBounds([[bbox[1], bbox[0]], [bbox[3], bbox[2]]]);
                         });
                     }
-                    else if (item.name == 'globalwatershedpoint') {
+                    if (item.name == 'globalwatershedpoint') {
                         _this.geojson[item.name].onEachFeature = function (feature, layer) {
                             var popupContent = '<strong>Latitude: </strong>' + lat + '</br><strong>Longitude: </strong>' + lng + '</br><strong>Region: </strong>' + rcode + '</br><strong>WorkspaceID: </strong>' + workspaceID + '</br>';
                             angular.forEach(feature.properties, function (value, key) {

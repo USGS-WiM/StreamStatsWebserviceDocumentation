@@ -317,7 +317,7 @@ module StreamStats.Controllers {
 
                 }
 
-                else if (item.name == 'globalwatershedpoint') {
+                if (item.name == 'globalwatershedpoint') {
                     this.geojson[item.name].onEachFeature = function (feature, layer) {
                         var popupContent = '<strong>Latitude: </strong>' + lat + '</br><strong>Longitude: </strong>' + lng + '</br><strong>Region: </strong>' + rcode + '</br><strong>WorkspaceID: </strong>' + workspaceID + '</br>';
                         angular.forEach(feature.properties, function (value, key) {
