@@ -77,7 +77,6 @@ var StreamStats;
             });
             Object.defineProperty(ResourceService.prototype, "SelectedUri", {
                 get: function () {
-                    //console.log('here1');
                     return this._selectedUri;
                 },
                 set: function (v) {

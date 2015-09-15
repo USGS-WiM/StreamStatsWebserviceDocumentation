@@ -65,7 +65,6 @@ module StreamStats.Services {
 
         private _selectedUri: Models.IURI;
         public get SelectedUri(): Models.IURI {
-            //console.log('here1');
             return this._selectedUri;
         }
         public set SelectedUri(v: Models.IURI) {
