@@ -212,14 +212,14 @@ module StreamStats.Controllers {
 
                             //if there isn't a study area
                             if (!this.studyArea) {
-                                console.log('first page load');
+                                //console.log('first page load');
                                 this.studyArea = new studyArea(this.selectedUri.parameters[key].value);
                                 this.changeMapRegion(this.selectedUri.parameters[key].value);
                             }
 
                             //otherwise change studyArea
                             else if (this.studyArea.rcode != this.selectedUri.parameters[key].value) {
-                                console.log('rcode changed');
+                                //console.log('rcode changed');
                                 this.studyArea = new studyArea(newVal[key].value);
                                 this.changeMapRegion(newVal[key].value);
                             }
@@ -251,7 +251,7 @@ module StreamStats.Controllers {
         }
 
         public makeRequestURL() {
-            console.log('in makeRequest URL function');
+            //console.log('in makeRequest URL function');
             var inputParams = [this.selectedUri.selectedMedia];
             for (var i = 0; i < this.selectedUri.parameters.length; i++) {
                 inputParams.push(this.selectedUri.parameters[i].value);
@@ -267,11 +267,11 @@ module StreamStats.Controllers {
         //-+-+-+-+-+-+-+-+-+-+-+-
         private changeMapRegion(region: string) {
             this.leafletData.getMap().then((map: any) => {
-                console.log('getting the map for fitbounds');
+                //console.log('getting the map for fitbounds');
                 for (var index in configuration.regions) {
                     var value = configuration.regions[index];
                     if (value.RegionID == region.toUpperCase()) {
-                        console.log('match found', value.RegionID + "_region", value.Bounds);
+                        //console.log('match found', value.RegionID + "_region", value.Bounds);
                         map.fitBounds(value.Bounds);
                     }
                 }
@@ -323,7 +323,7 @@ module StreamStats.Controllers {
             });            
   
             var bbox = this.geojson['globalwatershed'].data.features[0].bbox;
-            console.log(bbox);
+            //console.log(bbox);
             this.leafletData.getMap().then((map: any) => {
                 map.fitBounds([[bbox[1], bbox[0]], [bbox[3], bbox[2]]]);
             });
