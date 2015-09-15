@@ -308,25 +308,25 @@ module StreamStats.Controllers {
                         color: 'white',
                         fillOpacity: 0.5
                     }
+
+                    var bbox = this.geojson['globalwatershed'].data.features[0].bbox;
+                    //console.log(bbox);
+                    this.leafletData.getMap().then((map: any) => {
+                        map.fitBounds([[bbox[1], bbox[0]], [bbox[3], bbox[2]]]);
+                    });
+
                 }
 
-                else if (item.name == 'globalwatershedpoint') {
+                if (item.name == 'globalwatershedpoint') {
                     this.geojson[item.name].onEachFeature = function (feature, layer) {
                         var popupContent = '<strong>Latitude: </strong>' + lat + '</br><strong>Longitude: </strong>' + lng + '</br><strong>Region: </strong>' + rcode + '</br><strong>WorkspaceID: </strong>' + workspaceID + '</br>';
                         angular.forEach(feature.properties, function (value, key) {
                             popupContent += '<strong>' + key + ': </strong>' + value + '</br>';
                         });
-                        
                         layer.bindPopup(popupContent);
                     }
                 }
             });            
-  
-            var bbox = this.geojson['globalwatershed'].data.features[0].bbox;
-            //console.log(bbox);
-            this.leafletData.getMap().then((map: any) => {
-                map.fitBounds([[bbox[1], bbox[0]], [bbox[3], bbox[2]]]);
-            });
         }
 
         private initMap(): void {
