@@ -1,4 +1,10 @@
-/*Universal Styles/body/text/links*/
+/*
+    ===========================
+    ===========================
+         Universal Styles
+    ===========================
+    ===========================
+*/
 body,
 html{
   font-family: 'Lato', Helvetica, sans-serif;
@@ -31,7 +37,13 @@ a{
     }
 
 
-/*Navigation bar*/
+/*
+    ===========================
+    ===========================
+         Navigation Bar
+    ===========================
+    ===========================
+*/
 .navbar-app{
     background-color: #161C27;
     background: -webkit-linear-gradient(90deg, #161C27 20%, #3A6073 220%); /* Chrome 10+, Saf5.1+ */
@@ -64,12 +76,16 @@ a{
 
 
 
-/*Sidebar*/
+/*
+    ===========================
+    ===========================
+             Sidebar
+    ===========================
+    ===========================
+*/
 .sidebar{
   background-color: #ECEEF4;
 }
-
-
 
 .list-group-item{
   background-color: #ECEEF4;
@@ -96,9 +112,12 @@ a{
 
   .list-group-body{
     position: relative; top: 21px !important;
-    background-color: #161C27;
+    background-color: #fff;
+    -webkit-box-shadow: inset 0px 0px 10px 0px rgba(50, 50, 50, 0.25);
+    -moz-box-shadow:    inset 0px 0px 10px 0px rgba(50, 50, 50, 0.25);
+    box-shadow:         inset 0px 0px 10px 0px rgba(50, 50, 50, 0.25);
 
-    color: #d7d7e4;
+    color: #222D39;
     top: 0 !important;
     box-sizing: border-box;
     padding: 25px 15px 35px 15px;
@@ -109,31 +128,27 @@ a{
     }
     .list-group-body a{
       display: block;
-      color: rgba(255,255,255,0.7);
+      color: RGBA(34, 45, 57, 0.6);
       font-size: 12pt;
       letter-spacing: 2px;
       padding: 0 0 0 15px;
+      font-weight: 400;
       width: auto;
       clear: both;
     }
       .list-group-body a:hover{
         transition:0.2s;
         text-decoration: none;
-        color: rgba(255,255,255,1);
+        color: RGBA(34, 45, 57, 1);
       }
       .list-group-body a:before{
         content: '\2022';
       }
 
-
+/*Active sidebar item*/
 .list-group-item-active{
     display: block;
-    background-color: #3498DB;
-    background: -webkit-linear-gradient(90deg, #3a7bd5 10%, #00d2ff 220%); /* Chrome 10+, Saf5.1+ */
-    background:    -moz-linear-gradient(90deg, #3a7bd5 10%, #00d2ff 220%); /* FF3.6+ */
-    background:     -ms-linear-gradient(90deg, #3a7bd5 10%, #00d2ff 220%); /* IE10 */
-    background:      -o-linear-gradient(90deg, #3a7bd5 10%, #00d2ff 220%); /* Opera 11.10+ */
-    background:         linear-gradient(90deg, #3a7bd5 10%, #00d2ff 220%); /* W3C */
+    background-color: #3a7bd5;
     text-align: right;
     text-transform: uppercase;
     font-size: 10pt;
@@ -155,8 +170,9 @@ a{
         text-decoration: none !important;
     }
 
+/*Active small link inside*/
 .list-group-item-link-active{
-  color: #fff;
+  color: RGBA(34, 45, 57, 1);
   font-weight:bolder;
 }
 
@@ -182,41 +198,75 @@ a{
 
 
 
-/*Actual Content - Scrollable*/
-.home-view{
-  padding-bottom: 85px;
-}
-
-/*Show what category they are in*/
-.home-view div:nth-child(3){
-    background-color: #3498DB;
+/*
+    ===========================
+    ===========================
+         Blue Body Header
+    ===========================
+    ===========================
+*/
+.ng-hide + div:nth-child(3){
+    background-color: #3a7bd5;
     box-sizing: border-box;
-    padding: 20px 20px 1px 20px;
+    padding: 20px 20px 20px 20px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
     margin-bottom: 35px;
-    margin-top: 20px;
     color:#fff;
-    border-radius: 3px;
     border: 1px solid #d4e2f1;
-    background: -webkit-linear-gradient(90deg, #3a7bd5 10%, #00d2ff 120%); /* Chrome 10+, Saf5.1+ */
-    background:    -moz-linear-gradient(90deg, #3a7bd5 10%, #00d2ff 120%); /* FF3.6+ */
-    background:     -ms-linear-gradient(90deg, #3a7bd5 10%, #00d2ff 120%); /* IE10 */
-    background:      -o-linear-gradient(90deg, #3a7bd5 10%, #00d2ff 120%); /* Opera 11.10+ */
-    background:         linear-gradient(90deg, #3a7bd5 10%, #00d2ff 120%); /* W3C */
+    border:none;
 }
-    .home-view div:nth-child(3) h4{
-        letter-spacing: 1px;
-        font-weight: 400;
+    .ng-hide + div:nth-child(3) h4{
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        font-weight: 500;
+        font-size: 12pt;
+        margin-bottom: 3px;
     }
-    .home-view div:nth-child(3) .well{
+    .ng-hide + div:nth-child(3) .well{
         border: none;
         padding: 0;
         background-color: transparent;
-    }
-    .home-view div:nth-child(3) .well{
         font-weight: lighter;
+        margin-bottom: 0;
+        font-size: 10pt;
     }
 
+/*Prevent blue on map*/
+.leaflet-bottom,
+.leaflet-left,
+.leaflet-top,
+.leaflet-right{
+    background-color: transparent !important
+}
+.leaflet-control-container{
+    background-color: red !important
+}
 
+
+/*Add padding to body (except blue top header box)*/
+.panel,
+.page-header{
+    padding: 25px !important;
+}
+.page-header + .well{
+    margin-left: 25px; margin-right: 25px;
+}
+
+
+
+/*
+    ===========================
+    ===========================
+         Body Content
+    ===========================
+    ===========================
+*/
+.home-view{
+  padding-bottom: 85px;
+  padding-left: 0;
+  padding-right: 0;
+  padding-top: 0;
+}
 
 .app-body{
   background-color: #fff;
@@ -258,11 +308,13 @@ a{
 
 
 
-
-
-
-
-/*About Modal*/
+/*
+    ===========================
+    ===========================
+           About Modal
+    ===========================
+    ===========================
+*/
 .modal-backdrop{
   background-color: #161C27;
 }
@@ -366,7 +418,13 @@ a{
 
 
 
-/*Mobile Styles*/
+/*
+    ===========================
+    ===========================
+           Mobile Styles
+    ===========================
+    ===========================
+*/
 .sidebar-toggle{
     position: relative;
     top:14px;
@@ -386,15 +444,7 @@ a{
     }
 
     .app-name{
-        display: none;
-        font-size: 10pt;
-        width: 100%;
-        position: absolute;
-        background-color: #000;
-        top:66px;
-        padding: 0;
-        height: 26px; line-height: 26px;
-        text-transform: uppercase;
+        font-size: 14pt;
     }
 
     #aboutButton{
@@ -427,4 +477,42 @@ a{
         font-size: 8pt;
     }
 
+}
+
+
+
+@media only screen and (max-width: 590px) {
+    .navbar-brand{
+        width: 150px;
+        top: -1px;
+        position: relative;
+        padding: 20px 6px 20px 6px;
+    }
+        .navbar-brand img{
+            margin-right: 2px;
+        }
+
+    .app-name{
+        font-size: 12pt;
+    }
+}
+
+
+
+@media only screen and (max-width: 520px) {
+    .navbar-brand{
+        width: 120px;
+        position: relative; top:-1px;
+    }
+
+    .app-name{
+        max-width: 130px;
+        line-height: 15px;
+        padding-left: 6px;
+        letter-spacing: 1px;
+        font-weight: 400;
+        display: inline-block;
+        position: relative; top:12px;
+        font-size: 10pt;
+    }
 }
