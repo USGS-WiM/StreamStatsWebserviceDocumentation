@@ -101,7 +101,7 @@ var StreamStats;
                 //add the study area to studyAreaList
             };
             ResourceService.prototype.getURL = function (url, selectedMedia) {
-                var request = new WiM.Services.Helpers.RequestInfo(url, false, WiM.Services.Helpers.methodType.GET, selectedMedia);
+                var request = new WiM.Services.Helpers.RequestInfo(url, false, 0 /* GET */, selectedMedia);
                 return this.Execute(request);
             };
             //Helper Methods
