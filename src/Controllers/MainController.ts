@@ -289,8 +289,6 @@ module StreamStats.Controllers {
 
             if (!this.studyArea.features) return;
 
-            var lat = this.studyArea.lat;
-            var lng = this.studyArea.lng;
             var rcode = this.studyArea.rcode;
             var workspaceID = this.studyArea.workspaceID;
 
@@ -319,7 +317,7 @@ module StreamStats.Controllers {
 
                 if (item.name == 'globalwatershedpoint') {
                     this.geojson[item.name].onEachFeature = function (feature, layer) {
-                        var popupContent = '<strong>Latitude: </strong>' + lat + '</br><strong>Longitude: </strong>' + lng + '</br><strong>Region: </strong>' + rcode + '</br><strong>WorkspaceID: </strong>' + workspaceID + '</br>';
+                        var popupContent = '<strong>Latitude: </strong>' + feature.geometry.coordinates[1].toFixed(3) + '</br><strong>Longitude: </strong>' + feature.geometry.coordinates[0].toFixed(3) + '</br><strong>Region: </strong>' + rcode + '</br><strong>WorkspaceID: </strong>' + workspaceID + '</br>';
                         angular.forEach(feature.properties, function (value, key) {
                             popupContent += '<strong>' + key + ': </strong>' + value + '</br>';
                         });
