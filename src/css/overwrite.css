@@ -10,6 +10,15 @@ html{
   font-family: 'Lato', Helvetica, sans-serif;
 }
 
+*:focus{
+    outline: none;
+}
+
+.scrollable{
+    max-height: 100%;
+    max-height: calc(100% - 70px);
+}
+
 
 a{
   color: #3C6DD1;
@@ -71,6 +80,9 @@ a{
       cursor: pointer;
       color: rgba(255,255,255,1);
       transition: 0.2s;
+    }
+    #aboutButton:focus{
+        outline: none;
     }
 
 
@@ -262,7 +274,7 @@ a{
     ===========================
 */
 .home-view{
-  padding-bottom: 85px;
+  padding-bottom: 35px;
   padding-left: 0;
   padding-right: 0;
   padding-top: 0;
@@ -315,6 +327,9 @@ a{
     ===========================
     ===========================
 */
+.modal{
+    overflow-y: auto;
+}
 .modal-backdrop{
   background-color: #161C27;
 }
@@ -464,7 +479,6 @@ a{
       letter-spacing: 1px;
       font-weight: 400;
       max-height: 96%;
-      overflow: scroll;
     }
 
     .modal-body ul li a{
@@ -495,6 +509,32 @@ a{
     .app-name{
         font-size: 12pt;
     }
+
+    #aboutTabs li{
+        width: 100%;
+        margin: 0 auto;
+        padding: 0;
+        display: block;
+    }
+        #aboutTabs li a{
+            border-radius: 20px;
+            border: none;
+            padding-bottom: 8px;
+            text-transform: uppercase;
+            text-align: center;
+            margin-bottom: 5px;
+            background-color: #ECEEF4;
+            font-weight: bolder;
+        }
+            #aboutTabs li a:hover{
+                background-color: #fff;
+            }
+    #aboutTabs .active a{
+        background-color: #19232F !important;
+        color: #fff;
+        border: none;
+    }
+
 }
 
 
