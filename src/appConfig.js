@@ -23,7 +23,7 @@ configuration.resources =
                         "description": "Returns a watershed object. The request configuration will determine the overall request response. However all returns will return a watershed object with at least the workspaceid. The workspace id is the id to the service workspace where files are stored and can be used for further processing such as for downloads and flow statistic computations.",
                         "id": "Watershed By Location",
                         "parameters": [
-                            { "name": "rcode", "type": "string", "description": "StreamStats 2-3 character code that identifies the region.", "value": "NY" },
+                            { "name": "rcode", "type": "string", "description": "StreamStats 2-3 character code that identifies the Study Area (either a State or a Regional Study)", "value": "NY" },
                             { "name": "xlocation", "type": "number", "description": "X location of the most downstream point of desired study area.", "value": -74.524 },
                             { "name": "ylocation", "type": "number", "description": "Y location of the most downstream point of desired study area.", "value": 43.939 },
                             { "name": "crs", "type": "string", "description": "ESPSG spatial reference code.", "value": "4326" },
@@ -39,7 +39,7 @@ configuration.resources =
                         "description": "This service returns a watershed",
                         "id": "Watershed By Workspace",
                         "parameters": [
-                           { "name": "rcode", "type": "string", "description": "StreamStats 2-3 character code that identifies the region.", "value": "NY" },
+                           { "name": "rcode", "type": "string", "description": "StreamStats 2-3 character code that identifies the Study Area (either a State or a Regional Study).", "value": "NY" },
                            { "name": "workspaceID", "type": "string", "description": "Service workspace received from watershed service result", "value": "" },
                             { "name": "includeparameters", "type": "string", "optional": true, "description": "Comma separated list of region parameters to compute. Default: true, will return all parameters for region", "value": "false" },
                             { "name": "includeflowtypes", "type": "string", "optional": true, "description": "Not yet implemented", "value": "false" },
@@ -64,7 +64,7 @@ configuration.resources =
                         "description": "This service returns a list of parameters available to be computed in the selected region.",
                         "id": "Available Parameters",
                         "parameters": [
-                            { "name": "rcode", "type": "string", "description": "StreamStats 2-3 character code that identifies the region.", "value": "NY" },
+                            { "name": "rcode", "type": "string", "description": "StreamStats 2-3 character code that identifies the Study Area (either a State or a Regional Study).", "value": "NY" },
                             { "name": "group", "type": "string", "optional": true, "description": "Key word parameter group filter.", "value": "NY Set" }],
                         "availableMedia": [".xml", ".json"],
                         "selectedMedia": ".json"
@@ -74,7 +74,7 @@ configuration.resources =
                         "description": "This service returns the computed values based on the request configuration.",
                         "id": "Compute Parameters",
                         "parameters": [
-                           { "name": "rcode", "type": "string", "description": "StreamStats 2-3 character code that identifies the region.", "value": "NY" },
+                           { "name": "rcode", "type": "string", "description": "StreamStats 2-3 character code that identifies the Study Area (either a State or a Regional Study).", "value": "NY" },
                            { "name": "workspaceID", "type": "string", "description": "Service workspace received from watershed service result", "value": "" },
                            { "name": "includeparameters", "type": "string", "optional": "true", "description": "Comma separated list of region parameter codes to compute. Default: true, will return all parameters for region", "value": "true" }, ],
                         "availableMedia": [".xml", ".json"],
@@ -113,7 +113,7 @@ configuration.resources =
                         "description": "This service returns a list of flowstatistics available to be computed in the selected region.",
                         "id": "Available Flow Statistics",
                         "parameters": [
-                            { "name": "rcode", "type": "string", "description": "StreamStats 2-3 character code that identifies the region.", "value": "NY" }],
+                            { "name": "rcode", "type": "string", "description": "StreamStats 2-3 character code that identifies the Study Area (either a State or a Regional Study).", "value": "NY" }],
                         "availableMedia": [".xml", ".json"],
                         "selectedMedia": ".json"
                     },
@@ -122,7 +122,7 @@ configuration.resources =
                         "description": "This service returns the computed flow statistic values based on the request configuration",
                         "id": "Compute Flow Statistics",
                         "parameters": [
-                            { "name": "rcode", "type": "string", "description": "StreamStats 2-3 character code that identifies the region.", "value": "NY" },
+                            { "name": "rcode", "type": "string", "description": "StreamStats 2-3 character code that identifies the Study Area (either a State or a Regional Study).", "value": "NY" },
                             { "name": "workspaceID", "type": "string", "description": "Service workspace received from watershed service result", "value": "" },
                             { "name": "includeflowtypes", "type": "string", "optional": true, "description": "Comma separated list of region flow types to compute. Default: true, will return all flow types available for the region region", "value": "true" }],
                         "availableMedia": [".json"],
