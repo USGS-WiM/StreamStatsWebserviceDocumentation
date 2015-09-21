@@ -21,7 +21,7 @@ configuration.resources =
                     {
                         "uri": "/watershed{0}?rcode={1}&xlocation={2}&ylocation={3}&crs={4}&includeparameters={5}&includeflowtypes={6}&includefeatures={7}&simplify={8}",
                         "description": "Returns a watershed object. The request configuration will determine the overall request response. However all returns will return a watershed object with at least the workspaceid. The workspace id is the id to the service workspace where files are stored and can be used for further processing such as for downloads and flow statistic computations.",
-                        "id": "Watershed By Location",
+                        "id": "Delineate Watershed By Location",
                         "parameters": [
                             { "name": "rcode", "type": "string", "description": "StreamStats 2-3 character code that identifies the Study Area (either a State or a Regional Study)", "value": "NY" },
                             { "name": "xlocation", "type": "number", "description": "X location of the most downstream point of desired study area.", "value": -74.524 },
@@ -54,15 +54,15 @@ configuration.resources =
             ]
         },
         {
-            "name": "Parameters",
-            "description": "The parameters resource represent a list of characteristics that defines the study area. Such as Drainage Area and mean annual precipitation.",
+            "name": "Basin Characteristics",
+            "description": "The basin characteristics resource represent a list of characteristics that defines the study area. Such as Drainage Area and mean annual precipitation.",
             "methods": [{
                 "type": "GET",
                 "uriList": [
                     {
                         "uri": "/parameters{0}?rcode={1}&group={2}",
-                        "description": "This service returns a list of parameters available to be computed in the selected region.",
-                        "id": "Available Parameters",
+                        "description": "This service returns a list of basin characteristics available to be computed in the selected region.",
+                        "id": "Available Basin Characteristics",
                         "parameters": [
                             { "name": "rcode", "type": "string", "description": "StreamStats 2-3 character code that identifies the Study Area (either a State or a Regional Study).", "value": "NY" },
                             { "name": "group", "type": "string", "optional": true, "description": "Key word parameter group filter.", "value": "NY Set" }],
@@ -71,8 +71,8 @@ configuration.resources =
                     },
                     {
                         "uri": "/parameters{0}?rcode={1}&workspaceID={2}&includeparameters={3}",
-                        "description": "This service returns the computed values based on the request configuration.",
-                        "id": "Compute Parameters",
+                        "description": "This service returns the computed basin characteristics based on the request configuration.",
+                        "id": "Compute Basin Characterisitcs",
                         "parameters": [
                            { "name": "rcode", "type": "string", "description": "StreamStats 2-3 character code that identifies the Study Area (either a State or a Regional Study).", "value": "NY" },
                            { "name": "workspaceID", "type": "string", "description": "Service workspace received from watershed service result", "value": "" },
