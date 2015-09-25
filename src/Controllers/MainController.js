@@ -110,7 +110,7 @@ var StreamStats;
                 });
                 $scope.$watch(function () { return _this.selectedUri.parameters; }, function (newVal, oldVal) {
                     _this.makeRequestURL();
-                    if (_this.selectedUri.id == 'Watershed By Location') {
+                    if (_this.selectedUri.id == 'Delineate Watershed By Location') {
                         for (var key in _this.selectedUri.parameters) {
                             //if oldval doesnt exists were on first page load
                             if (_this.selectedUri.parameters[key].name == "rcode") {
