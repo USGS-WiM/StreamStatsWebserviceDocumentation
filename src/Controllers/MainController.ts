@@ -203,7 +203,7 @@ module StreamStats.Controllers {
 
                 this.makeRequestURL();
 
-                if (this.selectedUri.id == 'Watershed By Location') {
+                if (this.selectedUri.id == 'Delineate Watershed By Location') {
 
                     for (var key in this.selectedUri.parameters) {
 
