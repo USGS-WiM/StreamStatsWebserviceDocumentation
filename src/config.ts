@@ -39,11 +39,11 @@ module StreamStats {
     }//end class
 
     angular.module('StreamStats',[
-        "ui.router", "mobile-angular-ui",
+        "ui.router","mobile-angular-ui",
         'leaflet-directive',
         "StreamStats.Services",
         "StreamStats.Controllers",
-        'jsonFormatter','wim_angular'
+        'jsonFormatter', 'WiM.Services', 'WiM.Event','StreamStats.Directives'
         ])
         .config(config);
 }//end module 

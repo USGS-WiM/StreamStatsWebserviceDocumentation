@@ -23,6 +23,11 @@
 //Imports"
 // Interface
 module StreamStats.Models {
+    export interface IBody {
+        description: string;
+        value: string;
+    }
+
     export interface IURI {
         uri: string;
         id: string;
@@ -31,6 +36,7 @@ module StreamStats.Models {
         availableMedia: string;
         selectedMedia: string;
         newURL: string;
+        body: IBody;
     }
 
     export class URI implements IURI {
@@ -42,10 +48,11 @@ module StreamStats.Models {
         public availableMedia: string;
         public selectedMedia: string;
         public newURL: string;
+        public body: IBody;
 
         constructor(u: string) {
             this.uri = u;
-            this.parameters = [];
+            this.parameters = [];            
         }
 
     }//end class

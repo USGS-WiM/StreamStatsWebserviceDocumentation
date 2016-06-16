@@ -137,7 +137,8 @@ var StreamStats;
                 this.waitCursor = true;
                 this.showOnMap = false;
                 this.requestResults = '';
-                this.Resource.getURL(this.selectedUri.newURL, this.selectedMedia).then(function (response) {
+                this.Resource.getURL(this.selectedUri.newURL, this.selectedMedia)
+                    .then(function (response) {
                     _this.requestResults = response.data;
                 }, function (error) {
                     _this.requestResults = "(" + error.status + ") " + error.data;
@@ -161,6 +162,7 @@ var StreamStats;
             //-+-+-+-+-+-+-+-+-+-+-+-
             MainController.prototype.changeMapRegion = function (region) {
                 this.leafletData.getMap().then(function (map) {
+                    //console.log('getting the map for fitbounds');
                     for (var index in configuration.regions) {
                         var value = configuration.regions[index];
                         if (value.RegionID == region.toUpperCase()) {
@@ -236,7 +238,8 @@ var StreamStats;
             MainController.$inject = ['$scope', '$filter', 'StreamStats.Services.ResourceService', 'leafletBoundsHelpers', 'leafletData'];
             return MainController;
         })(); //end class
-        angular.module('StreamStats.Controllers').controller('StreamStats.Controllers.MainController', MainController);
+        angular.module('StreamStats.Controllers')
+            .controller('StreamStats.Controllers.MainController', MainController);
     })(Controllers = StreamStats.Controllers || (StreamStats.Controllers = {}));
 })(StreamStats || (StreamStats = {})); //end module
 //# sourceMappingURL=MainController.js.map

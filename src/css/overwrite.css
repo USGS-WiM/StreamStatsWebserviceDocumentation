@@ -6,6 +6,9 @@
     ===========================
 */
 body,
+p {
+   margin: 10px 0 10px; 
+}
 html{
   font-family: 'Lato', Helvetica, sans-serif;
 }
