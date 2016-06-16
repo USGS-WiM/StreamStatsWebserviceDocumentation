@@ -257,6 +257,7 @@ module StreamStats.Controllers {
                 inputParams.push(this.selectedUri.parameters[i].value);
             }
             var func = this.selectedUri.uri.format;
+
             var newURL = func.apply(this.selectedUri.uri, inputParams);
             this.selectedUri.newURL = newURL;
             return newURL.replace(/\{(.+?)\}/g, "");

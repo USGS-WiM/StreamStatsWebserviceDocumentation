@@ -52,7 +52,8 @@ var StreamStats;
             SidebarController.$inject = ['$scope', 'StreamStats.Services.ResourceService'];
             return SidebarController;
         })(); //end class
-        angular.module('StreamStats.Controllers').controller('StreamStats.Controllers.SidebarController', SidebarController);
+        angular.module('StreamStats.Controllers')
+            .controller('StreamStats.Controllers.SidebarController', SidebarController);
     })(Controllers = StreamStats.Controllers || (StreamStats.Controllers = {}));
 })(StreamStats || (StreamStats = {})); //end module
 //# sourceMappingURL=SidebarController.js.map

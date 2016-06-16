@@ -1,0 +1,10 @@
+{
+  "name": "StreamStats_WebService_Documentation",
+  "version": false,
+  "ambientDependencies": {
+    "angular": "github:DefinitelyTyped/DefinitelyTyped/angularjs/angular.d.ts#284c2b8828f06bdde1f949a22ad174f5221d57f9",
+    "leaflet": "github:DefinitelyTyped/DefinitelyTyped/leaflet/leaflet.d.ts#284c2b8828f06bdde1f949a22ad174f5221d57f9",
+    "angular-ui-router": "github:DefinitelyTyped/DefinitelyTyped/angular-ui-router/angular-ui-router.d.ts#284c2b8828f06bdde1f949a22ad174f5221d57f9",
+    "jquery": "github:DefinitelyTyped/DefinitelyTyped/jquery/jquery.d.ts#284c2b8828f06bdde1f949a22ad174f5221d57f9"
+  }
+}

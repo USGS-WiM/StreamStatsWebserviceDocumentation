@@ -34,13 +34,17 @@
     <script src="../bower_components/leaflet/dist/leaflet.js"></script>
     <script src="../bower_components/esri-leaflet/dist/esri-leaflet.js"></script>
     <script src="../bower_components/json-formatter/dist/json-formatter.js"></script>
-    <script src="../bower_components/wim_angular/dist/src/Extensions/String.js"></script>
-    <script src="../bower_components/wim_angular/dist/src/Events/Delegate.js"></script>
-    <script src="../bower_components/wim_angular/dist/src/Events/EventArgs.js"></script>
-    <script src="../bower_components/wim_angular/dist/src/Events/EventHandler.js"></script>
-    <script src="../bower_components/wim_angular/dist/src/Services/Helpers/RequestInfo.js"></script>
-    <script src="../bower_components/wim_angular/dist/src/Services/HTTPServiceBase.js"></script>
-    <script src="../bower_components/wim_angular/dist/src/Directives/wimAbout.js"></script>
+    <script src="../bower_components/wim_angular/dist/Extensions/String.js"></script>
+
+    <script src="../bower_components/wim_angular/dist/Events/EventManager.js"></script>
+    <script src="../bower_components/wim_angular/dist/Events/Delegate.js"></script>
+    <script src="../bower_components/wim_angular/dist/Events/EventArgs.js"></script>
+    <script src="../bower_components/wim_angular/dist/Events/EventHandler.js"></script>   
+
+    <script src="../bower_components/wim_angular/dist/Services/service.module.js"></script>     
+    <script src="../bower_components/wim_angular/dist/Services/Helpers/RequestInfo.js"></script>
+    <script src="../bower_components/wim_angular/dist/Services/HTTPServiceBase.js"></script>
+    
     <!-- endbuild -->
     <!-- build:js scripts/appConfig.min.js --> 
     <script src="appConfig.js"></script>
@@ -52,16 +56,14 @@
     <!-- Services ref-->
     <script src="Services/service.module.js"></script>
     <script src="Services/ResourceService.js"></script>
+    <script src="Services/ModalService.js"></script>
     <!-- Controllers ref-->
     <script src="Controllers/controller.module.js"></script>
     <script src="Controllers/MainController.js"></script>
     <script src="Controllers/SidebarController.js"></script>
     <script src="Controllers/NavbarController.js"></script>
-    <!-- Controllers ref-->
-    <script src="Controllers/controller.module.js"></script>
-    <script src="Controllers/MainController.js"></script>
-    <script src="Controllers/SidebarController.js"></script>
-    <script src="Controllers/NavbarController.js"></script>
+    <!-- Directives ref-->
+    <script src="Directives/AboutDirective.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 </head>

@@ -8,7 +8,8 @@ var StreamStats;
             this.$stateProvider = $stateProvider;
             this.$urlRouterProvider = $urlRouterProvider;
             this.$locationProvider = $locationProvider;
-            this.$stateProvider.state("main", {
+            this.$stateProvider
+                .state("main", {
                 url: '/',
                 reloadOnSearch: true,
                 //abstract: true,
@@ -35,13 +36,12 @@ var StreamStats;
         return config;
     })(); //end class
     angular.module('StreamStats', [
-        "ui.router",
-        "mobile-angular-ui",
+        "ui.router", "mobile-angular-ui",
         'leaflet-directive',
         "StreamStats.Services",
         "StreamStats.Controllers",
-        'jsonFormatter',
-        'wim_angular'
-    ]).config(config);
+        'jsonFormatter', 'WiM.Services', 'WiM.Event', 'StreamStats.Directives'
+    ])
+        .config(config);
 })(StreamStats || (StreamStats = {})); //end module 
 //# sourceMappingURL=config.js.map

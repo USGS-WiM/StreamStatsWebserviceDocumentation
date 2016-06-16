@@ -24,7 +24,7 @@ var StreamStats;
             function NavbarController($scope) {
                 $scope.vm = this;
                 this.sideBarCollapsed = false;
-                this.selectedProcedure = 1 /* INIT */;
+                this.selectedProcedure = ProcedureType.INIT;
             }
             //Methods
             //-+-+-+-+-+-+-+-+-+-+-+-
@@ -46,20 +46,20 @@ var StreamStats;
                 var msg;
                 try {
                     switch (pType) {
-                        case 1 /* INIT */:
+                        case ProcedureType.INIT:
                             return true;
-                        case 2 /* IDENTIFY */:
+                        case ProcedureType.IDENTIFY:
                             return true;
-                        case 3 /* SELECT */:
+                        case ProcedureType.SELECT:
                             return true;
-                        case 4 /* REFINE */:
+                        case ProcedureType.REFINE:
                             //if (!this.fileLoaded) this.sm(new MSG.NotificationArgs("Import a valid lab document", MSG.NotificationType.WARNING));
                             return false;
-                        case 5 /* BUILD */:
+                        case ProcedureType.BUILD:
                             return false;
                         default:
                             return false;
-                    }
+                    } //end switch          
                 }
                 catch (e) {
                     //this.sm(new MSG.NotificationArgs(e.message, MSG.NotificationType.INFORMATION, 1.5));
@@ -85,7 +85,8 @@ var StreamStats;
             ProcedureType[ProcedureType["REFINE"] = 4] = "REFINE";
             ProcedureType[ProcedureType["BUILD"] = 5] = "BUILD";
         })(ProcedureType || (ProcedureType = {}));
-        angular.module('StreamStats.Controllers').controller('StreamStats.Controllers.NavbarController', NavbarController);
+        angular.module('StreamStats.Controllers')
+            .controller('StreamStats.Controllers.NavbarController', NavbarController);
     })(Controllers = StreamStats.Controllers || (StreamStats.Controllers = {}));
 })(StreamStats || (StreamStats = {})); //end module
 //# sourceMappingURL=NavbarController.js.map

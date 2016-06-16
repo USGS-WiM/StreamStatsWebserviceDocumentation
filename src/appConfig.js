@@ -50,6 +50,27 @@ configuration.resources =
                         "selectedMedia": ".geojson"
                     }
                 ]
+            },
+            {
+                "type": "PUT",
+                "uriList": [
+                    {
+                        "uri": "/watershed/edit{0}?rcode={1}&workspaceID={2}&includeparameters={3}&includeflowtypes={4}&includefeatures={5}&crs={6}&simplify={7}",
+                        "description": "This service returns an edited watershed",
+                        "id": "Edit a Workspace",
+                        "parameters": [
+                           { "name": "rcode", "type": "string", "description": "StreamStats 2-3 character code that identifies the Study Area (either a State or a Regional Study).", "value": "NY" },
+                           { "name": "workspaceID", "type": "string", "description": "Service workspace received from watershed service result", "value": "" },
+                            { "name": "includeparameters", "type": "string", "optional": true, "description": "Comma separated list of region parameters to compute. Default: true, will return all parameters for region", "value": "false" },
+                            { "name": "includeflowtypes", "type": "string", "optional": true, "description": "Not yet implemented", "value": "false" },
+                            { "name": "includefeatures", "type": "string", "optional": true, "description": "Comma separated list of features to include in response. See Feature resource for more information. Default: true, returns delineated basin and pourpoint", "value": "true" },
+                            { "name": "crs", "type": "string", "optional": true, "description": "ESPSG spatial reference code. Default is local projection", "value": "4326" },
+                            { "name": "simplify", "type": "boolean", "optional": true, "description": "Whether to simplify returned result, defaut: true.", "value": "true" }],
+                        "body": { "description": "Watershed EditDecision List", "value": "" },
+                        "availableMedia": [".xml", ".json", ".geojson"],
+                        "selectedMedia": ".geojson"
+                    }
+                ]
             }
             ]
         },
@@ -157,6 +178,35 @@ configuration.resources =
                             { "name": "simplify", "type": "boolean", "optional": true, "description": "Whether to simplify returned result, defaut: true.", "value": "true" }],
                         "availableMedia": [".xml", ".json", ".geojson"],
                         "selectedMedia": ".geojson"
+                    }
+                ]
+            }]
+        },
+        {
+            "name": "Water-Use",
+            "description": "Represents aggregated wateruse for study area.",
+            "methods": [{
+                "type": "GET",
+                "uriList": [
+                    {
+                        "uri": "/wateruse",
+                        "description": "This service returns a list of StreamStats 2-3 character code regioncodes that are implemented for Water-Use. ",
+                        "id": "Available Water-Use",
+                        "parameters": [],
+                        "availableMedia": [".xml", ".json"],
+                        "selectedMedia":".json"
+                    },
+                    {
+                        "uri": "/wateruse{0}?rcode={1}&workspaceID={2}&startyear={3}&endyear={4}",
+                        "description": "This service returns a list of implemented StreamStats 2-3 character code regioncodes. ",
+                        "id": "Water-Use",
+                        "parameters": [
+                            { "name": "regioncode", "type": "string", "description": "StreamStats 2-3 character code that identifies the Study Area (either a State or a Regional Study).", "value": "DRB" },
+                            { "name": "workspaceID", "type": "string", "description": "Service workspace received from watershed service result", "value": "" },
+                            { "name": "startyear", "type": "string", "description": "Start year as integer.", "value": "" },
+                            { "name": "endyear", "type": "boolean", "optional": true, "description": "End year as integer.", "value": "" }],
+                        "availableMedia": [".json"],
+                        "selectedMedia": ".json"
                     }
                 ]
             }]
