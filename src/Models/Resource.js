@@ -5,7 +5,7 @@
 //       01234567890123456789012345678901234567890123456789012345678901234567890
 //-------+---------+---------+---------+---------+---------+---------+---------+
 // copyright:   2015 WiM - USGS
-//    authors:  Jeremy K. Newson USGS Wisconsin Internet Mapping
+//    authors:  Jeremy K. Newson USGS Web Informatics and Mapping
 //             
 // 
 //   purpose:  
@@ -25,8 +25,8 @@ var StreamStats;
                 this.name = n;
             }
             return Resource;
-        })();
-        Models.Resource = Resource; //end class
+        }()); //end class
+        Models.Resource = Resource;
     })(Models = StreamStats.Models || (StreamStats.Models = {}));
 })(StreamStats || (StreamStats = {})); //end module  
 //# sourceMappingURL=Resource.js.map

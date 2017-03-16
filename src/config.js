@@ -32,9 +32,9 @@ var StreamStats;
             this.$urlRouterProvider.otherwise('/');
             //this.$locationProvider.html5Mode(true);                            
         } //end constructor
-        config.$inject = ['$stateProvider', '$urlRouterProvider', '$locationProvider'];
         return config;
-    })(); //end class
+    }()); //end class
+    config.$inject = ['$stateProvider', '$urlRouterProvider', '$locationProvider'];
     angular.module('StreamStats', [
         "ui.router", "mobile-angular-ui",
         'leaflet-directive',

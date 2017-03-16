@@ -10,7 +10,7 @@ var __extends = (this && this.__extends) || function (d, b) {
 //       01234567890123456789012345678901234567890123456789012345678901234567890
 //-------+---------+---------+---------+---------+---------+---------+---------+
 // copyright:   2015 WiM - USGS
-//    authors:  Jeremy K. Newson USGS Wisconsin Internet Mapping
+//    authors:  Jeremy K. Newson USGS Web Informatics and Mapping
 //             
 // 
 //   purpose:  The service agent is responsible for initiating service calls, 
@@ -32,11 +32,12 @@ var StreamStats;
             //Constructor
             //-+-+-+-+-+-+-+-+-+-+-+-
             function ResourceService($http, $q) {
-                _super.call(this, $http, configuration.baseurls['services']);
-                this.$q = $q;
-                this._onResourceChanged = new WiM.Event.Delegate();
-                this._onUriChanged = new WiM.Event.Delegate();
-                this.loadResourceList();
+                var _this = _super.call(this, $http, configuration.baseurls['services']) || this;
+                _this.$q = $q;
+                _this._onResourceChanged = new WiM.Event.Delegate();
+                _this._onUriChanged = new WiM.Event.Delegate();
+                _this.loadResourceList();
+                return _this;
             }
             Object.defineProperty(ResourceService.prototype, "onResourceChanged", {
                 get: function () {
@@ -110,7 +111,7 @@ var StreamStats;
                 this._resourceList = configuration.resources;
             };
             return ResourceService;
-        })(WiM.Services.HTTPServiceBase); //end class
+        }(WiM.Services.HTTPServiceBase)); //end class
         factory.$inject = ['$http', '$q'];
         function factory($http, $q) {
             return new ResourceService($http, $q);

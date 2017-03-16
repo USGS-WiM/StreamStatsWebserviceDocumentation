@@ -5,7 +5,7 @@
 //       01234567890123456789012345678901234567890123456789012345678901234567890
 //-------+---------+---------+---------+---------+---------+---------+---------+
 // copyright:   2014 WiM - USGS
-//    authors:  Jeremy K. Newson USGS Wisconsin Internet Mapping
+//    authors:  Jeremy K. Newson USGS Web Informatics and Mapping
 //   purpose:  
 //discussion:   Controllers are typically built to reflect a View. 
 //              and should only contailn business logic needed for a single view. For example, if a View 
@@ -29,7 +29,7 @@ var StreamStats;
                 this.zoom = zm;
             }
             return Center;
-        })();
+        }());
         var Layer = (function () {
             function Layer(nm, ul, ty, vis, op) {
                 if (op === void 0) { op = undefined; }
@@ -40,7 +40,7 @@ var StreamStats;
                 this.layerOptions = op;
             }
             return Layer;
-        })();
+        }());
         var studyArea = (function () {
             //Constructor
             //-+-+-+-+-+-+-+-+-+-+-+-
@@ -48,7 +48,7 @@ var StreamStats;
                 this.rcode = rcode;
             }
             return studyArea;
-        })();
+        }());
         var MainController = (function () {
             function MainController($scope, $filter, Resource, leafletBoundsHelper, leafletData) {
                 var _this = this;
@@ -233,11 +233,11 @@ var StreamStats;
                 catch (e) {
                 }
             };
-            //Constructor
-            //-+-+-+-+-+-+-+-+-+-+-+-
-            MainController.$inject = ['$scope', '$filter', 'StreamStats.Services.ResourceService', 'leafletBoundsHelpers', 'leafletData'];
             return MainController;
-        })(); //end class
+        }()); //end class
+        //Constructor
+        //-+-+-+-+-+-+-+-+-+-+-+-
+        MainController.$inject = ['$scope', '$filter', 'StreamStats.Services.ResourceService', 'leafletBoundsHelpers', 'leafletData'];
         angular.module('StreamStats.Controllers')
             .controller('StreamStats.Controllers.MainController', MainController);
     })(Controllers = StreamStats.Controllers || (StreamStats.Controllers = {}));

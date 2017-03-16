@@ -5,7 +5,7 @@
 //       01234567890123456789012345678901234567890123456789012345678901234567890
 //-------+---------+---------+---------+---------+---------+---------+---------+
 // copyright:   2014 WiM - USGS
-//    authors:  Jeremy K. Newson USGS Wisconsin Internet Mapping
+//    authors:  Jeremy K. Newson USGS Web Informatics and Mapping
 //   purpose:  
 //discussion:   Controllers are typically built to reflect a View. 
 //              and should only contailn business logic needed for a single view. For example, if a View 
@@ -72,11 +72,11 @@ var StreamStats;
                 catch (e) {
                 }
             };
-            //Constructor
-            //-+-+-+-+-+-+-+-+-+-+-+-
-            NavbarController.$inject = ['$scope'];
             return NavbarController;
-        })(); //end class
+        }()); //end class
+        //Constructor
+        //-+-+-+-+-+-+-+-+-+-+-+-
+        NavbarController.$inject = ['$scope'];
         var ProcedureType;
         (function (ProcedureType) {
             ProcedureType[ProcedureType["INIT"] = 1] = "INIT";

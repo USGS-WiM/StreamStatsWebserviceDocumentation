@@ -1,9 +1,8 @@
 ﻿var configuration = {}
 configuration.baseurls =
 {
-    'services': 'http://ssdev.cr.usgs.gov/streamstatsservices',
-    'application': 'http://ssdev.cr.usgs.gov/v3_beta/',
-    'StreamStats': 'http://streamstats09.cr.usgs.gov',
+    'services': true ? 'https://streamstatstest.wim.usgs.gov/streamstatsservices' : window.location.origin,
+    'application': 'https://test.wim.usgs.gov/streamstats',
 }
 
 configuration.queryparams =
@@ -81,12 +80,11 @@ configuration.resources =
                 "type": "GET",
                 "uriList": [
                     {
-                        "uri": "/parameters{0}?rcode={1}&group={2}",
+                        "uri": "/parameters{0}?rcode={1}",
                         "description": "This service returns a list of basin characteristics available to be computed in the selected region.",
                         "id": "Available Basin Characteristics",
                         "parameters": [
-                            { "name": "rcode", "type": "string", "description": "StreamStats 2-3 character code that identifies the Study Area (either a State or a Regional Study).", "value": "NY" },
-                            { "name": "group", "type": "string", "optional": true, "description": "Key word parameter group filter.", "value": "NY Set" }],
+                            { "name": "rcode", "type": "string", "description": "StreamStats 2-3 character code that identifies the Study Area (either a State or a Regional Study).", "value": "NY" }],
                         "availableMedia": [".xml", ".json"],
                         "selectedMedia": ".json"
                     },
@@ -125,32 +123,7 @@ configuration.resources =
         },
         {
             "name": "Flow statistics",
-            "description": "The Flow statistics resource represent a list of flow statistics computed for the study area.",
-            "methods": [{
-                "type": "GET",
-                "uriList": [
-                    {
-                        "uri": "/flowstatistics{0}?rcode={1}",
-                        "description": "This service returns a list of flowstatistics available to be computed in the selected region.",
-                        "id": "Available Flow Statistics",
-                        "parameters": [
-                            { "name": "rcode", "type": "string", "description": "StreamStats 2-3 character code that identifies the Study Area (either a State or a Regional Study).", "value": "NY" }],
-                        "availableMedia": [".xml", ".json"],
-                        "selectedMedia": ".json"
-                    },
-                    {
-                        "uri": "/flowstatistics{0}?rcode={1}&workspaceID={2}&includeflowtypes={3}",
-                        "description": "This service returns the computed flow statistic values based on the request configuration",
-                        "id": "Compute Flow Statistics",
-                        "parameters": [
-                            { "name": "rcode", "type": "string", "description": "StreamStats 2-3 character code that identifies the Study Area (either a State or a Regional Study).", "value": "NY" },
-                            { "name": "workspaceID", "type": "string", "description": "Service workspace received from watershed service result", "value": "" },
-                            { "name": "includeflowtypes", "type": "string", "optional": true, "description": "Comma separated list of region flow types to compute. Default: true, will return all flow types available for the region region", "value": "true" }],
-                        "availableMedia": [".json"],
-                        "selectedMedia": ".json"
-                    }
-                ]
-            }]
+            "description": "The Flow statistics is in the process of migrating to National Streamflow Statistics services. More information will become available soon."            
         },
         {
             "name": "Features",
@@ -174,7 +147,7 @@ configuration.resources =
                         "parameters": [
                             { "name": "workspaceID", "type": "string", "description": "Service workspace received from watershed service result", "value": "" },
                             { "name": "crs", "type": "string", "optional": true, "description": "ESPSG spatial reference code. Default is local projection", "value": "4326" },
-                            { "name": "includefeatures", "type": "string", "description": "Comma separated list of feature names to include in response.", "value": "pourpoint,delineatedbasin" },
+                            { "name": "includefeatures", "type": "string", "description": "Comma separated list of feature names to include in response.", "value": "globalwatershedpoint,globalwatershed" },
                             { "name": "simplify", "type": "boolean", "optional": true, "description": "Whether to simplify returned result, defaut: true.", "value": "true" }],
                         "availableMedia": [".xml", ".json", ".geojson"],
                         "selectedMedia": ".geojson"
@@ -189,7 +162,7 @@ configuration.resources =
                 "type": "GET",
                 "uriList": [
                     {
-                        "uri": "/wateruse",
+                        "uri": "/wateruse{0}",
                         "description": "This service returns a list of StreamStats 2-3 character code regioncodes that are implemented for Water-Use. ",
                         "id": "Available Water-Use",
                         "parameters": [],
@@ -210,26 +183,6 @@ configuration.resources =
                     }
                 ]
             }]
-        },
-        {
-            "name": "Network navigation",
-            "description": "!!!Not yet fully implemented!!!",
-            //"methods": [{
-            //    "type": "GET",
-            //    "uriList": [
-            //        {
-            //            "uri": "/networkpath{0}?rcode={1}&spoint={2}epoint={3}&workspaceID={4}",
-            //            "description": "This service returns a watershed",
-            //            "id": "nn0",
-            //            "parameters": [
-            //                { "name": "regioncode", "type": "string", "description": "", "value": "" },
-            //                { "name": "startpoint", "type": "string", "description": "", "value": "" },
-            //                { "name": "endpoint", "type": "string", "description": "", "value": "" },
-            //                { "name": "workspaceID", "type": "string", "optional": true, "description": "", "value": "" }],
-            //            "availableMedia": "xml, json, geojson"
-            //        }
-            //    ]
-            //}]
         }
     ]
 configuration.basemaps =
