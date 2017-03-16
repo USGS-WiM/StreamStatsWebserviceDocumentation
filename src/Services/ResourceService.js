@@ -1,11 +1,10 @@
 //------------------------------------------------------------------------------
 //----- StudyAreaService -------------------------------------------------------
 //------------------------------------------------------------------------------
-var __extends = this.__extends || function (d, b) {
+var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
-    __.prototype = b.prototype;
-    d.prototype = new __();
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 //-------1---------2---------3---------4---------5---------6---------7---------8
 //       01234567890123456789012345678901234567890123456789012345678901234567890
@@ -101,7 +100,7 @@ var StreamStats;
                 //add the study area to studyAreaList
             };
             ResourceService.prototype.getURL = function (url, selectedMedia) {
-                var request = new WiM.Services.Helpers.RequestInfo(url, false, 0 /* GET */, selectedMedia);
+                var request = new WiM.Services.Helpers.RequestInfo(url, false, WiM.Services.Helpers.methodType.GET, selectedMedia);
                 return this.Execute(request);
             };
             //Helper Methods
@@ -116,7 +115,8 @@ var StreamStats;
         function factory($http, $q) {
             return new ResourceService($http, $q);
         }
-        angular.module('StreamStats.Services').factory('StreamStats.Services.ResourceService', factory);
+        angular.module('StreamStats.Services')
+            .factory('StreamStats.Services.ResourceService', factory);
     })(Services = StreamStats.Services || (StreamStats.Services = {}));
 })(StreamStats || (StreamStats = {})); //end module
 //# sourceMappingURL=ResourceService.js.map

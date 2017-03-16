@@ -10,7 +10,7 @@
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>
-    <TypeScriptToolsVersion>1.4</TypeScriptToolsVersion>
+    <TypeScriptToolsVersion>1.7</TypeScriptToolsVersion>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
@@ -20,8 +20,6 @@
   <ItemGroup>
     <Content Include="gulpfile.js" />
     <Content Include="src\appConfig.js" />
-    <Content Include="src\Controllers\controller.module.js" />
-    <Content Include="src\Controllers\SidebarController.js" />
     <Content Include="src\css\main.css" />
     <Content Include="src\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="src\images\arrows.gif" />
@@ -44,6 +42,7 @@
     <TypeScriptCompile Include="src\Controllers\MainController.ts" />
     <TypeScriptCompile Include="src\Controllers\NavbarController.ts" />
     <TypeScriptCompile Include="src\Controllers\SidebarController.ts" />
+    <TypeScriptCompile Include="src\Directives\AboutDirective.ts" />
     <TypeScriptCompile Include="src\Models\Method.ts" />
     <TypeScriptCompile Include="src\Models\model.module.ts" />
     <TypeScriptCompile Include="src\Models\Resource.ts" />
@@ -54,19 +53,17 @@
     <TypeScriptCompile Include="_references.ts" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="src\Controllers\controller.module.js.map" />
-    <Content Include="src\Controllers\SidebarController.js.map" />
     <Content Include="src\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="src\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="src\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="src\fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="bower.json" />
-    <Content Include="tsd.json" />
     <Content Include="dist\fonts\fontawesome-webfont.eot" />
     <Content Include="dist\fonts\fontawesome-webfont.ttf" />
     <Content Include="dist\fonts\fontawesome-webfont.woff" />
     <Content Include="dist\fonts\fontawesome-webfont.woff2" />
     <Content Include="dist\fonts\FontAwesome.otf" />
+    <Content Include="typings.json" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
@@ -87,7 +84,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>53447</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
