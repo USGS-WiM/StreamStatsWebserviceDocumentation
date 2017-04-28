@@ -75,31 +75,44 @@
                     </table>
                 </div>
 
+                <div ng-show="vm.selectedUri.body">
+                    <h4>Request body</h4>                    
+                    <div class="well">
+                        <p>{{vm.selectedUri.body.description}}</p>
+                        <p><i>{{vm.selectedUri.body.summary}}</i></p>
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <json-formatter json="vm.selectedUri.body.value" open="1"></json-formatter>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="well" ng-if="vm.selectedUri.id == 'Delineate Watershed By Location' && vm.selectedUri.parameters[0].value && vm.selectedUri.selectedMedia == '.geojson'">
                     <leaflet width="100%" height="400px" layers="vm.layers" center="vm.center" markers="vm.markers" geojson="vm.geojson" geojson-nested="true" ng-style="{cursor:vm.cursorStyle}"><i id="loadingSpinner" class="fa map-spinner fa-5x fa-spin" ng-show="vm.mapSpinner"></i></leaflet>
                 </div>
 
                 <h4>REST Query URL</h4>
-                <div class="well">
-                   
-                    <p><i>Updated based on parameters above</i></p>
-
-                    <p><a href="{{vm.servicesBaseURL}}{{vm.selectedUri.newURL}}" target="_blank">{{vm.servicesBaseURL}}{{vm.selectedUri.newURL}}</a></p>
-                    <p>
-                        <div class="btn-toolbar" role="toolbar" aria-label="...">
-                            <button ng-click="vm.loadResponse()" type="button" class="btn btn-primary btn-sm"><i class="fa fa-refresh" ng-class="(vm.waitCursor) ? 'fa-spin' : ''"></i>&nbsp;&nbsp;Load response in {{vm.selectedUri.selectedMedia}} format</button>
-                            <button ng-click="vm.showResponseOnMap()" type="button" class="btn btn-primary btn-sm" ng-if="vm.selectedUri.id == 'Delineate Watershed By Location' && vm.selectedUri.selectedMedia == '.geojson'" ng-disabled="!vm.showOnMap"><i class="fa fa-map"></i>&nbsp;&nbsp;Show response on map</button>
-                            <a id="exportButton" class="btn btn-sm btn-success pull left" ng-href="http://ssdev.cr.usgs.gov/streamstatsservices/download?workspaceID={{vm.studyArea.workspaceID}}" ng-if="vm.selectedUri.id == 'Delineate Watershed By Locationn' && vm.selectedUri.selectedMedia == '.geojson'" ng-disabled="!vm.showOnMap"><span><i class="fa fa-download"></i></span>&nbsp;&nbsp;Export Basin</a>
+                <div class="well" ng-if="vm.selectedUri.hiderequest">
+                    <p><i>{{vm.selectedUri.hiderequest}}</i></p>
+                </div>
+                    <div class="well" ng-if="!vm.selectedUri.hiderequest">
+                        <p><i>Updated based on parameters above</i></p>
+                        <p><a href="{{vm.servicesBaseURL}}{{vm.selectedUri.newURL}}" target="_blank">{{vm.servicesBaseURL}}{{vm.selectedUri.newURL}}</a></p>
+                        <p>
+                            <div class="btn-toolbar" role="toolbar" aria-label="...">
+                                <button ng-click="vm.loadResponse()" type="button" class="btn btn-primary btn-sm"><i class="fa fa-refresh" ng-class="(vm.waitCursor) ? 'fa-spin' : ''"></i>&nbsp;&nbsp;Load response in {{vm.selectedUri.selectedMedia}} format</button>
+                                <button ng-click="vm.showResponseOnMap()" type="button" class="btn btn-primary btn-sm" ng-if="vm.selectedUri.id == 'Delineate Watershed By Location' && vm.selectedUri.selectedMedia == '.geojson'" ng-disabled="!vm.showOnMap"><i class="fa fa-map"></i>&nbsp;&nbsp;Show response on map</button>
+                                <a id="exportButton" class="btn btn-sm btn-success pull left" ng-href="http://ssdev.cr.usgs.gov/streamstatsservices/download?workspaceID={{vm.studyArea.workspaceID}}" ng-if="vm.selectedUri.id == 'Delineate Watershed By Locationn' && vm.selectedUri.selectedMedia == '.geojson'" ng-disabled="!vm.showOnMap"><span><i class="fa fa-download"></i></span>&nbsp;&nbsp;Export Basin</a>
+                            </div>
+                        </p>
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <json-formatter ng-show="vm.requestResults" json="vm.requestResults" open="1"></json-formatter>
+                            </div>
                         </div>
-                    </p>
-
-                    <div class="panel panel-default">
-                      <div class="panel-body">                          
-                          <json-formatter ng-show="vm.requestResults" json="vm.requestResults" open="1"></json-formatter> 
-                      </div>
                     </div>
                 </div>
-            </div>
         </div>
     </div>
 </div>

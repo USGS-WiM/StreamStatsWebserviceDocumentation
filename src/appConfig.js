@@ -56,7 +56,7 @@ configuration.resources =
                     {
                         "uri": "/watershed/edit{0}?rcode={1}&workspaceID={2}&includeparameters={3}&includeflowtypes={4}&includefeatures={5}&crs={6}&simplify={7}",
                         "description": "This service returns an edited watershed",
-                        "id": "Edit a Workspace",
+                        "id": "Edit a Watershed",
                         "parameters": [
                            { "name": "rcode", "type": "string", "description": "StreamStats 2-3 character code that identifies the Study Area (either a State or a Regional Study).", "value": "NY" },
                            { "name": "workspaceID", "type": "string", "description": "Service workspace received from watershed service result", "value": "" },
@@ -65,9 +65,10 @@ configuration.resources =
                             { "name": "includefeatures", "type": "string", "optional": true, "description": "Comma separated list of features to include in response. See Feature resource for more information. Default: true, returns delineated basin and pourpoint", "value": "true" },
                             { "name": "crs", "type": "string", "optional": true, "description": "ESPSG spatial reference code. Default is local projection", "value": "4326" },
                             { "name": "simplify", "type": "boolean", "optional": true, "description": "Whether to simplify returned result, defaut: true.", "value": "true" }],
-                        "body": { "description": "Watershed EditDecision List", "value": "" },
-                        "availableMedia": [".xml", ".json", ".geojson"],
-                        "selectedMedia": ".geojson"
+                        "body": { "description": "Watershed EditDecision List", "summary": "The watershed edit decision list (EDL) lists the features to append and/or remove from the watershed. Below is an example of the expected request payload.", "value": { "append": [{ "type": "Feature", "properties": {}, "geometry": { "type": "Polygon", "coordinates": [[[-75.66387176513672, 42.87168681085845], [-75.65563201904297, 42.88124740615182], [-75.64842224121094, 42.86690595775125], [-75.66387176513672, 42.87168681085845]]] } },{ "type": "Feature", "properties": {}, "geometry": { "type": "Polygon", "coordinates": [[[-74.5382022857666, 43.94246780379489], [-74.54343795776367, 43.94691732858306], [-74.53631401062012, 43.94945093693078], [-74.53682899475098, 43.944569009780324], [-74.5382022857666, 43.94246780379489]]] } }], "remove": [{ "type": "Feature", "properties": {}, "geometry": { "type": "Polygon", "coordinates": [[[-74.50996398925781, 43.94283861024768], [-74.51262474060059, 43.94697912519353], [-74.5063591003418, 43.94747349576433], [-74.50584411621092, 43.94481620560187], [-74.50996398925781, 43.94283861024768]]] } }] } },
+                        "availableMedia": [".xml", ".json", ".geojson"],                        
+                        "selectedMedia": ".geojson",
+                        "hiderequest": "Do to the variation of the EDL, a query URL is not offered for this example."
                     }
                 ]
             }
