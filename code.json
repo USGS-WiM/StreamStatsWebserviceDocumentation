@@ -5,7 +5,7 @@
     "description": "StreamStats service documentation client",
     "version": "v1.2.3",
     "statusOptionsURL":"https://github.com/GSA/code-gov-web/blob/master/src/assets/schemas/2.0.0.json#L144-L152",
-	"status": "preliminary",	
+	"status": "Production",	
 
     "permissions": {
       "usageType": "openSource",
@@ -17,7 +17,7 @@
       ]
     },
 
-    "homepageURL": "https://wim.usgs.gov",
+    "homepageURL": "https://streamstats.usgs.gov",
     "downloadURL": "https://github.com/USGS-WiM/StreamStatsWebServiceDocumentation/archive/master.zip",
     "disclaimerURL": "https://github.com/USGS-WiM/StreamStatsWebServiceDocumentation/blob/master/DISCLAIMER.md",
     "repositoryUrl": "https://github.com/USGS-WiM/StreamStatsWebServiceDocumentation",
@@ -27,12 +27,13 @@
 
     "tags": [
       "Streamstats",
-      "Services",
-	  "REST"	  
+      "api", "interactive map"	  
     ],
 
     "languages": [
-      "typescript"
+      "typescript",
+	    "javascript",
+	    "AngularJS"
     ],
 
     "contact": {
@@ -41,7 +42,7 @@
     },
 
     "date": {
-      "metadataLastUpdated": "2017-10-25"
+      "metadataLastUpdated": "2019-04-19"
     }
   }
 ]
